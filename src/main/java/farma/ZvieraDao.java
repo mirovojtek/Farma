@@ -7,7 +7,7 @@ public interface ZvieraDao {
 
     Zviera add(Zviera zviera);
 
-    Zviera findByRegCislo(int rc);   
+    Zviera findByRegistracneCislo(int rc);   
 
     List<Zviera> getAll();
 

@@ -34,6 +34,7 @@ public class MainSceneController {
     @FXML
     void initialize() {
         zvierataButton.setOnAction(eh ->{
+            /*
             ZvierataEditSceneController controller = 
                     new ZvierataEditSceneController();
             try {
@@ -54,7 +55,7 @@ public class MainSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            
+          */  
         });
 
     }

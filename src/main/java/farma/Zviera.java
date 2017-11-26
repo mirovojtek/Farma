@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Zviera {
 
+    private int id;
     private int registracneCislo;
     private String druh;
     private String plemeno;
@@ -11,6 +12,14 @@ public class Zviera {
     private LocalDate datumNarodenia;
     private LocalDate datumNadobudnutia;
     private double kupnaCena;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getRegistracneCislo() {
         return registracneCislo;

@@ -25,8 +25,30 @@ public class MysqlZvieraDao implements ZvieraDao {
     }
 
     @Override
-    public Zviera findByRegCislo(int rc) {
-        return null;
+    public Zviera findByRegistracneCislo(int rc) {
+        String sql = "select zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
+            @Override
+            public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
+                Zviera zviera = null;
+                while (rs.next()) {
+                    int zvieraRegistracneCislo = rs.getInt("zRegistracneCislo");
+                    if (zviera == null || zvieraRegistracneCislo != zviera.getRegistracneCislo()) {
+                        zviera = new Zviera();
+                        zviera.setRegistracneCislo(zvieraRegistracneCislo);
+                        zviera.setDruh(rs.getString("zDruh"));
+                        zviera.setPlemeno(rs.getString("zPlemeno"));
+                        zviera.setPohlavie(rs.getString("zPohlavie"));
+                        Timestamp ts = rs.getTimestamp("zDatumNarodenia");
+                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate()); // dopísať nastavenie datumu - vhodný formát
+                        ts = rs.getTimestamp("zDatumNadobudnutia");
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate()); // dopísať dátum nadobudnutia - vhodný formát
+                        zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
+                    }
+                }
+                return zviera;
+            }
+        });
     }
 
     @Override
@@ -46,9 +68,9 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate()); // dopísať nastavenie datumu - vhodný formát
+                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate()); // dopísať dátum nadobudnutia - vhodný formát
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                     }
                 }

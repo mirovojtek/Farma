@@ -26,6 +26,7 @@ public class MysqlZvieraDao implements ZvieraDao {
 
     @Override
     public Zviera findByRegistracneCislo(int rc) {
+        
         String sql = "select zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override

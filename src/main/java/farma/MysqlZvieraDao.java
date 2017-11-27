@@ -23,22 +23,51 @@ public class MysqlZvieraDao implements ZvieraDao {
 
     @Override
     public Zviera add(Zviera zviera) {
-      return null;
+        if (zviera == null) {
+            return null;
+        }
+        if (zviera.getId() == 0) {
+            SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+            simpleJdbcInsert.withTableName("zviera");
+            simpleJdbcInsert.usingGeneratedKeyColumns("id");
+
+            simpleJdbcInsert.usingColumns("registracne_cislo", "druh", "plemeno", "pohlavie", "datum_narodenia", "datum_nadobudnutia", "kupna_cena");
+            Map<String, Object> data = new HashMap<>();
+            data.put("registracne_cislo", zviera.getRegistracneCislo());
+            data.put("druh", zviera.getDruh());
+            data.put("plemeno", zviera.getPlemeno());
+            data.put("pohlavie", zviera.getPohlavie());
+            data.put("datum_narodenia", zviera.getDatumNarodenia());
+            data.put("datum_nadobudnutia", zviera.getDatumNadobudnutia());
+            data.put("kupna_cena", zviera.getKupnaCena());
+
+            zviera.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
+        } else { // UPDATE
+            String sql = "UPDATE zviera SET registracne_cislo = ?, druh = ?,"
+                    + "plemeno = ?, pohlavie = ?, datum_narodenia = ?, datum_nadobudnutia = ?,"
+                    + "kupna_cena = ? WHERE id = " + zviera.getId();
+            jdbcTemplate.update(sql, zviera.getRegistracneCislo(), zviera.getDruh(),
+            zviera.getPlemeno(), zviera.getPohlavie(), zviera.getDatumNarodenia(),
+            zviera.getDatumNadobudnutia(), zviera.getKupnaCena());
+            
+            
+        }
+return null;
     }
 
     @Override
-    public Zviera findByRegistracneCislo(int rc) {
-        
-        String sql = "select zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
+        public Zviera findByRegistracneCislo(String rc) {
+
+        String sql = "select zviera.id as 'zId' zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override
-            public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Zviera zviera = null;
                 while (rs.next()) {
-                    int zvieraRegistracneCislo = rs.getInt("zRegistracneCislo");
-                    if (zviera == null || zvieraRegistracneCislo != zviera.getRegistracneCislo()) {
+                    int zvieraId = rs.getInt("zId");
+                    if (zviera == null || zvieraId != zviera.getId()) {
                         zviera = new Zviera();
-                        zviera.setRegistracneCislo(zvieraRegistracneCislo);
+                        zviera.setRegistracneCislo(rs.getString("zRegistracneCislo"));
                         zviera.setDruh(rs.getString("zDruh"));
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
@@ -55,18 +84,18 @@ public class MysqlZvieraDao implements ZvieraDao {
     }
 
     @Override
-    public List<Zviera> getAll() {
-        String sql = "select zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
+        public List<Zviera> getAll() {
+        String sql = "select zviera.id as 'zId', zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Zviera>>() {
             @Override
-            public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Zviera> zvierata = new ArrayList<>();
                 Zviera zviera = null;
                 while (rs.next()) {
-                    int zvieraId = rs.getInt("zRegistracneCislo");
-                    if (zviera == null || zvieraId != zviera.getRegistracneCislo()) {
+                    int zvieraId = rs.getInt("zId");
+                    if (zviera == null || zvieraId != zviera.getId()) {
                         zviera = new Zviera();
-                        zviera.setRegistracneCislo(zvieraId);
+                        zviera.setRegistracneCislo(rs.getString("zRegistracneCIslo"));
                         zviera.setDruh(rs.getString("zDruh"));
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
@@ -75,15 +104,17 @@ public class MysqlZvieraDao implements ZvieraDao {
                         ts = rs.getTimestamp("zDatumNadobudnutia");
                         zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
+                        zvierata.add(zviera);
                     }
                 }
+                System.out.println(zvierata);
                 return zvierata;
             }
         });
     }
 
     @Override
-    public boolean deleteByRegistracneCislo(int rc) {
+        public boolean deleteByRegistracneCislo(String rc) {
         String sql = "DELETE FROM zviera WHERE registracne_cislo =" + rc;
         try {
             int zmazany = jdbcTemplate.update(sql);

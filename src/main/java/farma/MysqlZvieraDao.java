@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 public class MysqlZvieraDao implements ZvieraDao {
 
@@ -20,8 +23,7 @@ public class MysqlZvieraDao implements ZvieraDao {
 
     @Override
     public Zviera add(Zviera zviera) {
-
-        return null;
+      return null;
     }
 
     @Override

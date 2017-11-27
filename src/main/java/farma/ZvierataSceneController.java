@@ -1,42 +1,43 @@
-package storage;
+package farma;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MainSceneController {
+public class ZvierataSceneController {
+
+    private Zviera zviera;
+    private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
+    private ZvieraFxModel aktualneZviera = new ZvieraFxModel();
+    private ObservableList<Zviera> zvierataList = null;
 
     @FXML
-    private ResourceBundle resources;
+    private ListView<?> zvierataListView;
 
     @FXML
-    private URL location;
-
-    @FXML
-    private Button strojeButton;
-
-    @FXML
-    private Button zvierataButton;
-
-    @FXML
-    private Button poliaButton;
-
-    @FXML
-    private Button financieButton;
+    private Button pridatZvieraButton;
 
     @FXML
     void initialize() {
-        zvierataButton.setOnAction(eh ->{
-            /*
-            ZvierataEditSceneController controller = 
-                    new ZvierataEditSceneController();
+        List<Zviera> zvierata = zvieraDao.getAll();
+        System.out.println(zvierata.size());
+
+        zvierataList = FXCollections.observableArrayList(zvierata);
+        ObservableList<Zviera> olz = FXCollections.observableArrayList(zvierata);
+
+        pridatZvieraButton.setOnAction(eh -> {
+
+            ZvierataEditSceneController controller
+                    = new ZvierataEditSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("ZvierataEditScene.fxml"));
@@ -55,8 +56,8 @@ public class MainSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-          */  
-        });
 
+        });
     }
+
 }

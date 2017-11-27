@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Zviera {
 
     private int id;
-    private int registracneCislo;
+    private String registracneCislo;
     private String druh;
     private String plemeno;
     private String pohlavie;
@@ -21,11 +21,11 @@ public class Zviera {
         this.id = id;
     }
 
-    public int getRegistracneCislo() {
+    public String getRegistracneCislo() {
         return registracneCislo;
     }
 
-    public void setRegistracneCislo(int registracneCislo) {
+    public void setRegistracneCislo(String registracneCislo) {
         this.registracneCislo = registracneCislo;
     }
 

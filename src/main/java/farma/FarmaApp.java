@@ -1,11 +1,11 @@
-package storage;
+package farma;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import storage.MainSceneController;
+
 
 public class FarmaApp extends Application {
 

@@ -66,28 +66,25 @@ public class ZvierataEditSceneController {
         List<Zviera> zvierata = zvieraDao.getAll();
         zvierataList = FXCollections.observableArrayList(zvierata);
         zvierataListView.setItems(zvierataList);
-        /*
+
         registracneCisloTextField.textProperty().bindBidirectional(aktualneZviera.registracneCisloProperty());
-
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
-
         plemenoTextField.textProperty().bindBidirectional(aktualneZviera.plemenoProperty());
         pohlavieTextField.textProperty().bindBidirectional(aktualneZviera.pohlavieProperty());
 
-        /*
-        datumNarodeniaTextField.textProperty().bindBidirectional(aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDate>() {
+        datumNarodeniaTextField.textProperty().bindBidirectional(aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDateTime>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyy");
 
             @Override
-            public String toString(LocalDate t) {
+            public String toString(LocalDateTime t) {
                 return formatter.format(t);
             }
 
             @Override
-            public LocalDate fromString(String string) {
+            public LocalDateTime fromString(String string) {
                 try {
                     datumNarodeniaTextField.setStyle("-fx-background-color:white;");
-                    return LocalDate.parse(string, formatter);
+                    return LocalDateTime.parse(string, formatter);
                 } catch (DateTimeParseException e) {
                     datumNarodeniaTextField.setStyle("-fx-background-color:lightcoral;");
                     return null;

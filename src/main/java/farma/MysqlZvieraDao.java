@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -28,17 +30,36 @@ public class MysqlZvieraDao implements ZvieraDao {
             SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
             simpleJdbcInsert.withTableName("zviera");
             simpleJdbcInsert.usingGeneratedKeyColumns("id");
+
+            simpleJdbcInsert.usingColumns("registracne_cislo", "druh", "plemeno", "pohlavie", "datum_narodenia", "datum_nadobudnutia", "kupna_cena");
+            Map<String, Object> data = new HashMap<>();
+            data.put("registracne_cislo", zviera.getRegistracneCislo());
+            data.put("druh", zviera.getDruh());
+            data.put("plemeno", zviera.getPlemeno());
+            data.put("pohlavie", zviera.getPohlavie());
+            data.put("datum_narodenia", zviera.getDatumNarodenia());
+            data.put("datum_nadobudnutia", zviera.getDatumNadobudnutia());
+            data.put("kupna_cena", zviera.getKupnaCena());
+
+            zviera.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
+        } else { // UPDATE
+            String sql = "UPDATE";
+            
+            
         }
-        return null;
+
+    }
+
+return null;
     }
 
     @Override
-    public Zviera findByRegistracneCislo(String rc) {
+        public Zviera findByRegistracneCislo(String rc) {
 
         String sql = "select zviera.id as 'zId' zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override
-            public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Zviera zviera = null;
                 while (rs.next()) {
                     int zvieraId = rs.getInt("zId");
@@ -61,11 +82,11 @@ public class MysqlZvieraDao implements ZvieraDao {
     }
 
     @Override
-    public List<Zviera> getAll() {
+        public List<Zviera> getAll() {
         String sql = "select zviera.id as 'zId', zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Zviera>>() {
             @Override
-            public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Zviera> zvierata = new ArrayList<>();
                 Zviera zviera = null;
                 while (rs.next()) {
@@ -91,7 +112,7 @@ public class MysqlZvieraDao implements ZvieraDao {
     }
 
     @Override
-    public boolean deleteByRegistracneCislo(String rc) {
+        public boolean deleteByRegistracneCislo(String rc) {
         String sql = "DELETE FROM zviera WHERE registracne_cislo =" + rc;
         try {
             int zmazany = jdbcTemplate.update(sql);

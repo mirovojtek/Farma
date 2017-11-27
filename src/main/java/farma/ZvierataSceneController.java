@@ -1,9 +1,7 @@
 package farma;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,35 +33,28 @@ public class ZvierataSceneController {
     @FXML
 
     void initialize() {
-
         List<Zviera> zvierata = zvieraDao.getAll();
         z = FXCollections.observableArrayList(zvierata);
         zvierataListView.setItems(z);
 
         pridatZvieraButton.setOnAction(eh -> {
-
             ZvierataEditSceneController controller
                     = new ZvierataEditSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("ZvierataEditScene.fxml"));
                 loader.setController(controller);
-
                 Parent parentPane = loader.load();
                 Scene scene = new Scene(parentPane);
-
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Zvierata");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-
                 // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-
         });
     }
-
 }

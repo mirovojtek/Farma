@@ -1,7 +1,9 @@
 package farma;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,21 +20,25 @@ public class ZvierataSceneController {
     private Zviera zviera;
     private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
     private ZvieraFxModel aktualneZviera = new ZvieraFxModel();
-    private ObservableList<Zviera> zvierataList = null;
+    private ObservableList<Zviera> z;
+
+    public ZvierataSceneController() {
+        aktualneZviera = new ZvieraFxModel();
+    }
 
     @FXML
-    private ListView<?> zvierataListView;
+    private ListView<Zviera> zvierataListView;
 
     @FXML
     private Button pridatZvieraButton;
 
     @FXML
-    void initialize() {
-        List<Zviera> zvierata = zvieraDao.getAll();
-        System.out.println(zvierata.size());
 
-        zvierataList = FXCollections.observableArrayList(zvierata);
-        ObservableList<Zviera> olz = FXCollections.observableArrayList(zvierata);
+    void initialize() {
+
+        List<Zviera> zvierata = zvieraDao.getAll();
+        z = FXCollections.observableArrayList(zvierata);
+        zvierataListView.setItems(z);
 
         pridatZvieraButton.setOnAction(eh -> {
 

@@ -62,13 +62,11 @@ public class ZvierataEditSceneController {
 
     @FXML
     void initialize() {
+
         List<Zviera> zvierata = zvieraDao.getAll();
-        System.out.println(zvierata.size());
-
         zvierataList = FXCollections.observableArrayList(zvierata);
-
         zvierataListView.setItems(zvierataList);
-
+        /*
         registracneCisloTextField.textProperty().bindBidirectional(aktualneZviera.registracneCisloProperty());
 
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());

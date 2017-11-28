@@ -74,14 +74,14 @@ public class ZvierataEditSceneController {
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
         plemenoTextField.textProperty().bindBidirectional(aktualneZviera.plemenoProperty());
         pohlavieTextField.textProperty().bindBidirectional(aktualneZviera.pohlavieProperty());
-        
+
         StringConverter<Number> converter = new NumberStringConverter();
-        
         kupnaCenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
 
-         /* datumNarodeniaTextField.textProperty().bindBidirectional(
+        /*
+        datumNarodeniaTextField.textProperty().bindBidirectional(
                 aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDate>() {
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
 
             @Override
             public String toString(LocalDate t) {
@@ -99,7 +99,7 @@ public class ZvierataEditSceneController {
                 }
             }
         });
-        
+        /*
         datumNadobudnutiaTextField.textProperty().bindBidirectional(aktualneZviera.datumNadobudnutiaProperty(), new StringConverter<LocalDate>() {
             private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
 
@@ -119,8 +119,8 @@ public class ZvierataEditSceneController {
                 }
             }
         });*/
-         aktualneZviera.setDatumNadobudnutia(LocalDate.now());
-         aktualneZviera.setDatumNarodenia(LocalDate.now());
+        aktualneZviera.setDatumNadobudnutia(LocalDate.now());
+        aktualneZviera.setDatumNarodenia(LocalDate.now());
         vlozitButton.setOnAction(eh -> {
             zvieraDao.add(aktualneZviera.getZviera());
             zvierataList.setAll(zvieraDao.getAll());

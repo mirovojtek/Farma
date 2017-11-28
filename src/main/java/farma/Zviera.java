@@ -1,6 +1,7 @@
 package farma;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Zviera {
 
@@ -12,7 +13,28 @@ public class Zviera {
     private LocalDate datumNarodenia;
     private LocalDate datumNadobudnutia;
     private double kupnaCena;
+    
+    private String fDatumNarodenia;
+    private String fDatumNadobudnutia;
 
+    public String getfDatumNarodenia() {
+        return fDatumNarodenia;
+    }
+
+    public void setfDatumNarodenia(String fDatumNarodenia) {
+        this.fDatumNarodenia = fDatumNarodenia;
+    }
+
+    public String getfDatumNadobudnutia() {
+        return fDatumNadobudnutia;
+    }
+
+    public void setfDatumNadobudnutia(String fDatumNadobudnutia) {
+        this.fDatumNadobudnutia = fDatumNadobudnutia;
+    }
+
+    
+    
     public int getId() {
         return id;
     }
@@ -57,12 +79,30 @@ public class Zviera {
         return datumNarodenia;
     }
 
+    public String getFDatumNarodenia() {
+        if (datumNarodenia == null) {
+            return "null";
+        }
+        DateTimeFormatter formatovac = DateTimeFormatter.
+                ofPattern("dd.MM.yyyy");
+        return datumNarodenia.format(formatovac);
+    }
+
     public void setDatumNarodenia(LocalDate datumNarodenia) {
         this.datumNarodenia = datumNarodenia;
     }
 
     public LocalDate getDatumNadobudnutia() {
         return datumNadobudnutia;
+    }
+
+    public String getFDatumNadobudnutia() {
+        if (datumNadobudnutia == null) {
+            return "null";
+        }
+        DateTimeFormatter formatovac = DateTimeFormatter.
+                ofPattern("dd.MM.yyyy");
+        return datumNadobudnutia.format(formatovac);
     }
 
     public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {

@@ -112,7 +112,6 @@ public class ZvieraFxModel {
         zviera.setDatumNarodenia(getDatumNarodenia());
         zviera.setDatumNadobudnutia(getDatumNadobudnutia());
         zviera.setKupnaCena(getKupnaCena());
-
         return zviera;
     }
 

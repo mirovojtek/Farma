@@ -10,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,17 +28,54 @@ public class ZvierataSceneController {
     }
 
     @FXML
-    private ListView<Zviera> zvierataListView;
+    private Button pridatZvieraButton;
 
     @FXML
-    private Button pridatZvieraButton;
+    private TableView<Zviera> zvierataTableView;
 
     @FXML
 
     void initialize() {
         List<Zviera> zvierata = zvieraDao.getAll();
-        z = FXCollections.observableArrayList(zvierata);
-        zvierataListView.setItems(z);
+
+        // registračné číslo
+        TableColumn<Zviera, String> registracneCisloCol = new TableColumn<>("Registračné číslo");
+        registracneCisloCol.setCellValueFactory(new PropertyValueFactory<>("registracneCislo"));
+        zvierataTableView.getColumns().add(registracneCisloCol);
+
+        // druh
+        TableColumn<Zviera, String> druhCol = new TableColumn<>("Druh");
+        druhCol.setCellValueFactory(new PropertyValueFactory<>("druh"));
+        zvierataTableView.getColumns().add(druhCol);
+
+        // plemeno
+        TableColumn<Zviera, String> plemenoCol = new TableColumn<>("Plemeno");
+        plemenoCol.setCellValueFactory(new PropertyValueFactory<>("plemeno"));
+        zvierataTableView.getColumns().add(plemenoCol);
+        
+        // pohlavie
+        TableColumn<Zviera, String> pohlavieCol = new TableColumn<>("Pohlavie");
+        pohlavieCol.setCellValueFactory(new PropertyValueFactory<>("pohlavie"));
+        zvierataTableView.getColumns().add(pohlavieCol);
+        
+        // dátum narodenia
+        TableColumn<Zviera, Object> datumNarodeniaCol = new TableColumn<>("Dátum narodenia");
+        datumNarodeniaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNarodenia"));
+        zvierataTableView.getColumns().add(datumNarodeniaCol);
+        
+        // dátum nadobudnutia
+        TableColumn<Zviera, Object> datumNadobudnutiaCol = new TableColumn<>("Dátum nadobudnutia");
+        datumNadobudnutiaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
+        zvierataTableView.getColumns().add(datumNadobudnutiaCol);
+       
+        
+        // kúpna cena
+        TableColumn<Zviera, Double> kupnaCenaCol = new TableColumn<>("Kúpna cena");
+        kupnaCenaCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
+        zvierataTableView.getColumns().add(kupnaCenaCol);
+        
+        
+        zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
 
         pridatZvieraButton.setOnAction(eh -> {
             ZvierataEditSceneController controller
@@ -48,7 +88,7 @@ public class ZvierataSceneController {
                 Scene scene = new Scene(parentPane);
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Zvierata");
+                stage.setTitle("Pridať zviera");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
                 // toto sa vykona az po zatvoreni okna

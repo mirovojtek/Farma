@@ -47,21 +47,20 @@ public class MysqlZvieraDao implements ZvieraDao {
                     + "plemeno = ?, pohlavie = ?, datum_narodenia = ?, datum_nadobudnutia = ?,"
                     + "kupna_cena = ? WHERE id = " + zviera.getId();
             jdbcTemplate.update(sql, zviera.getRegistracneCislo(), zviera.getDruh(),
-            zviera.getPlemeno(), zviera.getPohlavie(), zviera.getDatumNarodenia(),
-            zviera.getDatumNadobudnutia(), zviera.getKupnaCena());
-            
-            
+                    zviera.getPlemeno(), zviera.getPohlavie(), zviera.getDatumNarodenia(),
+                    zviera.getDatumNadobudnutia(), zviera.getKupnaCena());
+
         }
-return null;
+        return null;
     }
 
     @Override
-        public Zviera findByRegistracneCislo(String rc) {
+    public Zviera findByRegistracneCislo(String rc) {
 
         String sql = "select zviera.id as 'zId' zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override
-        public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Zviera zviera = null;
                 while (rs.next()) {
                     int zvieraId = rs.getInt("zId");
@@ -84,11 +83,11 @@ return null;
     }
 
     @Override
-        public List<Zviera> getAll() {
+    public List<Zviera> getAll() {
         String sql = "select zviera.id as 'zId', zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Zviera>>() {
             @Override
-        public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Zviera> zvierata = new ArrayList<>();
                 Zviera zviera = null;
                 while (rs.next()) {
@@ -107,14 +106,13 @@ return null;
                         zvierata.add(zviera);
                     }
                 }
-                System.out.println(zvierata);
                 return zvierata;
             }
         });
     }
 
     @Override
-        public boolean deleteByRegistracneCislo(String rc) {
+    public boolean deleteByRegistracneCislo(String rc) {
         String sql = "DELETE FROM zviera WHERE registracne_cislo =" + rc;
         try {
             int zmazany = jdbcTemplate.update(sql);

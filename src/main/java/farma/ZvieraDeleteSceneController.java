@@ -30,7 +30,6 @@ public class ZvieraDeleteSceneController {
         nieButton.setOnAction(eh -> {
             nieButton.getScene().getWindow().hide();
         });
-
     }
 
 }

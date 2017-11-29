@@ -1,5 +1,6 @@
 package farma;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +16,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -123,9 +129,28 @@ public class ZvierataEditSceneController {
         aktualneZviera.setDatumNarodenia(LocalDateTime.now());
 
         vlozitButton.setOnAction(eh -> {
-            zvieraDao.add(aktualneZviera.getZviera());
+            if (aktualneZviera.getRegistracneCislo().isEmpty() || 
+                    aktualneZviera.getRegistracneCislo() == null){
+                 ZvieraNevyplneneRegistracneCisloController controller
+                    = new ZvieraNevyplneneRegistracneCisloController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("NevyplneneRegCislo.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Registračné číslo");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            } else{
+             zvieraDao.add(aktualneZviera.getZviera());
             zvierataList.setAll(zvieraDao.getAll());
-
             // vyčistenie všetkých textFieldov po pridaní zvieraťa
             registracneCisloTextField.clear();
             druhTextField.clear();
@@ -135,6 +160,7 @@ public class ZvierataEditSceneController {
             datumNadobudnutiaTextField.clear();
             kupnaCenaTextField.clear();
 
+            }
         });
 
     }

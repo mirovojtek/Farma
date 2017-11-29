@@ -71,9 +71,9 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate()); // dopísať nastavenie datumu - vhodný formát
+                        zviera.setDatumNarodenia(ts.toLocalDateTime()); // dopísať nastavenie datumu - vhodný formát
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate()); // dopísať dátum nadobudnutia - vhodný formát
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime()); // dopísať dátum nadobudnutia - vhodný formát
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                     }
                 }
@@ -99,9 +99,13 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
+                          if (ts != null){
+                        zviera.setDatumNarodenia(ts.toLocalDateTime());
+                          }
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
+                          if (ts != null){
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime());
+                          }
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zvierata.add(zviera);
                     }

@@ -16,6 +16,7 @@ import java.time.format.DateTimeParseException;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.StringConverter;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.NumberStringConverter;
 import javax.swing.text.DateFormatter;
 
@@ -77,50 +78,51 @@ public class ZvierataEditSceneController {
 
         StringConverter<Number> converter = new NumberStringConverter();
         kupnaCenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
-
-        /*
-        datumNarodeniaTextField.textProperty().bindBidirectional(
-                aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDate>() {
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
-
+        
+        
+        /*datumNarodeniaTextField.textProperty().bindBidirectional(
+                aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDateTime>() {
+            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                    
             @Override
-            public String toString(LocalDate t) {
+            public String toString(LocalDateTime t) {
                 return formatter.format(t);
             }
 
             @Override
-            public LocalDate fromString(String string) {
+            public LocalDateTime fromString(String string) {
                 try {
-                    datumNarodeniaTextField.setStyle("-fx-background-color:white;");
-                    return LocalDate.parse(string, formatter);
+                    datumNarodeniaTextField.setStyle("-fx-background-color: white;");
+                    return LocalDateTime.parse(string, formatter);
                 } catch (DateTimeParseException e) {
-                    datumNarodeniaTextField.setStyle("-fx-background-color:lightcoral;");
+                    datumNarodeniaTextField.setStyle("-fx-background-color: lightcoral;");
                     return null;
                 }
             }
         });
-        /*
-        datumNadobudnutiaTextField.textProperty().bindBidirectional(aktualneZviera.datumNadobudnutiaProperty(), new StringConverter<LocalDate>() {
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
+        datumNadobudnutiaTextField.textProperty().bindBidirectional
+        (aktualneZviera.datumNadobudnutiaProperty(), new StringConverter<LocalDateTime>() {
+            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
             @Override
-            public String toString(LocalDate t) {
+            public String toString(LocalDateTime t) {
                 return formatter.format(t);
             }
 
             @Override
-            public LocalDate fromString(String string) {
+            public LocalDateTime fromString(String string) {
                 try {
-                    datumNarodeniaTextField.setStyle("-fx-background-color:white;");
-                    return LocalDate.parse(string, formatter);
+                    datumNadobudnutiaTextField.setStyle("-fx-background-color: white;");
+                    return LocalDateTime.parse(string, formatter);
                 } catch (DateTimeParseException e) {
-                    datumNarodeniaTextField.setStyle("-fx-background-color:lightcoral;");
+                    datumNadobudnutiaTextField.setStyle("-fx-background-color: lightcoral;");
                     return null;
                 }
             }
         });*/
-        aktualneZviera.setDatumNadobudnutia(LocalDate.now());
-        aktualneZviera.setDatumNarodenia(LocalDate.now());
+        aktualneZviera.setDatumNadobudnutia(LocalDateTime.now());
+        aktualneZviera.setDatumNarodenia(LocalDateTime.now());
+       
         vlozitButton.setOnAction(eh -> {
             zvieraDao.add(aktualneZviera.getZviera());
             zvierataList.setAll(zvieraDao.getAll());

@@ -1,6 +1,7 @@
 package farma;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Zviera {
@@ -10,8 +11,8 @@ public class Zviera {
     private String druh;
     private String plemeno;
     private String pohlavie;
-    private LocalDate datumNarodenia;
-    private LocalDate datumNadobudnutia;
+    private LocalDateTime datumNarodenia;
+    private LocalDateTime datumNadobudnutia;
     private double kupnaCena;
     
     private String fDatumNarodenia;
@@ -75,7 +76,7 @@ public class Zviera {
         this.pohlavie = pohlavie;
     }
 
-    public LocalDate getDatumNarodenia() {
+    public LocalDateTime getDatumNarodenia() {
         return datumNarodenia;
     }
 
@@ -88,11 +89,11 @@ public class Zviera {
         return datumNarodenia.format(formatovac);
     }
 
-    public void setDatumNarodenia(LocalDate datumNarodenia) {
+    public void setDatumNarodenia(LocalDateTime datumNarodenia) {
         this.datumNarodenia = datumNarodenia;
     }
 
-    public LocalDate getDatumNadobudnutia() {
+    public LocalDateTime getDatumNadobudnutia() {
         return datumNadobudnutia;
     }
 
@@ -105,7 +106,7 @@ public class Zviera {
         return datumNadobudnutia.format(formatovac);
     }
 
-    public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {
+    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
         this.datumNadobudnutia = datumNadobudnutia;
     }
 

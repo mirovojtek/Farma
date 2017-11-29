@@ -2,6 +2,7 @@ package farma;
 
 import farma.Zviera;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -15,8 +16,8 @@ public class ZvieraFxModel {
     private StringProperty druh = new SimpleStringProperty();
     private StringProperty plemeno = new SimpleStringProperty();
     private StringProperty pohlavie = new SimpleStringProperty();
-    private ObjectProperty<LocalDate> datumNarodenia = new SimpleObjectProperty<>();
-    private ObjectProperty<LocalDate> datumNadobudnutia = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDateTime> datumNarodenia = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDateTime> datumNadobudnutia = new SimpleObjectProperty<>();
     private DoubleProperty kupnaCena = new SimpleDoubleProperty();
 
     public StringProperty registracneCisloProperty() {
@@ -67,27 +68,27 @@ public class ZvieraFxModel {
         return pohlavie.get();
     }
 
-    public ObjectProperty<LocalDate> datumNarodeniaProperty() {
+    public ObjectProperty<LocalDateTime> datumNarodeniaProperty() {
         return datumNarodenia;
     }
 
-    public void setDatumNarodenia(LocalDate datumNarodenia) {
+    public void setDatumNarodenia(LocalDateTime datumNarodenia) {
         this.datumNarodenia.set(datumNarodenia);
     }
 
-    public LocalDate getDatumNarodenia() {
+    public LocalDateTime getDatumNarodenia() {
         return datumNarodenia.get();
     }
 
-    public ObjectProperty<LocalDate> datumNadobudnutiaProperty() {
+    public ObjectProperty<LocalDateTime> datumNadobudnutiaProperty() {
         return datumNadobudnutia;
     }
 
-    public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {
+    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
         this.datumNadobudnutia.set(datumNadobudnutia);
     }
 
-    public LocalDate getDatumNadobudnutia() {
+    public LocalDateTime getDatumNadobudnutia() {
         return datumNadobudnutia.get();
     }
 

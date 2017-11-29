@@ -101,6 +101,7 @@ public class ZvierataSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
+            zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
         });
 
         
@@ -118,7 +119,43 @@ public class ZvierataSceneController {
         });
 
         zmazatZvieraButton.setOnAction(eh -> {
-            zvieraDao.deleteByRegistracneCislo(kliknuteZviera.getRegistracneCislo());
+            if (kliknuteZviera == null) {
+                ZvieraPrazdneMazanieSceneController controller = new ZvieraPrazdneMazanieSceneController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("PrazdneMazanie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Zmazať zviera");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+
+                return;
+            }
+            ZvieraDeleteSceneController controller
+                    = new ZvieraDeleteSceneController(kliknuteZviera.getRegistracneCislo());
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PotvrdenieZmazania.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Zmazať zviera");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
         });
 

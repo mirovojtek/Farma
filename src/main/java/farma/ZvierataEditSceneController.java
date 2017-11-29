@@ -129,36 +129,35 @@ public class ZvierataEditSceneController {
         aktualneZviera.setDatumNarodenia(LocalDateTime.now());
 
         vlozitButton.setOnAction(eh -> {
-            if (aktualneZviera.getRegistracneCislo().isEmpty() || 
-                    aktualneZviera.getRegistracneCislo() == null){
-                 ZvieraNevyplneneRegistracneCisloController controller
-                    = new ZvieraNevyplneneRegistracneCisloController();
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("NevyplneneRegCislo.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Registračné číslo");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-            } else{
-             zvieraDao.add(aktualneZviera.getZviera());
-            zvierataList.setAll(zvieraDao.getAll());
-            // vyčistenie všetkých textFieldov po pridaní zvieraťa
-            registracneCisloTextField.clear();
-            druhTextField.clear();
-            plemenoTextField.clear();
-            pohlavieTextField.clear();
-            datumNarodeniaTextField.clear();
-            datumNadobudnutiaTextField.clear();
-            kupnaCenaTextField.clear();
+            if (aktualneZviera.getRegistracneCislo() == null || (aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().isEmpty())) {
+                ZvieraNevyplneneRegistracneCisloController controller
+                        = new ZvieraNevyplneneRegistracneCisloController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NevyplneneRegCislo.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Registračné číslo");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+            } else {
+                zvieraDao.add(aktualneZviera.getZviera());
+                zvierataList.setAll(zvieraDao.getAll());
+                // vyčistenie všetkých textFieldov po pridaní zvieraťa
+                registracneCisloTextField.clear();
+                druhTextField.clear();
+                plemenoTextField.clear();
+                pohlavieTextField.clear();
+                datumNarodeniaTextField.clear();
+                datumNadobudnutiaTextField.clear();
+                kupnaCenaTextField.clear();
 
             }
         });

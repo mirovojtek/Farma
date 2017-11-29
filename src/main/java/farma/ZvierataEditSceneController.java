@@ -78,8 +78,7 @@ public class ZvierataEditSceneController {
 
         StringConverter<Number> converter = new NumberStringConverter();
         kupnaCenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
-        
-        
+
         /*datumNarodeniaTextField.textProperty().bindBidirectional(
                 aktualneZviera.datumNarodeniaProperty(), new StringConverter<LocalDateTime>() {
             private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -122,10 +121,20 @@ public class ZvierataEditSceneController {
         });*/
         aktualneZviera.setDatumNadobudnutia(LocalDateTime.now());
         aktualneZviera.setDatumNarodenia(LocalDateTime.now());
-       
+
         vlozitButton.setOnAction(eh -> {
             zvieraDao.add(aktualneZviera.getZviera());
             zvierataList.setAll(zvieraDao.getAll());
+
+            // vyčistenie všetkých textFieldov po pridaní zvieraťa
+            registracneCisloTextField.clear();
+            druhTextField.clear();
+            plemenoTextField.clear();
+            pohlavieTextField.clear();
+            datumNarodeniaTextField.clear();
+            datumNadobudnutiaTextField.clear();
+            kupnaCenaTextField.clear();
+
         });
 
     }

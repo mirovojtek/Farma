@@ -103,6 +103,8 @@ public class ZvierataSceneController {
             }
         });
 
+        
+        
         TableView<Zviera> table = zvierataTableView;
         table.setRowFactory(tv -> {
             TableRow<Zviera> row = new TableRow<>();

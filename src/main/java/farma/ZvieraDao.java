@@ -12,4 +12,5 @@ public interface ZvieraDao {
 
     boolean deleteByRegistracneCislo(String rc);
 
+    void pridajPopis(Zviera zviera);
 }

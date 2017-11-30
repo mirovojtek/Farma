@@ -110,9 +110,31 @@ public class ZvierataSceneController {
         table.setRowFactory(tv -> {
             TableRow<Zviera> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && 
+                        event.getClickCount() == 1) {
 
                     kliknuteZviera = row.getItem();
+                }
+                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                       &&  event.getClickCount() == 2) {
+                       kliknuteZviera = row.getItem();
+                    ZvieraPopisController controller = new ZvieraPopisController(kliknuteZviera);
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("ZvieraPopis.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Popis");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+                       
                 }
             });
             return row;

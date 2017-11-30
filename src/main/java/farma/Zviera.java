@@ -14,6 +14,7 @@ public class Zviera {
     private LocalDateTime datumNarodenia;
     private LocalDateTime datumNadobudnutia;
     private double kupnaCena;
+    private String popis;
     
     private String fDatumNarodenia;
     private String fDatumNadobudnutia;
@@ -118,10 +119,18 @@ public class Zviera {
         this.kupnaCena = kupnaCena;
     }
 
+    public String getPopis() {
+        return popis;
+    }
+
+    public void setPopis(String popis) {
+        this.popis = popis;
+    }
+
     @Override
     public String toString() {
         return registracneCislo + " "
-                + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena;
+                + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena + "" + popis;
     }
 
 }

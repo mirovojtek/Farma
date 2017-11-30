@@ -129,7 +129,8 @@ public class ZvierataEditSceneController {
         aktualneZviera.setDatumNarodenia(LocalDateTime.now());
 
         vlozitButton.setOnAction(eh -> {
-            if (aktualneZviera.getRegistracneCislo() == null || (aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().isEmpty())) {
+            if (aktualneZviera.getRegistracneCislo() == null || 
+              (aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().isEmpty())) {
                 ZvieraNevyplneneRegistracneCisloController controller
                         = new ZvieraNevyplneneRegistracneCisloController();
                 try {

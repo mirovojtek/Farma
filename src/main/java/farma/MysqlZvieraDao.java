@@ -57,14 +57,14 @@ public class MysqlZvieraDao implements ZvieraDao {
     @Override
     public Zviera findByRegistracneCislo(String rc) {
 
-        String sql = "select zviera.id as 'zId' zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena'  from zviera;";
+        String sql = "select zviera.id as 'zId', zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena', zviera.popis as 'zPopis'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override
             public Zviera extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Zviera zviera = null;
                 while (rs.next()) {
-                    int zvieraId = rs.getInt("zId");
-                    if (zviera == null || zvieraId != zviera.getId()) {
+                    String regCis = rs.getString("zRegistracneCislo");
+                    if (regCis.equals(rc)) {
                         zviera = new Zviera();
                         zviera.setRegistracneCislo(rs.getString("zRegistracneCislo"));
                         zviera.setDruh(rs.getString("zDruh"));
@@ -75,9 +75,11 @@ public class MysqlZvieraDao implements ZvieraDao {
                         ts = rs.getTimestamp("zDatumNadobudnutia");
                         zviera.setDatumNadobudnutia(ts.toLocalDateTime()); // dopísať dátum nadobudnutia - vhodný formát
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
+                        zviera.setPopis(rs.getString("zPopis"));
+                          return zviera;
                     }
                 }
-                return zviera;
+                return null;
             }
         });
     }
@@ -124,6 +126,13 @@ public class MysqlZvieraDao implements ZvieraDao {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public void pridajPopis(Zviera zviera) {
+        String sql = "UPDATE zviera SET popis = ? WHERE registracne_cislo = "
+                + zviera.getRegistracneCislo();        
+        jdbcTemplate.update(sql, zviera.getPopis());
     }
 
 }

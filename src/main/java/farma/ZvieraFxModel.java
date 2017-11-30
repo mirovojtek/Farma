@@ -19,6 +19,7 @@ public class ZvieraFxModel {
     private ObjectProperty<LocalDateTime> datumNarodenia = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDateTime> datumNadobudnutia = new SimpleObjectProperty<>();
     private DoubleProperty kupnaCena = new SimpleDoubleProperty();
+    private StringProperty popis = new SimpleStringProperty();
 
     public StringProperty registracneCisloProperty() {
         return registracneCislo;
@@ -104,6 +105,18 @@ public class ZvieraFxModel {
         return kupnaCena.get();
     }
 
+    public StringProperty popisProperty() {
+        return popis;
+    }
+
+    public void setPopis(String popis) {
+        this.popis.set(popis);
+    }
+    
+    public String getPopis() {
+        return popis.get();
+    }
+
     public Zviera getZviera() {
         Zviera zviera = new Zviera();
         zviera.setRegistracneCislo(getRegistracneCislo());
@@ -113,6 +126,7 @@ public class ZvieraFxModel {
         zviera.setDatumNarodenia(getDatumNarodenia());
         zviera.setDatumNadobudnutia(getDatumNadobudnutia());
         zviera.setKupnaCena(getKupnaCena());
+        zviera.setPopis(getPopis());
         return zviera;
     }
 
@@ -124,6 +138,7 @@ public class ZvieraFxModel {
         setDatumNarodenia(zviera.getDatumNarodenia());
         setDatumNadobudnutia(zviera.getDatumNadobudnutia());
         setKupnaCena(zviera.getKupnaCena());
+        setPopis(zviera.getPopis());
     }
 
     public void newZviera() {
@@ -134,6 +149,7 @@ public class ZvieraFxModel {
         setDatumNarodenia(null);
         setDatumNadobudnutia(null);
         setKupnaCena(0.0);
+        setPopis(null);
     }
 
 }

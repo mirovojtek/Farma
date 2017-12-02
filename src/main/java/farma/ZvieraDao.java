@@ -20,6 +20,8 @@ public interface ZvieraDao {
     
     List<String> getPlemena();
     
+    List<String> getPlemenaPodlaDruhu(String druh);
+    
     List<String> getRokyNarodenia();
     
     List<String> getRokyNadobudnutia();

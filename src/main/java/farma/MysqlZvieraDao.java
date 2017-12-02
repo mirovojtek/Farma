@@ -78,7 +78,7 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setDatumNadobudnutia(ts.toLocalDateTime()); // dopísať dátum nadobudnutia - vhodný formát
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zviera.setPopis(rs.getString("zPopis"));
-                          return zviera;
+                        return zviera;
                     }
                 }
                 return null;
@@ -103,13 +103,13 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                          if (ts != null){
-                        zviera.setDatumNarodenia(ts.toLocalDateTime());
-                          }
+                        if (ts != null) {
+                            zviera.setDatumNarodenia(ts.toLocalDateTime());
+                        }
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                          if (ts != null){
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime());
-                          }
+                        if (ts != null) {
+                            zviera.setDatumNadobudnutia(ts.toLocalDateTime());
+                        }
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zvierata.add(zviera);
                     }
@@ -133,98 +133,115 @@ public class MysqlZvieraDao implements ZvieraDao {
     @Override
     public void pridajPopis(Zviera zviera) {
         String sql = "UPDATE zviera SET popis = ? WHERE registracne_cislo = "
-                + zviera.getRegistracneCislo();        
+                + zviera.getRegistracneCislo();
         jdbcTemplate.update(sql, zviera.getPopis());
     }
-    
+
     @Override
-    public List<String> getDruhy(){
-    List<String> druhy = new ArrayList<>();
-    String sql = "SELECT DISTINCT druh as 'druh' FROM farma.zviera;";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
-        @Override
-        public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            while(rs.next()){
-                druhy.add(rs.getString("druh"));
+    public List<String> getDruhy() {
+        List<String> druhy = new ArrayList<>();
+        String sql = "SELECT DISTINCT druh as 'druh' FROM farma.zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    druhy.add(rs.getString("druh"));
+                }
+                return druhy;
             }
-            return druhy;
-        }      
-    });
-    
-}
-     @Override
-    public List<String> getPohlavia(){
-    List<String> pohlavia = new ArrayList<>();
-    String sql = "SELECT DISTINCT pohlavie as 'pohlavie' FROM farma.zviera;";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
-        @Override
-        public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            while(rs.next()){
-                pohlavia.add(rs.getString("pohlavie"));
-            }
-            return pohlavia;
-        }      
-    });
-    
-}
-    
+        });
+
+    }
+
     @Override
-    public List<String> getPlemena(){
-    List<String> plemena = new ArrayList<>();
-    String sql = "SELECT DISTINCT plemeno as 'plemeno' FROM farma.zviera;";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
-        @Override
-        public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            while(rs.next()){
-                plemena.add(rs.getString("plemeno"));
+    public List<String> getPohlavia() {
+        List<String> pohlavia = new ArrayList<>();
+        String sql = "SELECT DISTINCT pohlavie as 'pohlavie' FROM farma.zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    pohlavia.add(rs.getString("pohlavie"));
+                }
+                return pohlavia;
             }
-            return plemena;
-        }      
-    });
-    
-}
-    
+        });
+
+    }
+
     @Override
-    public List<String> getRokyNarodenia(){
-    List<String> rokyNarodenia = new ArrayList<>();
-    String sql = "SELECT DISTINCT YEAR(datum_narodenia) as 'RokNarodenia' FROM farma.zviera;";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
-        @Override
-        public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            while(rs.next()){
-                rokyNarodenia.add(rs.getString("RokNarodenia"));
+    public List<String> getPlemena() {
+        List<String> plemena = new ArrayList<>();
+        String sql = "SELECT DISTINCT plemeno as 'plemeno' FROM farma.zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    plemena.add(rs.getString("plemeno"));
+                }
+                return plemena;
             }
-            return rokyNarodenia;
-        }      
-    });
-    
-}
-    
+        });
+
+    }
+
     @Override
-    public List<String> getRokyNadobudnutia(){
-    List<String> rokyNadobudnutia = new ArrayList<>();
-    String sql = "SELECT DISTINCT YEAR(datum_nadobudnutia) as 'RokNadobudnutia' FROM farma.zviera;";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
-        @Override
-        public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            while(rs.next()){
-                rokyNadobudnutia.add(rs.getString("RokNadobudnutia"));
+    public List<String> getPlemenaPodlaDruhu(String d) {
+        List<String> plemena = new ArrayList<>();
+        String sql = "SELECT DISTINCT plemeno as 'plemeno' FROM farma.zviera WHERE zviera.druh='" + d + "';";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    plemena.add(rs.getString("plemeno"));
+                }
+                return plemena;
             }
-            return rokyNadobudnutia;
-        }      
-    });
-    
-}
-    
+        });
+
+    }
+
     @Override
-    public List<Zviera> rozsireneVyhladavanie(String druh, String plemeno, String rokNarodenia, String rokNadobudnutia, String pohlavie){
-    String sql = "SELECT * FROM farma.zviera WHERE plemeno LIKE " + "'" + plemeno + "'"+ 
-            " AND druh LIKE " +  "'" + druh +  "'" + " AND YEAR(datum_narodenia) LIKE "+  "'" + rokNarodenia + "'" +
-            " AND YEAR(datum_nadobudnutia) LIKE "+  "'" + rokNadobudnutia +  "'" + " AND pohlavie LIKE " + "'" + pohlavie +  "'" + ";";
-    return jdbcTemplate.query(sql, new ResultSetExtractor<List<Zviera>>() {
-        @Override
-        public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            List<Zviera> zvierata = new ArrayList<>();
+    public List<String> getRokyNarodenia() {
+        List<String> rokyNarodenia = new ArrayList<>();
+        String sql = "SELECT DISTINCT YEAR(datum_narodenia) as 'RokNarodenia' FROM farma.zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    rokyNarodenia.add(rs.getString("RokNarodenia"));
+                }
+                return rokyNarodenia;
+            }
+        });
+
+    }
+
+    @Override
+    public List<String> getRokyNadobudnutia() {
+        List<String> rokyNadobudnutia = new ArrayList<>();
+        String sql = "SELECT DISTINCT YEAR(datum_nadobudnutia) as 'RokNadobudnutia' FROM farma.zviera;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    rokyNadobudnutia.add(rs.getString("RokNadobudnutia"));
+                }
+                return rokyNadobudnutia;
+            }
+        });
+
+    }
+
+    @Override
+    public List<Zviera> rozsireneVyhladavanie(String druh, String plemeno, String rokNarodenia, String rokNadobudnutia, String pohlavie) {
+        String sql = "SELECT * FROM farma.zviera WHERE plemeno LIKE " + "'" + plemeno + "'"
+                + " AND druh LIKE " + "'" + druh + "'" + " AND YEAR(datum_narodenia) LIKE " + "'" + rokNarodenia + "'"
+                + " AND YEAR(datum_nadobudnutia) LIKE " + "'" + rokNadobudnutia + "'" + " AND pohlavie LIKE " + "'" + pohlavie + "'" + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Zviera>>() {
+            @Override
+            public List<Zviera> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Zviera> zvierata = new ArrayList<>();
                 Zviera zviera = null;
                 while (rs.next()) {
                     int zvieraId = rs.getInt("id");
@@ -235,21 +252,21 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("plemeno"));
                         zviera.setPohlavie(rs.getString("pohlavie"));
                         Timestamp ts = rs.getTimestamp("datum_narodenia");
-                          if (ts != null){
-                        zviera.setDatumNarodenia(ts.toLocalDateTime());
-                          }
+                        if (ts != null) {
+                            zviera.setDatumNarodenia(ts.toLocalDateTime());
+                        }
                         ts = rs.getTimestamp("datum_nadobudnutia");
-                          if (ts != null){
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime());
-                          }
+                        if (ts != null) {
+                            zviera.setDatumNadobudnutia(ts.toLocalDateTime());
+                        }
                         zviera.setKupnaCena(rs.getDouble("kupna_cena"));
                         zvierata.add(zviera);
                     }
+                }
+                return zvierata;
             }
-            return zvierata;
-        }      
-    });
-    
-}
+        });
+
+    }
 
 }

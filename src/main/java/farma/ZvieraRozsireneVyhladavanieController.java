@@ -74,6 +74,9 @@ public class ZvieraRozsireneVyhladavanieController {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                druh = newValue;
+               //
+               plemenoComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPlemenaPodlaDruhu(druh)));
+               //
             }
             
         });

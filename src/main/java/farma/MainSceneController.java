@@ -35,8 +35,8 @@ public class MainSceneController {
     void initialize() {
         zvierataButton.setOnAction(eh -> {
 
-            ZvierataSceneController controller
-                    = new ZvierataSceneController();
+            ZvieraSceneController controller
+                    = new ZvieraSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("ZvierataScene.fxml"));

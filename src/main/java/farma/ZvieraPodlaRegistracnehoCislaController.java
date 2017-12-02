@@ -13,11 +13,16 @@ import javafx.stage.Stage;
 public class ZvieraPodlaRegistracnehoCislaController {
 
     private String rc;
+    private boolean akcia;
 
     public String getRC() {
         return rc;
     }
 
+    public boolean getAkcia() {
+        return akcia;
+    }
+    
     @FXML
     private Button okButton;
 
@@ -52,6 +57,7 @@ public class ZvieraPodlaRegistracnehoCislaController {
 
             } else {
                 rc = regCisloTextField.getText();
+                akcia = true;
                 okButton.getScene().getWindow().hide();
             }
         });

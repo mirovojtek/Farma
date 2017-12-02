@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -23,14 +24,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ZvierataSceneController {
+public class ZvieraSceneController {
 
     private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
     private ZvieraFxModel aktualneZviera = new ZvieraFxModel();
     private ObservableList<Zviera> z;
     private Zviera kliknuteZviera;
 
-    public ZvierataSceneController() {
+    public ZvieraSceneController() {
         aktualneZviera = new ZvieraFxModel();
     }
 
@@ -75,15 +76,18 @@ public class ZvierataSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-
-            Zviera zvieraPodlaRegCisla = zvieraDao.findByRegistracneCislo(controller.getRC());
-            ObservableList<Zviera> zvieraPodlaRegCislaList = FXCollections.observableArrayList();
-            if (zvieraPodlaRegCisla == null) {
-                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
-            } else {
-                zvieraPodlaRegCislaList.add(zvieraPodlaRegCisla);
-                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
+            if (controller.getAkcia()) {
+                Zviera zvieraPodlaRegCisla = zvieraDao.findByRegistracneCislo(controller.getRC());
+                ObservableList<Zviera> zvieraPodlaRegCislaList = FXCollections.observableArrayList();
+                if (zvieraPodlaRegCisla == null) {
+                    zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
+                    zvierataTableView.setPlaceholder(new Label("Zviera si zadaným registračným číslom sa v databáze nenachádza."));
+                } else {
+                    zvieraPodlaRegCislaList.add(zvieraPodlaRegCisla);
+                    zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
+                }
             }
+
         });
 
         // registračné číslo

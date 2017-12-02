@@ -1,6 +1,7 @@
 
 package farma;
 
+import farma.DaoFactory;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;

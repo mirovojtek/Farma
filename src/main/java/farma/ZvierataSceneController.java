@@ -1,5 +1,6 @@
 package farma;
 
+import farma.DaoFactory;
 import java.io.IOException;
 import java.time.Clock;
 import java.util.List;
@@ -43,8 +44,47 @@ public class ZvierataSceneController {
     private Button zmazatZvieraButton;
 
     @FXML
+    private Button podlaRegCislaButton;
+
+    @FXML
+    private Button zobrazVsetkyButton;
+
+    @FXML
     void initialize() {
         List<Zviera> zvierata = zvieraDao.getAll();
+
+        zobrazVsetkyButton.setOnAction(eh -> {
+            zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+        });
+
+        podlaRegCislaButton.setOnAction(eh -> {
+            ZvieraPodlaRegistracnehoCislaController controller = new ZvieraPodlaRegistracnehoCislaController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("ZadanieRegistracnehoCisla.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Zadajte registračné číslo");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+
+            Zviera zvieraPodlaRegCisla = zvieraDao.findByRegistracneCislo(controller.getRC());
+            ObservableList<Zviera> zvieraPodlaRegCislaList = FXCollections.observableArrayList();
+            if (zvieraPodlaRegCisla == null) {
+                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
+            } else {
+                zvieraPodlaRegCislaList.add(zvieraPodlaRegCisla);
+                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
+            }
+        });
 
         // registračné číslo
         TableColumn<Zviera, String> registracneCisloCol = new TableColumn<>("Registračné číslo");
@@ -104,37 +144,35 @@ public class ZvierataSceneController {
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
         });
 
-        
-        
         TableView<Zviera> table = zvierataTableView;
         table.setRowFactory(tv -> {
             TableRow<Zviera> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && 
-                        event.getClickCount() == 1) {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
 
                     kliknuteZviera = row.getItem();
                 }
-                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
-                       &&  event.getClickCount() == 2) {
-                       kliknuteZviera = row.getItem();
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    kliknuteZviera = row.getItem();
                     ZvieraPopisController controller = new ZvieraPopisController(kliknuteZviera);
-                try {
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("ZvieraPopis.fxml"));
-                    loader.setController(controller);
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle("Popis");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
-                } catch (IOException iOException) {
-                    iOException.printStackTrace();
-                }
-                       
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("ZvieraPopis.fxml"));
+                        loader.setController(controller);
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setTitle("Popis");
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.showAndWait();
+                        // toto sa vykona az po zatvoreni okna
+                    } catch (IOException iOException) {
+                        iOException.printStackTrace();
+                    }
+
                 }
             });
             return row;

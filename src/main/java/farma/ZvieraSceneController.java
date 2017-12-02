@@ -81,7 +81,7 @@ public class ZvieraSceneController {
                 ObservableList<Zviera> zvieraPodlaRegCislaList = FXCollections.observableArrayList();
                 if (zvieraPodlaRegCisla == null) {
                     zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
-                    zvierataTableView.setPlaceholder(new Label("Zviera si zadaným registračným číslom sa v databáze nenachádza."));
+                    zvierataTableView.setPlaceholder(new Label("Zviera so zadaným registračným číslom sa v databáze nenachádza."));
                     // lebo: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
                 } else {
                     zvieraPodlaRegCislaList.add(zvieraPodlaRegCisla);

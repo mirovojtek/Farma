@@ -2,16 +2,18 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="OKButton" layoutX="134.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="OK" />
-      <Label layoutX="13.0" layoutY="14.0" prefHeight="31.0" prefWidth="314.0" text="Registračné číslo musí byť zadané.">
+      <Button fx:id="okButton" layoutX="134.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="OK" />
+      <Label layoutX="50.0" layoutY="14.0" prefHeight="31.0" prefWidth="225.0" text="Zadajte registračné číslo">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
+      <TextField fx:id="regCisloTextField" layoutX="88.0" layoutY="56.0" />
    </children>
 </AnchorPane>

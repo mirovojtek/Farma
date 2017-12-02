@@ -51,11 +51,15 @@ public class ZvieraSceneController {
     private Button zobrazVsetkyButton;
 
     @FXML
+    private Button rozsireneVyhladavanieButton;
+    
+    @FXML
     void initialize() {
         List<Zviera> zvierata = zvieraDao.getAll();
 
         zobrazVsetkyButton.setOnAction(eh -> {
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+            kliknuteZviera = null;
         });
 
         podlaRegCislaButton.setOnAction(eh -> {
@@ -223,6 +227,33 @@ public class ZvieraSceneController {
             }
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
         });
+        
+        rozsireneVyhladavanieButton.setOnAction(eh -> {
+            ZvieraRozsireneVyhladavanieController controller = new ZvieraRozsireneVyhladavanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("ZvieraRozsireneVyhladavanie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Rozšírene vyhľadávanie");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+                
+                if(controller.getAkcia() == true){
+                    zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.rozsireneVyhladavanie(
+                            controller.getDruh(), controller.getPlemeno(), controller.getRokNarodenia(),
+                            controller.getRokNadobudnutia(), controller.getPohlavie())));
+                }
+        });
+        
+        
 
     }
 }

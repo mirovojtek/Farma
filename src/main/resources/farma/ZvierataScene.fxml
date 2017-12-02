@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="266.0" layoutY="14.0" text="Zvieratá">
          <font>
@@ -18,5 +18,6 @@
       <Button fx:id="zmazatZvieraButton" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="93.0" text="Zmazať zviera" />
       <Button fx:id="podlaRegCislaButton" layoutX="14.0" layoutY="70.0" mnemonicParsing="false" text="Nájdi podľa registračného čísla" />
       <Button fx:id="zobrazVsetkyButton" layoutX="240.0" layoutY="70.0" mnemonicParsing="false" text="Zobraz všetky" />
+      <Button fx:id="rozsireneVyhladavanieButton" layoutX="365.0" layoutY="70.0" mnemonicParsing="false" text="Rozšírené vyhľadávanie" />
    </children>
 </AnchorPane>

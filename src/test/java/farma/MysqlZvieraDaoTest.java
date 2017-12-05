@@ -6,6 +6,7 @@
 package farma;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -117,4 +118,118 @@ public class MysqlZvieraDaoTest {
         zvieraDao.deleteByRegistracneCislo("100");
     }
 
+    @Test
+    public void getDruhyTest(){
+        int pocet = zvieraDao.getDruhy().size();
+       Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.now());
+        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        zvieraDao.add(zviera);
+        assertEquals(pocet+1, zvieraDao.getDruhy().size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+   @Test
+    public void getPohlaviaTest(){
+        int pocet = zvieraDao.getPohlavia().size();
+       Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.now());
+        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("d");
+        zvieraDao.add(zviera);
+        assertEquals(pocet+1, zvieraDao.getPohlavia().size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+    @Test
+    public void getPlemenaTest(){
+        int pocet = zvieraDao.getPlemena().size();
+       Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("skusobne");
+        zviera.setDatumNarodenia(LocalDateTime.now());
+        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        zvieraDao.add(zviera);
+        assertEquals(pocet+1, zvieraDao.getPlemena().size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+    @Test
+    public void getRokyNarodeniaTest(){
+        int pocet = zvieraDao.getRokyNarodenia().size();
+       Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.of(2000, Month.MARCH, 5, 5, 5));
+        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        zvieraDao.add(zviera);
+        assertEquals(pocet+1, zvieraDao.getRokyNarodenia().size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+    @Test
+    public void getRokyNadobudnutiaTest(){
+        int pocet = zvieraDao.getRokyNadobudnutia().size();
+       Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.now());
+        zviera.setDatumNadobudnutia(LocalDateTime.of(2000, Month.MARCH, 5, 5, 5));
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        zvieraDao.add(zviera);
+        assertEquals(pocet+1, zvieraDao.getRokyNadobudnutia().size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+    @Test
+    public void rozsireneVyhladavanieTest(){
+        Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.of(2000, Month.MARCH, 1, 0, 0));
+        zviera.setDatumNadobudnutia(LocalDateTime.of(2000, Month.MARCH, 1, 0, 0));
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        List<Zviera> zvierata = new ArrayList<>();
+        zvierata.add(zviera);
+        int pocet = zvierata.size();
+        zvieraDao.add(zviera);
+        List<Zviera> zvierataZVyhladavania = zvieraDao.rozsireneVyhladavanie("koza", "cierna", "2000", "2000", "f");
+        int pocet2 = zvierataZVyhladavania.size();
+        assertEquals(pocet ,pocet2);
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
+    
+    @Test
+    public void getPlemenaPodlaDruhuTest(){
+        Zviera zviera = new Zviera();
+        zviera.setRegistracneCislo("100");
+        zviera.setDruh("koza");
+        zviera.setPlemeno("cierna");
+        zviera.setDatumNarodenia(LocalDateTime.of(2000, Month.MARCH, 1, 0, 0));
+        zviera.setDatumNadobudnutia(LocalDateTime.of(2000, Month.MARCH, 1, 0, 0));
+        zviera.setKupnaCena(50);
+        zviera.setPohlavie("f");
+        zvieraDao.add(zviera);
+        assertEquals(1, zvieraDao.getPlemenaPodlaDruhu("koza").size());
+        zvieraDao.deleteByRegistracneCislo("100");
+    }
 }

@@ -72,6 +72,11 @@ public class StrojeEditSceneController {
          
          vlozitButton.setOnAction(eh ->{
             strojDao.add(aktualnyStroj.getStroj());
+            vyrobcaTextField.clear();
+            kategoriaTextField.clear();
+            typTextField.clear();
+            cenaTextField.clear();
+           // datumTextField.clear();
          });
     }
 }

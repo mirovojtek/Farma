@@ -56,7 +56,6 @@ public class StrojSceneController {
                 iOException.printStackTrace();
             }
             
-             strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
         });
         
         TableView<Stroj> table = strojeTableView;

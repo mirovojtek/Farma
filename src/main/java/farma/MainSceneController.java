@@ -49,7 +49,7 @@ public class MainSceneController {
                 stage.setScene(scene);
                 stage.setTitle("Zvierata");
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
+                stage.show();
 
                 // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
@@ -58,5 +58,26 @@ public class MainSceneController {
 
         });
 
+        strojeButton.setOnAction(eh ->{
+           StrojSceneController controller = new StrojSceneController();
+           try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("StrojeScene.fxml"));
+                loader.setController(controller);
+
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Stroje");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
     }
 }

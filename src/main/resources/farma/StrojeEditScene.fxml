@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="12.0" layoutY="135.0" text="Kategória:" />
+      <Label layoutX="12.0" layoutY="63.0" prefHeight="17.0" prefWidth="50.0" text="Výrobca:" />
+      <Label layoutX="12.0" layoutY="100.0" prefHeight="17.0" prefWidth="42.0" text="Typ:" />
+      <VBox layoutX="104.0" layoutY="63.0" prefHeight="159.0" prefWidth="163.0" spacing="10.0">
+         <children>
+            <TextField fx:id="vyrobcaTextField" prefHeight="25.0" prefWidth="163.0" />
+            <TextField fx:id="typTextField" />
+            <TextField fx:id="kategoriaTextField" prefHeight="25.0" prefWidth="163.0" />
+            <TextField fx:id="datumTextField" prefHeight="25.0" prefWidth="163.0" />
+            <TextField fx:id="cenaTextField" />
+         </children>
+      </VBox>
+      <Label layoutX="12.0" layoutY="168.0" prefHeight="17.0" prefWidth="56.0" text="Dátum:" />
+      <Label layoutX="12.0" layoutY="202.0" text="Cena:" />
+      <Button fx:id="vlozitButton" layoutX="299.0" layoutY="198.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="vložiť" />
+      <Label layoutX="141.0" prefHeight="51.0" prefWidth="99.0" text="Stroje">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

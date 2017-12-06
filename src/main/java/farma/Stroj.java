@@ -1,6 +1,7 @@
 package farma;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Stroj {
     private String typ;
     private String kategoria;
     private double cena;
-    private LocalDate datumNadobudnutia;
+    private LocalDateTime datum;
     private List<Oprava> opravy = new ArrayList<Oprava>();
     private List<Tankovanie> tankovania = new ArrayList<Tankovanie>();
 
@@ -55,12 +56,12 @@ public class Stroj {
         this.cena = cena;
     }
 
-    public LocalDate getDatumNadobudnutia() {
-        return datumNadobudnutia;
+    public LocalDateTime getDatum() {
+        return datum;
     }
 
-    public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {
-        this.datumNadobudnutia = datumNadobudnutia;
+    public void setDatum(LocalDateTime datum) {
+        this.datum = datum;
     }
 
     public List<Oprava> getOpravy() {
@@ -81,7 +82,7 @@ public class Stroj {
 
     @Override
     public String toString() {
-        return id + " " + vyrobca + " " + typ + " " + kategoria + " " + cena + " " + datumNadobudnutia;
+        return id + " " + vyrobca + " " + typ + " " + kategoria + " " + cena + " " + datum;
     }
 
 }

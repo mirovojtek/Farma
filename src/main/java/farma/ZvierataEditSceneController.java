@@ -68,9 +68,6 @@ public class ZvierataEditSceneController {
     private TextField pohlavieTextField;
 
     @FXML
-    private ListView<Zviera> zvierataListView;
-
-    @FXML
     private Button vlozitButton;
 
     @FXML
@@ -78,7 +75,6 @@ public class ZvierataEditSceneController {
 
         List<Zviera> zvierata = zvieraDao.getAll();
         zvierataList = FXCollections.observableArrayList(zvierata);
-        zvierataListView.setItems(zvierataList);
 
         registracneCisloTextField.textProperty().bindBidirectional(aktualneZviera.registracneCisloProperty());
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
@@ -155,7 +151,6 @@ public class ZvierataEditSceneController {
             } else {
                 try {
                     zvieraDao.add(aktualneZviera.getZviera());
-                    zvierataList.setAll(zvieraDao.getAll());
                     // vyčistenie všetkých textFieldov po pridaní zvieraťa
                     registracneCisloTextField.clear();
                     druhTextField.clear();

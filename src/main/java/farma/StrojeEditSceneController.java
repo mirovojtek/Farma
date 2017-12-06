@@ -3,6 +3,7 @@ package farma;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import javafx.util.converter.NumberStringConverter;
 
 public class StrojeEditSceneController {
     private StrojFxModel aktualnyStroj;
+    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();;
     
     public StrojeEditSceneController(){
         aktualnyStroj = new StrojFxModel();
@@ -69,7 +71,7 @@ public class StrojeEditSceneController {
         aktualnyStroj.setDatum(LocalDateTime.now());
          
          vlozitButton.setOnAction(eh ->{
-             //TODO doplnit ADD
+            strojDao.add(aktualnyStroj.getStroj());
          });
     }
 }

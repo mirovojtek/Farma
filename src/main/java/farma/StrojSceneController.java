@@ -1,12 +1,15 @@
 package farma;
 import java.io.IOException;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +35,8 @@ public class StrojSceneController {
 
     @FXML
     void initialize() {
+        
+        
         pridatButton.setOnAction(eh ->{
              StrojeEditSceneController controller
                     = new StrojeEditSceneController();
@@ -50,6 +55,8 @@ public class StrojSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
+            
+             strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
         });
         
         TableView<Stroj> table = strojeTableView;

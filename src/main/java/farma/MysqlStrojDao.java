@@ -39,7 +39,7 @@ public class MysqlStrojDao implements StrojDao {
             data.put("vyrobca", stroj.getVyrobca());
             data.put("typ", stroj.getTyp());
             data.put("kategoria", stroj.getKategoria());
-            data.put("datum_nadobudnutia", stroj.getDatumNadobudnutia());
+            data.put("datum_nadobudnutia", stroj.getDatum());
             data.put("cena", stroj.getCena());
             stroj.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
         } else {    // UPDATE
@@ -48,7 +48,7 @@ public class MysqlStrojDao implements StrojDao {
                     stroj.getVyrobca(),
                     stroj.getTyp(),
                     stroj.getKategoria(),
-                    stroj.getDatumNadobudnutia(),
+                    stroj.getDatum(),
                     stroj.getCena());
         }
         if (stroj.getTankovania().size() > 0) {
@@ -93,7 +93,7 @@ public class MysqlStrojDao implements StrojDao {
                         stroj.setKategoria(rs.getString("sKategoria"));
                         Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
                         if (ts != null) {
-                            stroj.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
+                            stroj.setDatum(ts.toLocalDateTime());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
                         stroj.setTankovania(tankovanieDao.getAllPodlaIdStroja(strojId));
@@ -130,7 +130,7 @@ public class MysqlStrojDao implements StrojDao {
                         stroj.setKategoria(rs.getString("sKategoria"));
                         Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
                         if (ts != null) {
-                            stroj.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
+                            stroj.setDatum(ts.toLocalDateTime());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
                         // tankovania

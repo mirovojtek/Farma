@@ -12,5 +12,5 @@ public interface TankovanieDao {
     
     void deletePodlaId(int id);
     
-    void deleteAllPodlaId(int id);
+    void deleteAllPodlaIdStroja(int idStroja);
 }

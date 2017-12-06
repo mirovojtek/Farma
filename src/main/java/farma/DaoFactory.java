@@ -33,4 +33,8 @@ public enum DaoFactory {
         return new MysqlTankovanieDao(getJDBCTemplate());
     }
 
+    public OpravaDao getOpravaDao() {
+        return new MysqlOpravaDao(getJDBCTemplate());
+    }
+
 }

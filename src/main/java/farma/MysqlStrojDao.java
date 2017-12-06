@@ -20,6 +20,9 @@ public class MysqlStrojDao implements StrojDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private TankovanieDao tankovanieDao = DaoFactory.INSTANCE.getTankovanieDao();
+    private OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
+
     @Override
     public void add(Stroj stroj) {
         if (stroj == null) {
@@ -69,23 +72,21 @@ public class MysqlStrojDao implements StrojDao {
 
     @Override
     public Stroj findById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Stroj> getAll() {
-
-        String sql = "select stroj.id as 'sId', stroj.vyrobca as 'sVyrobca', stroj.typ as 'sTyp', stroj.kategoria as 'sKategoria', stroj.datum_nadobudnutia as 'sDatumNadobudnutia', stroj.cena as 'sCena' from stroj;";
-        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Stroj>>() {
+        String sql = "select "
+                + "stroj.id as 'sId', "
+                + "stroj.vyrobca as 'sVyrobca', "
+                + "stroj.typ as 'sTyp', "
+                + "stroj.kategoria as 'sKategoria', "
+                + "stroj.datum_nadobudnutia as 'sDatumNadobudnutia', "
+                + "stroj.cena as 'sCena' from stroj where stroj.id=" + id + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Stroj>() {
             @Override
-            public List<Stroj> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<Stroj> stroje = new ArrayList<>();
+            public Stroj extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Stroj stroj = null;
                 while (rs.next()) {
                     int strojId = rs.getInt("sId");
                     if (stroj == null || strojId != stroj.getId()) {
                         stroj = new Stroj();
-
                         stroj.setId(strojId);
                         stroj.setVyrobca(rs.getString("sVyrobca"));
                         stroj.setTyp(rs.getString("sTyp"));
@@ -95,25 +96,66 @@ public class MysqlStrojDao implements StrojDao {
                             stroj.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
+                        stroj.setTankovania(tankovanieDao.getAllPodlaIdStroja(strojId));
+                        stroj.setOpravy(opravaDao.getAllPodlaIdStroja(strojId));
+                        return stroj;
+                    }
+                }
+                return null;
+            }
+        });
+    }
 
-                        /*
-                        
-                        pridať ešte naplnenie Listov opráv a tankovaní
-                        
-                        
-                        
-                         */
+    @Override
+    public List<Stroj> getAll() {
+        String sql = "select "
+                + "stroj.id as 'sId', "
+                + "stroj.vyrobca as 'sVyrobca', "
+                + "stroj.typ as 'sTyp', "
+                + "stroj.kategoria as 'sKategoria', "
+                + "stroj.datum_nadobudnutia as 'sDatumNadobudnutia', "
+                + "stroj.cena as 'sCena' from stroj;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Stroj>>() {
+            @Override
+            public List<Stroj> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Stroj> stroje = new ArrayList<>();
+                Stroj stroj = null;
+                while (rs.next()) {
+                    int strojId = rs.getInt("sId");
+                    if (stroj == null || strojId != stroj.getId()) {
+                        stroj = new Stroj();
+                        stroj.setId(strojId);
+                        stroj.setVyrobca(rs.getString("sVyrobca"));
+                        stroj.setTyp(rs.getString("sTyp"));
+                        stroj.setKategoria(rs.getString("sKategoria"));
+                        Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
+                        if (ts != null) {
+                            stroj.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
+                        }
+                        stroj.setCena(rs.getDouble("sCena"));
+                        // tankovania
+                        stroj.setTankovania(tankovanieDao.getAllPodlaIdStroja(strojId));
+                        // opravy
+                        stroj.setOpravy(opravaDao.getAllPodlaIdStroja(strojId));
                         stroje.add(stroj);
                     }
                 }
                 return stroje;
             }
         });
-
     }
 
     @Override
     public boolean deleteById(int id) {
+        opravaDao.deleteAllPodlaIdStroja(id);
+        tankovanieDao.deleteAllPodlaIdStroja(id);
+
+        String sql = "DELETE FROM stroj WHERE stroj.id =" + id;
+        try {
+            int zmazany = jdbcTemplate.update(sql);
+            return zmazany == 1;
+        } catch (Exception e) {
+        }
         return false;
     }
 

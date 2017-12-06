@@ -57,12 +57,20 @@ public class MysqlTankovanieDao implements TankovanieDao {
 
     @Override
     public void deletePodlaId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM tankovanie WHERE tankovanie.id =" + id + ";";
+        try {
+            int zmazany = jdbcTemplate.update(sql);
+        } catch (Exception e) {
+        }
     }
 
     @Override
-    public void deleteAllPodlaId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteAllPodlaIdStroja(int idStroja) {
+        String sql = "DELETE FROM tankovanie WHERE tankovanie.stroj_id =" + idStroja + ";";
+        try {
+            int zmazany = jdbcTemplate.update(sql);
+        } catch (Exception e) {
+        }
     }
 
 }

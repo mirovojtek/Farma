@@ -3,13 +3,18 @@ drop database if exists farma;
 use farma;
 select * from stroj;
 select * from tankovanie;
+
+delete from zviera where id = 15;
 select * from oprava;
 select * from zviera;
 select * from pole;
 
+select tankovanie.id as 'tId', tankovanie.stroj_id as 'tStrojId', tankovanie.mnozstvo as 'tMnozstvo', tankovanie.datum as 'tDatum' from tankovanie;
+
+
 -- //Stroj findById(int id)
 select * from stroj;
-
+select tankovanie.id as 'tId', tankovanie.stroj_id as 'tStrojId', tankovanie.mnozstvo as 'tMnozstvo', tankovanie.datum as 'tDatum' from tankovanie;
 -- select oprava.id as 'oId', oprava.stroj_id as 'oStrojId', oprava.datum as 'oDatum', oprava.cena as 'oCena', oprava.porucha as 'oPorucha', oprava.popis as 'oPopis' from oprava where oprava.stroj_id=2;
 DELETE FROM tankovanie WHERE tankovanie.stroj_id =2;
 select * from tankovanie;

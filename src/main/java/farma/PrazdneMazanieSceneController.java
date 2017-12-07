@@ -3,7 +3,7 @@ package farma;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class ZvieraPrazdneMazanieSceneController {
+public class PrazdneMazanieSceneController {
 
     @FXML
     private Button okButton;

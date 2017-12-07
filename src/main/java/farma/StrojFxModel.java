@@ -117,8 +117,8 @@ public class StrojFxModel {
         stroj.setKategoria(getKategoria());
         stroj.setCena(getCena());
         stroj.setDatum(getDatum());
-        stroj.setOpravy(getOpravy());
-        stroj.setTankovania(getTankovania());
+        //stroj.setOpravy(getOpravy());
+        //stroj.setTankovania(getTankovania());
         return stroj;
     }
     

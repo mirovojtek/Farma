@@ -189,7 +189,7 @@ public class ZvieraSceneController {
 
         zmazatZvieraButton.setOnAction(eh -> {
             if (kliknuteZviera == null) {
-                ZvieraPrazdneMazanieSceneController controller = new ZvieraPrazdneMazanieSceneController();
+                PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
                             getClass().getResource("PrazdneMazanie.fxml"));
@@ -226,6 +226,7 @@ public class ZvieraSceneController {
                 iOException.printStackTrace();
             }
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+            kliknuteZviera = null;
         });
         
         rozsireneVyhladavanieButton.setOnAction(eh -> {

@@ -1,12 +1,18 @@
 
 package farma;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
@@ -17,6 +23,7 @@ public class StrojeEditSceneController {
     
     public StrojeEditSceneController(){
         aktualnyStroj = new StrojFxModel();
+        aktualnyStroj.setDatum(LocalDateTime.now());
     }
     
     @FXML
@@ -47,7 +54,7 @@ public class StrojeEditSceneController {
          StringConverter<Number> converter = new NumberStringConverter();
          cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
          
-        /* datumTextField.textProperty().bindBidirectional(aktualnyStroj.datumProperty(),
+         datumTextField.textProperty().bindBidirectional(aktualnyStroj.datumProperty(),
                 new StringConverter<LocalDateTime>() {
 
             private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
@@ -67,16 +74,38 @@ public class StrojeEditSceneController {
                     return null;
                 }
             }
-        });*/
-        aktualnyStroj.setDatum(LocalDateTime.now());
-         
+        });
+        
          vlozitButton.setOnAction(eh ->{
+             try{
             strojDao.add(aktualnyStroj.getStroj());
             vyrobcaTextField.clear();
             kategoriaTextField.clear();
             typTextField.clear();
             cenaTextField.clear();
-           // datumTextField.clear();
+            datumTextField.clear();
+           } catch (Exception e) {
+                    System.err.println(e);
+
+                    ZvieraNespravneVyplnanieController controller = new ZvieraNespravneVyplnanieController();
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("NespravneVyplnenie.fxml"));
+                        loader.setController(controller);
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setTitle("Nesprávne vyplnenie údajov");
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.showAndWait();
+                        // toto sa vykona az po zatvoreni okna
+                    } catch (IOException iOException) {
+                        iOException.printStackTrace();
+                    }
+
+                }
+            
          });
     }
 }

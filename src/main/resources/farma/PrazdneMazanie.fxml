@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="274.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="278.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="31.0" layoutY="23.0" prefHeight="25.0" prefWidth="212.0" text="Nevybrali ste žiadne zviera">
+      <Label layoutX="31.0" layoutY="23.0" prefHeight="25.0" prefWidth="233.0" text="Nevybrali ste žiadnu položku">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

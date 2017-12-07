@@ -61,8 +61,50 @@ public class StrojSceneController {
             }
             strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
         });
+        
+        zmazatButton.setOnAction(eh -> {
+            if (kliknutyStroj == null) {
+                PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("PrazdneMazanie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Zmazať stroj");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
 
-        TableView<Stroj> table = strojeTableView;
+                return;
+            }
+            StrojDeleteSceneController controller
+                    = new StrojDeleteSceneController(kliknutyStroj.getId());
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PotvrdenieZmazania.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Zmazať stroj");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+            kliknutyStroj = null;
+        });
+
+       TableView<Stroj> table = strojeTableView;
         table.setRowFactory(tv -> {
             TableRow<Stroj> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -96,7 +138,7 @@ public class StrojSceneController {
         datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
         strojeTableView.getColumns().add(datumCol);
 
-        TableColumn<Stroj, Integer> cenaCol = new TableColumn<>("Cena");
+        TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");
         cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
         strojeTableView.getColumns().add(cenaCol);
 

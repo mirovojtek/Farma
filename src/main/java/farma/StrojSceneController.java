@@ -40,7 +40,7 @@ public class StrojSceneController {
 
     @FXML
     void initialize() {
-
+        
         pridatButton.setOnAction(eh -> {
             StrojeEditSceneController controller
                     = new StrojeEditSceneController();
@@ -156,6 +156,26 @@ public class StrojSceneController {
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Opravy");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
+        
+        tankovanieButton.setOnAction(eh -> {
+            StrojTabulkaTankovania controller
+                    = new StrojTabulkaTankovania();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("TabulkaTankovania.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Tankovanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
                 // toto sa vykona az po zatvoreni okna

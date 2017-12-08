@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="318.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ComboBox fx:id="vyrobcaComboBox" layoutX="60.0" layoutY="75.0" prefWidth="150.0" promptText="Výrobca" />
+      <ComboBox fx:id="typComboBox" layoutX="303.0" layoutY="75.0" prefWidth="150.0" promptText="Typ" />
+      <ComboBox fx:id="kategoriaComboBox" layoutX="60.0" layoutY="134.0" prefWidth="150.0" promptText="Kategória" />
+      <ComboBox fx:id="rokNadobudnutiaComboBox" layoutX="303.0" layoutY="134.0" prefWidth="150.0" promptText="Rok nadobudnutia" />
+      <Button fx:id="vyhladatButton" layoutX="414.0" layoutY="260.0" mnemonicParsing="false" text="Vyhľadať" />
+      <Label layoutX="115.0" layoutY="14.0" text="Rozšírené vyhľadávanie">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

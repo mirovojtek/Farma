@@ -12,4 +12,16 @@ public interface StrojDao {
 
     boolean deleteById(int id);
     
+    List<String> getVyrobcovia();
+    
+    List<String> getTypy();
+    
+    List<String> getTypyPodlaVyrobcu(String vyrobca);
+    
+    List<String> getKategorie();
+    
+    List<String> getRokyNadobudnutia();
+    
+    List<Stroj> rozsireneVyhladavanie(String vyrobca, String typ, String kategoria, String rokNadobudnutia);        
+    
 }

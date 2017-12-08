@@ -1,6 +1,7 @@
 package farma;
 
 import java.io.IOException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -39,8 +41,48 @@ public class StrojSceneController {
     private Button pridatButton;
 
     @FXML
+    private Button rozsireneVyhladavanieButton;
+
+    @FXML
+    private Button zobrazVsetkyButton;
+
+    @FXML
     void initialize() {
-        
+
+        zobrazVsetkyButton.setOnAction(eh -> {
+            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+            kliknutyStroj = null;
+        });
+
+        rozsireneVyhladavanieButton.setOnAction(eh -> {
+            StrojRozsireneVyhladavanieController controller
+                    = new StrojRozsireneVyhladavanieController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("StrojRozsireneVyhladavanie.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Rozšírené vyhľadávanie");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            if (controller.getAkcia()) {
+                List<Stroj> strojRozsirene = strojDao.rozsireneVyhladavanie(controller.getVyrobca(), controller.getTyp(), controller.getKategoria(), controller.getRokNadobudnutia());
+
+                strojeTableView.setItems(FXCollections.observableArrayList(strojRozsirene));
+                if (strojRozsirene.size() == 0) {
+                    strojeTableView.setPlaceholder(new Label("Stroje so zadanými parametrami sa v databáze nenachádzajú."));
+                    // lebo: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+                }
+            }
+        });
+
         pridatButton.setOnAction(eh -> {
             StrojeEditSceneController controller
                     = new StrojeEditSceneController();
@@ -61,7 +103,7 @@ public class StrojSceneController {
             }
             strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
         });
-        
+
         zmazatButton.setOnAction(eh -> {
             if (kliknutyStroj == null) {
                 PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();
@@ -104,7 +146,7 @@ public class StrojSceneController {
             kliknutyStroj = null;
         });
 
-       TableView<Stroj> table = strojeTableView;
+        TableView<Stroj> table = strojeTableView;
         table.setRowFactory(tv -> {
             TableRow<Stroj> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -163,7 +205,7 @@ public class StrojSceneController {
                 iOException.printStackTrace();
             }
         });
-        
+
         tankovanieButton.setOnAction(eh -> {
             StrojTabulkaTankovania controller
                     = new StrojTabulkaTankovania();

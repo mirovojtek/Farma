@@ -159,4 +159,121 @@ public class MysqlStrojDao implements StrojDao {
         return false;
     }
 
+    @Override
+    public List<String> getVyrobcovia() {
+        List<String> vyrobcovia = new ArrayList<>();
+        String sql = "SELECT DISTINCT vyrobca AS 'vyrobca' FROM farma.stroj;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    vyrobcovia.add(rs.getString("vyrobca"));
+                }
+                return vyrobcovia;
+            }
+        });
+    }
+
+    @Override
+    public List<String> getTypy() {
+        List<String> typy = new ArrayList<>();
+        String sql = "SELECT DISTINCT typ AS 'typ' FROM farma.stroj;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    typy.add(rs.getString("typ"));
+                }
+                return typy;
+            }
+        });
+    }
+
+    @Override
+    public List<String> getTypyPodlaVyrobcu(String vyrobca) {
+        List<String> typyPodlaVyrobcu = new ArrayList<>();
+        String sql = "SELECT DISTINCT typ AS 'typ' FROM farma.stroj WHERE vyrobca='" + vyrobca + "';";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    typyPodlaVyrobcu.add(rs.getString("typ"));
+                }
+                return typyPodlaVyrobcu;
+            }
+        });
+    }
+
+    @Override
+    public List<String> getKategorie() {
+        List<String> kategorie = new ArrayList<>();
+        String sql = "SELECT DISTINCT kategoria AS 'kategoria' FROM farma.stroj;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    kategorie.add(rs.getString("kategoria"));
+                }
+                return kategorie;
+            }
+        });
+    }
+
+    @Override
+    public List<String> getRokyNadobudnutia() {
+        List<String> rokyNadobudnutia = new ArrayList<>();
+        String sql = "SELECT DISTINCT year(datum_nadobudnutia) AS 'rokNadobudnutia' FROM farma.stroj;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    rokyNadobudnutia.add(rs.getString("rokNadobudnutia"));
+                }
+                return rokyNadobudnutia;
+            }
+        });
+    }
+
+    @Override
+    public List<Stroj> rozsireneVyhladavanie(String vyrobca, String typ, String kategoria, String rokNadobudnutia) {
+        String sql = "select "
+                + "stroj.id as 'sId', "
+                + "stroj.vyrobca as 'sVyrobca', "
+                + "stroj.typ as 'sTyp', "
+                + "stroj.kategoria as 'sKategoria', "
+                + "stroj.datum_nadobudnutia as 'sDatumNadobudnutia', "
+                + "stroj.cena as 'sCena' from farma.stroj "
+                + " WHERE vyrobca LIKE " + "'" + vyrobca + "'"
+                + " AND typ LIKE " + "'" + typ + "'" + " AND YEAR(datum_nadobudnutia) LIKE " + "'" + rokNadobudnutia + "'"
+                + " AND kategoria LIKE " + "'" + kategoria + "'" + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Stroj>>() {
+            @Override
+            public List<Stroj> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Stroj> stroje = new ArrayList<>();
+                Stroj stroj = null;
+                while (rs.next()) {
+                    int strojId = rs.getInt("sId");
+                    if (stroj == null || strojId != stroj.getId()) {
+                        stroj = new Stroj();
+                        stroj.setId(strojId);
+                        stroj.setVyrobca(rs.getString("sVyrobca"));
+                        stroj.setTyp(rs.getString("sTyp"));
+                        stroj.setKategoria(rs.getString("sKategoria"));
+                        Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
+                        if (ts != null) {
+                            stroj.setDatum(ts.toLocalDateTime());
+                        }
+                        stroj.setCena(rs.getDouble("sCena"));
+                        // tankovania
+                        stroj.setTankovania(tankovanieDao.getAllPodlaIdStroja(strojId));
+                        // opravy
+                        stroj.setOpravy(opravaDao.getAllPodlaIdStroja(strojId));
+                        stroje.add(stroj);
+                    }
+                }
+                return stroje;
+
+            }
+        });
+    }
 }

@@ -9,6 +9,9 @@ select * from oprava;
 select * from zviera;
 select * from pole;
 
+SELECT DISTINCT vyrobca AS 'vyrobca' FROM farma.stroj;
+SELECT DISTINCT typ AS 'typ' FROM farma.stroj WHERE vyrobca='Zetor';
+
 select tankovanie.id as 'tId', tankovanie.stroj_id as 'tStrojId', tankovanie.mnozstvo as 'tMnozstvo', tankovanie.datum as 'tDatum' from tankovanie;
 
 

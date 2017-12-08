@@ -166,7 +166,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return pohlavia;
             }
         });
-
     }
 
     @Override
@@ -182,7 +181,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return plemena;
             }
         });
-
     }
 
     @Override
@@ -198,7 +196,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return plemena;
             }
         });
-
     }
 
     @Override
@@ -214,7 +211,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return rokyNarodenia;
             }
         });
-
     }
 
     @Override
@@ -230,7 +226,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return rokyNadobudnutia;
             }
         });
-
     }
 
     @Override
@@ -266,7 +261,5 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return zvierata;
             }
         });
-
     }
-
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="258.0" layoutY="14.0" text="Stroje">
          <font>
@@ -18,5 +18,7 @@
       <Button fx:id="zmazatButton" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" text="Zmazať" />
       <Button fx:id="pridatButton" layoutX="535.0" layoutY="26.0" mnemonicParsing="false" text="Pridať" />
       <TableView fx:id="strojeTableView" layoutX="79.0" layoutY="100.0" prefHeight="246.0" prefWidth="439.0" />
+      <Button fx:id="rozsireneVyhladavanieButton" layoutX="343.0" layoutY="63.0" mnemonicParsing="false" text="Rozšírené vyhľadávanie" />
+      <Button fx:id="zobrazVsetkyButton" layoutX="169.0" layoutY="63.0" mnemonicParsing="false" text="Zobraz všetky" />
    </children>
 </AnchorPane>

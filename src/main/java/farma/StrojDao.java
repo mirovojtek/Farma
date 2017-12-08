@@ -12,4 +12,5 @@ public interface StrojDao {
 
     boolean deleteById(int id);
     
+    void pridajPopis(Stroj stroj);
 }

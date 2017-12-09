@@ -17,6 +17,7 @@ import javafx.beans.property.StringProperty;
 
 public class StrojFxModel {
     
+    private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty vyrobca = new SimpleStringProperty();
     private StringProperty typ = new SimpleStringProperty();
     private StringProperty kategoria = new SimpleStringProperty();
@@ -24,6 +25,7 @@ public class StrojFxModel {
     private ObjectProperty<LocalDateTime> datum = new SimpleObjectProperty();
     private ObjectProperty<List<Oprava>> opravy = new SimpleObjectProperty();
     private ObjectProperty<List<Tankovanie>> tankovania = new SimpleObjectProperty();
+    private StringProperty popis = new SimpleStringProperty();
 
     public StringProperty vyrobcaProperty() {
         return vyrobca;
@@ -110,8 +112,34 @@ public class StrojFxModel {
         return tankovania.get();
     }
     
+    public StringProperty popisProperty() {
+        return popis;
+    }
+
+    public void setPopis(String popis) {
+        this.popis.set(popis);
+    }
+    
+    public String getPopis() {
+        return popis.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id.set(id);
+    }
+    public int getId(){
+        return id.get();
+    }
+    
+    
+    
     public Stroj getStroj(){
         Stroj stroj = new Stroj();
+        stroj.setId(getId());
         stroj.setVyrobca(getVyrobca());
         stroj.setTyp(getTyp());
         stroj.setKategoria(getKategoria());
@@ -119,10 +147,12 @@ public class StrojFxModel {
         stroj.setDatum(getDatum());
         //stroj.setOpravy(getOpravy());
         //stroj.setTankovania(getTankovania());
+        stroj.setPopis(getPopis());
         return stroj;
     }
     
     public void setStroj(Stroj stroj){
+        setId(stroj.getId());
         setVyrobca(stroj.getVyrobca());
         setTyp(stroj.getTyp());
         setKategoria(stroj.getKategoria());
@@ -130,9 +160,11 @@ public class StrojFxModel {
         setDatum(stroj.getDatum());
         setOpravy(stroj.getOpravy());
         setTankovania(stroj.getTankovania());
+        setPopis(stroj.getPopis());
     }
     
     public void newStroj(){
+        setId(0);
         setVyrobca(null);
         setTyp(null);
         setKategoria(null);
@@ -140,5 +172,6 @@ public class StrojFxModel {
         setDatum(null);
         setOpravy(null);
         setTankovania(null);
+        setPopis(null);
     }
 }

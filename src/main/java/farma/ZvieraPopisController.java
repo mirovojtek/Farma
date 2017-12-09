@@ -81,7 +81,7 @@ public class ZvieraPopisController {
         kupnaCenaCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
         vybraneZvieraTableView.getColumns().add(kupnaCenaCol);
 
-        vybraneZvieraTableView.setItems(FXCollections.observableArrayList(zvierataList));
+        vybraneZvieraTableView.setItems(zvierataList);
           
         popisZviera.setZviera(zviera);
         Text t1 = new Text(popisZviera.getPopis());

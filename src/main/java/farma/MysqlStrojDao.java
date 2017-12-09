@@ -78,7 +78,8 @@ public class MysqlStrojDao implements StrojDao {
                 + "stroj.typ as 'sTyp', "
                 + "stroj.kategoria as 'sKategoria', "
                 + "stroj.datum_nadobudnutia as 'sDatumNadobudnutia', "
-                + "stroj.cena as 'sCena' from stroj where stroj.id=" + id + ";";
+                + "stroj.cena as 'sCena',"
+                + "stroj.popis as 'sPopis' from stroj where stroj.id=" + id + ";";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Stroj>() {
             @Override
             public Stroj extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -96,6 +97,7 @@ public class MysqlStrojDao implements StrojDao {
                             stroj.setDatum(ts.toLocalDateTime());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
+                        stroj.setPopis(rs.getString("sPopis"));
                         stroj.setTankovania(tankovanieDao.getAllPodlaIdStroja(strojId));
                         stroj.setOpravy(opravaDao.getAllPodlaIdStroja(strojId));
                         return stroj;
@@ -276,4 +278,13 @@ public class MysqlStrojDao implements StrojDao {
             }
         });
     }
+
+    @Override
+    public void pridajPopis(Stroj stroj) {
+        String sql = "UPDATE farma.stroj SET popis = ? WHERE id = "
+                + stroj.getId();
+        System.out.println(stroj.getId() + stroj.getPopis());
+        jdbcTemplate.update(sql, stroj.getPopis());
+    }
+
 }

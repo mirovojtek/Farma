@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class Stroj {
 
@@ -15,6 +16,7 @@ public class Stroj {
     private LocalDateTime datum;
     private List<Oprava> opravy = new ArrayList<Oprava>();
     private List<Tankovanie> tankovania = new ArrayList<Tankovanie>();
+    private String popis;
 
     public int getId() {
         return id;
@@ -80,6 +82,13 @@ public class Stroj {
         this.tankovania = tankovania;
     }
 
+    public String getPopis(){
+        return popis;
+    }
+    public void setPopis(String popis){
+        this.popis = popis;
+    }
+    
     @Override
     public String toString() {
         return id + " " + vyrobca + " " + typ + " " + kategoria + " " + cena + " " + datum;

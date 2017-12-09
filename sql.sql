@@ -24,7 +24,7 @@ select * from tankovanie;
 
 select tankovanie.id as 'tankovanie', tankovanie.stroj_id as 'strojId', tankovanie.mnozstvo as 'mnozstvo', tankovanie.datum as 'datum' from tankovanie where stroj_id=2;
 select stroj.id as 'sId', stroj.vyrobca as 'sVyrobca', stroj.typ as 'sTyp', stroj.kategoria as 'sKategoria', stroj.datum_nadobudnutia as 'sDatumNadobudnutia', stroj.cena as 'sCena' from stroj;
-
+alter table stroj add column popis varchar(200);
 
 delete from tankovanie where id=1;
 delete from stroj where stroj.id =1;

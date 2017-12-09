@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="strojeButton" layoutX="66.0" layoutY="51.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="131.0" text="stroje" />
-      <Button fx:id="zvierataButton" layoutX="306.0" layoutY="51.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="131.0" text="zvierata" />
-      <Button fx:id="poliaButton" layoutX="68.0" layoutY="171.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="131.0" text="polia" />
-      <Button fx:id="financieButton" layoutX="306.0" layoutY="176.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="131.0" text="financie" />
+      <Button fx:id="strojeButton" layoutX="100.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Stroje">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@stroje_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="zvierataButton" layoutX="350.0" layoutY="100.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Zvieratá">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@zviera_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="poliaButton" layoutX="100.0" layoutY="250.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Polia">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@polia_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="financieButton" layoutX="350.0" layoutY="250.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0" text="Financie">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@financie_icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Label layoutX="241.0" layoutY="23.0" text="FARMA">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

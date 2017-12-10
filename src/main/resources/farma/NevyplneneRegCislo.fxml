@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="OKButton" layoutX="134.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="OK" />
-      <Label layoutX="13.0" layoutY="14.0" prefHeight="31.0" prefWidth="314.0" text="Registračné číslo musí byť zadané.">
+      <Button fx:id="OKButton" layoutX="120.0" layoutY="82.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="OK" />
+      <Label layoutX="17.0" layoutY="23.0" prefHeight="31.0" prefWidth="266.0" text="Nevyplnené registračné číslo">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>

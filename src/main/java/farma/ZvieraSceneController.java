@@ -74,6 +74,7 @@ public class ZvieraSceneController {
                 stage.setScene(scene);
                 stage.setTitle("Zadajte registračné číslo");
                 stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
                 stage.showAndWait();
 
                 // toto sa vykona az po zatvoreni okna
@@ -200,6 +201,7 @@ public class ZvieraSceneController {
                     stage.setScene(scene);
                     stage.setTitle("Zmazať zviera");
                     stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setResizable(false);
                     stage.showAndWait();
                     // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {

@@ -59,7 +59,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="vyhladatButton" mnemonicParsing="false" text="Vyhľadať" />
+                  <Button mnemonicParsing="false" text="Vyhľadať" />
                </children>
             </HBox>
          </children>

@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="okButton" layoutX="134.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="OK" />
+      <Button fx:id="okButton" layoutX="133.0" layoutY="96.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="OK" />
       <Label layoutX="50.0" layoutY="14.0" prefHeight="31.0" prefWidth="225.0" text="Zadajte registračné číslo">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="regCisloTextField" layoutX="88.0" layoutY="56.0" />
+      <TextField fx:id="regCisloTextField" layoutX="89.0" layoutY="63.0" />
    </children>
 </AnchorPane>

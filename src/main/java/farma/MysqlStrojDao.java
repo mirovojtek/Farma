@@ -283,7 +283,6 @@ public class MysqlStrojDao implements StrojDao {
     public void pridajPopis(Stroj stroj) {
         String sql = "UPDATE farma.stroj SET popis = ? WHERE id = "
                 + stroj.getId();
-        System.out.println(stroj.getId() + stroj.getPopis());
         jdbcTemplate.update(sql, stroj.getPopis());
     }
 

@@ -38,7 +38,7 @@ public class MysqlTankovanieDao implements TankovanieDao {
                         tankovanie.setMnozstvo(rs.getDouble("tMnozstvo"));
                         Timestamp ts = rs.getTimestamp("tDatum");
                         if (ts != null) {
-                            tankovanie.setDatum(ts.toLocalDateTime().toLocalDate());
+                            tankovanie.setDatum(ts.toLocalDateTime());
                         }
                         tankovania.add(tankovanie);
                     }
@@ -65,7 +65,7 @@ public class MysqlTankovanieDao implements TankovanieDao {
                         tankovanie.setMnozstvo(rs.getDouble("tMnozstvo"));
                         Timestamp ts = rs.getTimestamp("tDatum");
                         if (ts != null) {
-                            tankovanie.setDatum(ts.toLocalDateTime().toLocalDate());
+                            tankovanie.setDatum(ts.toLocalDateTime());
                         }
                         tankovania.add(tankovanie);
                     }

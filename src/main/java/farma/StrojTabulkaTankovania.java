@@ -17,7 +17,7 @@ public class StrojTabulkaTankovania {
     void initialize() {
         
         TableColumn<Tankovanie, Integer> idStrojCol = new TableColumn<>("Id Stroja");
-        idStrojCol.setCellValueFactory(new PropertyValueFactory<>("idStroj"));
+        idStrojCol.setCellValueFactory(new PropertyValueFactory<>("strojId"));
         tankovanieTableView.getColumns().add(idStrojCol);
         
         TableColumn<Tankovanie, Double> mnozstvoCol = new TableColumn<>("Množstvo paliva");

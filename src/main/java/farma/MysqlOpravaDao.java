@@ -43,7 +43,7 @@ public class MysqlOpravaDao implements OpravaDao {
                         oprava.setIdStroj(rs.getInt("oStrojId"));
                         Timestamp ts = rs.getTimestamp("oDatum");
                         if (ts != null) {
-                            oprava.setDatum(ts.toLocalDateTime().toLocalDate());
+                            oprava.setDatum(ts.toLocalDateTime());
                         }
                         oprava.setCena(rs.getDouble("oCena"));
                         oprava.setPorucha(rs.getString("oPorucha"));
@@ -84,7 +84,7 @@ public class MysqlOpravaDao implements OpravaDao {
                         oprava.setIdStroj(rs.getInt("oStrojId"));
                         Timestamp ts = rs.getTimestamp("oDatum");
                         if (ts != null) {
-                            oprava.setDatum(ts.toLocalDateTime().toLocalDate());
+                            oprava.setDatum(ts.toLocalDateTime());
                         }
                         oprava.setCena(rs.getDouble("oCena"));
                         oprava.setPorucha(rs.getString("oPorucha"));

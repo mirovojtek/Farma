@@ -19,8 +19,6 @@ public class MysqlFinancieDao implements FinancieDao {
 
     @Override
     public List<Financie> getAll() {
-
-        // prerobiť
         String sql = "SELECT financie.id AS 'fId', financie.datum AS 'fDatum',financie.suma AS 'fSuma', financie.typ AS 'fTyp', financie.popis AS 'fPopis' from farma.financie;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Financie>>() {
             @Override

@@ -41,4 +41,8 @@ public enum DaoFactory {
         return new MysqlPoleDao(getJDBCTemplate());
     }
 
+    public FinancieDao getFinancieDao() {
+        return new MysqlFinancieDao(getJDBCTemplate());
+    }
+
 }

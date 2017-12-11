@@ -9,5 +9,7 @@ public interface PoleDao {
     Pole add(Pole pole);
 
     boolean deletePodlaId(int id);
+    
+    Pole findById(int id);
 
 }

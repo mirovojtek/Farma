@@ -91,4 +91,9 @@ public class MysqlPoleDao implements PoleDao {
             return false;
         }
     }
+
+    @Override
+    public Pole findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

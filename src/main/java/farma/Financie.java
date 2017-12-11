@@ -10,7 +10,6 @@ public class Financie {
     private double suma;
     private String typ;
     private String popis;
-    private String fDatum;
 
     public int getId() {
         return id;
@@ -25,9 +24,6 @@ public class Financie {
     }
 
     public String getFDatum() {
-        if (datum == null) {
-            return "null";
-        }
         DateTimeFormatter formatovac = DateTimeFormatter.
                 ofPattern("dd.MM.yyyy");
         return datum.format(formatovac);

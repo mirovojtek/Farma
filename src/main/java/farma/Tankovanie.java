@@ -1,13 +1,14 @@
 package farma;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Tankovanie {
 
     private int id;
     private int strojId;
     private double mnozstvo;
-    private LocalDate datum;
+    private LocalDateTime datum;
 
     public int getId() {
         return id;
@@ -33,11 +34,11 @@ public class Tankovanie {
         this.mnozstvo = mnozstvo;
     }
 
-    public LocalDate getDatum() {
+    public LocalDateTime getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setDatum(LocalDateTime datum) {
         this.datum = datum;
     }
 

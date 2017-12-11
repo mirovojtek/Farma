@@ -1,12 +1,13 @@
 package farma;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Oprava {
 
     private int id;
     private int idStroj;
-    private LocalDate datum;
+    private LocalDateTime datum;
     private double cena;
     private String porucha;
     private String popis;
@@ -27,11 +28,11 @@ public class Oprava {
         this.idStroj = idStroj;
     }
 
-    public LocalDate getDatum() {
+    public LocalDateTime getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setDatum(LocalDateTime datum) {
         this.datum = datum;
     }
 

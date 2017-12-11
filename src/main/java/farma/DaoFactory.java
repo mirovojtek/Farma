@@ -37,4 +37,8 @@ public enum DaoFactory {
         return new MysqlOpravaDao(getJDBCTemplate());
     }
 
+    public PoleDao getPoleDao() {
+        return new MysqlPoleDao(getJDBCTemplate());
+    }
+
 }

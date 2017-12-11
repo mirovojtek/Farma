@@ -32,7 +32,6 @@ public class MysqlZvieraDao implements ZvieraDao {
             SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
             simpleJdbcInsert.withTableName("zviera");
             simpleJdbcInsert.usingGeneratedKeyColumns("id");
-
             simpleJdbcInsert.usingColumns("registracne_cislo", "druh", "plemeno", "pohlavie", "datum_narodenia", "datum_nadobudnutia", "kupna_cena");
             Map<String, Object> data = new HashMap<>();
             data.put("registracne_cislo", zviera.getRegistracneCislo());
@@ -42,7 +41,6 @@ public class MysqlZvieraDao implements ZvieraDao {
             data.put("datum_narodenia", zviera.getDatumNarodenia());
             data.put("datum_nadobudnutia", zviera.getDatumNadobudnutia());
             data.put("kupna_cena", zviera.getKupnaCena());
-
             zviera.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
         } else { // UPDATE
             String sql = "UPDATE zviera SET registracne_cislo = ?, druh = ?,"
@@ -51,7 +49,6 @@ public class MysqlZvieraDao implements ZvieraDao {
             jdbcTemplate.update(sql, zviera.getRegistracneCislo(), zviera.getDruh(),
                     zviera.getPlemeno(), zviera.getPohlavie(), zviera.getDatumNarodenia(),
                     zviera.getDatumNadobudnutia(), zviera.getKupnaCena());
-
         }
         return null;
     }

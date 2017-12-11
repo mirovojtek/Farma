@@ -64,9 +64,6 @@ public class Zviera {
     }
 
     public String getFDatumNarodenia() {
-        if (datumNarodenia == null) {
-            return "null";
-        }
         DateTimeFormatter formatovac = DateTimeFormatter.
                 ofPattern("dd.MM.yyyy");
         return datumNarodenia.format(formatovac);
@@ -81,9 +78,6 @@ public class Zviera {
     }
 
     public String getFDatumNadobudnutia() {
-        if (datumNadobudnutia == null) {
-            return "null";
-        }
         DateTimeFormatter formatovac = DateTimeFormatter.
                 ofPattern("dd.MM.yyyy");
         return datumNadobudnutia.format(formatovac);

@@ -4,6 +4,11 @@ use farma;
 select * from stroj;
 select * from tankovanie;
 
+select * from pole;
+
+
+UPDATE pole SET parcela = '149', vymera = 1000, typ = 'lúka', datum_nadobudnutia = '2015-10-10', cena = 500 WHERE id = 1;
+
 delete from zviera where id = 15;
 select * from oprava;
 select * from zviera;

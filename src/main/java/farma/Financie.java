@@ -10,7 +10,6 @@ public class Financie {
     private double suma;
     private String typ;
     private String popis;
-
     private String fDatum;
 
     public int getId() {

@@ -41,6 +41,9 @@ public class OpravyKonkretnehoStroja {
 
     @FXML
     private Button zmazatButton;
+    
+    @FXML
+    private Button zmazatVsetkoButton;
 
     @FXML
     void initialize() {
@@ -170,6 +173,27 @@ public class OpravyKonkretnehoStroja {
             }
             opravyTableView.setItems(FXCollections.observableArrayList(opravaDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
             kliknutaOprava = null;
+        });
+        
+        zmazatVsetkoButton.setOnAction(eh ->{
+            OpravaDeleteAllController controller
+                    = new OpravaDeleteAllController(kliknutyStroj);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PotvrdenieZmazaniaVsetkeho.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vymaž všetko");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            opravyTableView.setItems(FXCollections.observableArrayList(opravaDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
         });
     }
 }

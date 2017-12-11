@@ -41,6 +41,9 @@ public class TankovaniaKonkretnehoStroja {
 
     @FXML
     private Button zmazatButton;
+    
+    @FXML
+    private Button zmazatVsetkoButton;
 
     @FXML
     void initialize() {
@@ -164,6 +167,27 @@ public class TankovaniaKonkretnehoStroja {
             }
             tankovaniaTableView.setItems(FXCollections.observableArrayList(tankovanieDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
             kliknuteTankovanie = null;
+        });
+        
+        zmazatVsetkoButton.setOnAction(eh ->{
+            TankovanieDeleteAllController controller
+                    = new TankovanieDeleteAllController(kliknutyStroj);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PotvrdenieZmazaniaVsetkeho.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vymaž všetko");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            tankovaniaTableView.setItems(FXCollections.observableArrayList(tankovanieDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
         });
     }
 }

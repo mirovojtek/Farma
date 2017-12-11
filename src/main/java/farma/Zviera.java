@@ -15,28 +15,10 @@ public class Zviera {
     private LocalDateTime datumNadobudnutia;
     private double kupnaCena;
     private String popis;
-    
+
     private String fDatumNarodenia;
     private String fDatumNadobudnutia;
 
-    public String getfDatumNarodenia() {
-        return fDatumNarodenia;
-    }
-
-    public void setfDatumNarodenia(String fDatumNarodenia) {
-        this.fDatumNarodenia = fDatumNarodenia;
-    }
-
-    public String getfDatumNadobudnutia() {
-        return fDatumNadobudnutia;
-    }
-
-    public void setfDatumNadobudnutia(String fDatumNadobudnutia) {
-        this.fDatumNadobudnutia = fDatumNadobudnutia;
-    }
-
-    
-    
     public int getId() {
         return id;
     }

@@ -58,9 +58,9 @@ public class MainSceneController {
 
         });
 
-        strojeButton.setOnAction(eh ->{
-           StrojSceneController controller = new StrojSceneController();
-           try {
+        strojeButton.setOnAction(eh -> {
+            StrojSceneController controller = new StrojSceneController();
+            try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("StrojeScene.fxml"));
                 loader.setController(controller);
@@ -71,6 +71,26 @@ public class MainSceneController {
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Stroje");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
+
+        poliaButton.setOnAction(eh -> {
+            PoliaSceneController controller = new PoliaSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PoliaScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Polia");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
 

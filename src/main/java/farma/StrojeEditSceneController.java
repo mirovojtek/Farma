@@ -1,6 +1,7 @@
-
 package farma;
+
 import java.io.IOException;
+import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,17 +16,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
-
+import javax.swing.text.DateFormatter;
 
 public class StrojeEditSceneController {
+
     private StrojFxModel aktualnyStroj;
-    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();;
+    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
+
+    ;
     
-    public StrojeEditSceneController(){
+    public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();
         aktualnyStroj.setDatum(LocalDateTime.now());
     }
-    
+
     @FXML
     private TextField vyrobcaTextField;
 
@@ -46,18 +50,18 @@ public class StrojeEditSceneController {
 
     @FXML
     void initialize() {
-         
-         vyrobcaTextField.textProperty().bindBidirectional(aktualnyStroj.vyrobcaProperty());
-         typTextField.textProperty().bindBidirectional(aktualnyStroj.typProperty());
-         kategoriaTextField.textProperty().bindBidirectional(aktualnyStroj.kategoriaProperty());
-         
-         StringConverter<Number> converter = new NumberStringConverter();
-         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
-         
-         datumTextField.textProperty().bindBidirectional(aktualnyStroj.datumProperty(),
+
+        vyrobcaTextField.textProperty().bindBidirectional(aktualnyStroj.vyrobcaProperty());
+        typTextField.textProperty().bindBidirectional(aktualnyStroj.typProperty());
+        kategoriaTextField.textProperty().bindBidirectional(aktualnyStroj.kategoriaProperty());
+
+        StringConverter<Number> converter = new NumberStringConverter();
+        cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
+
+        datumTextField.textProperty().bindBidirectional(aktualnyStroj.datumProperty(),
                 new StringConverter<LocalDateTime>() {
 
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
+            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
 
             @Override
             public String toString(LocalDateTime t) {
@@ -75,37 +79,62 @@ public class StrojeEditSceneController {
                 }
             }
         });
-        
-         vlozitButton.setOnAction(eh ->{
-             try{
-            strojDao.add(aktualnyStroj.getStroj());
-            vyrobcaTextField.clear();
-            kategoriaTextField.clear();
-            typTextField.clear();
-            cenaTextField.clear();
-            datumTextField.clear();
-           } catch (Exception e) {
-                    System.err.println(e);
 
-                    ZvieraNespravneVyplnanieController controller = new ZvieraNespravneVyplnanieController();
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("NespravneVyplnenie.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Nesprávne vyplnenie údajov");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
-
+        vlozitButton.setOnAction(eh -> {
+            if (aktualnyStroj.getCena() < 0) {
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NespravneVyplnenie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Nesprávne vyplnenie údajov");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
                 }
-            
-         });
+                vyrobcaTextField.clear();
+                kategoriaTextField.clear();
+                typTextField.clear();
+                cenaTextField.clear();
+                datumTextField.clear();
+                return;
+            }
+            try {
+
+                strojDao.add(aktualnyStroj.getStroj());
+                vyrobcaTextField.clear();
+                kategoriaTextField.clear();
+                typTextField.clear();
+                cenaTextField.clear();
+                datumTextField.clear();
+            } catch (Exception e) {
+                System.err.println(e);
+
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NespravneVyplnenie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Nesprávne vyplnenie údajov");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+
+            }
+
+        });
     }
 }

@@ -3,12 +3,12 @@ drop database if exists farma;
 use farma;
 select * from stroj;
 select * from tankovanie;
-
+select * from financie;
 select * from pole;
-
-
+SELECT financie.id AS 'fId', financie.datum AS 'fDatum', financie.suma AS 'fSuma', financie.typ AS 'fTyp', financie.popis AS 'fPopis' from farma.financie;
+DELETE FROM pole WHERE pole.id =1;
 UPDATE pole SET parcela = '149', vymera = 1000, typ = 'lúka', datum_nadobudnutia = '2015-10-10', cena = 500 WHERE id = 1;
-
+select * from financie;
 delete from zviera where id = 15;
 select * from oprava;
 select * from zviera;

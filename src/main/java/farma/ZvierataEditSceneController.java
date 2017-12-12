@@ -162,7 +162,7 @@ public class ZvierataEditSceneController {
                 } catch (Exception e) {
                     System.err.println("Problem s vložením.");
 
-                    ZvieraNespravneVyplnanieController controller = new ZvieraNespravneVyplnanieController();
+                    NespravneVyplnanieController controller = new NespravneVyplnanieController();
                     try {
                         FXMLLoader loader = new FXMLLoader(
                                 getClass().getResource("NespravneVyplnenie.fxml"));

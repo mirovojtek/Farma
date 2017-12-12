@@ -1,26 +1,19 @@
 package farma;
 
-import farma.DaoFactory;
 import java.io.IOException;
-import java.time.Clock;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -52,10 +45,10 @@ public class ZvieraSceneController {
 
     @FXML
     private Button rozsireneVyhladavanieButton;
-    
+
     @FXML
     void initialize() {
-        List<Zviera> zvierata = zvieraDao.getAll();
+        // List<Zviera> zvierata = zvieraDao.getAll();
 
         zobrazVsetkyButton.setOnAction(eh -> {
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
@@ -76,8 +69,6 @@ public class ZvieraSceneController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setResizable(false);
                 stage.showAndWait();
-
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -93,7 +84,6 @@ public class ZvieraSceneController {
                     zvierataTableView.setItems(FXCollections.observableArrayList(zvieraPodlaRegCislaList));
                 }
             }
-
         });
 
         // registračné číslo
@@ -147,7 +137,6 @@ public class ZvieraSceneController {
                 stage.setTitle("Pridať zviera");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -230,33 +219,31 @@ public class ZvieraSceneController {
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
             kliknuteZviera = null;
         });
-        
+
         rozsireneVyhladavanieButton.setOnAction(eh -> {
             ZvieraRozsireneVyhladavanieController controller = new ZvieraRozsireneVyhladavanieController();
-                try {
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("ZvieraRozsireneVyhladavanie.fxml"));
-                    loader.setController(controller);
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle("Rozšírene vyhľadávanie");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
-                } catch (IOException iOException) {
-                    iOException.printStackTrace();
-                }
-                
-                if(controller.getAkcia() == true){
-                    zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.rozsireneVyhladavanie(
-                            controller.getDruh(), controller.getPlemeno(), controller.getRokNarodenia(),
-                            controller.getRokNadobudnutia(), controller.getPohlavie())));
-                }
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("ZvieraRozsireneVyhladavanie.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Rozšírene vyhľadávanie");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+
+            if (controller.getAkcia() == true) {
+                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.rozsireneVyhladavanie(
+                        controller.getDruh(), controller.getPlemeno(), controller.getRokNarodenia(),
+                        controller.getRokNadobudnutia(), controller.getPohlavie())));
+            }
         });
-        
-        
 
     }
 }

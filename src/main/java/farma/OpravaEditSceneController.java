@@ -81,7 +81,7 @@ public class OpravaEditSceneController {
            } catch (Exception e) {
                     System.err.println(e);
 
-                    ZvieraNespravneVyplnanieController controller = new ZvieraNespravneVyplnanieController();
+                    NespravneVyplnanieController controller = new NespravneVyplnanieController();
                     try {
                         FXMLLoader loader = new FXMLLoader(
                                 getClass().getResource("NespravneVyplnenie.fxml"));

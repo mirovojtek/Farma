@@ -70,7 +70,6 @@ public class MysqlPoleDao implements PoleDao {
         } else { // UPDATE
             String sql = "UPDATE pole SET parcela = ?, vymera = ?,"
                     + "typ = ?, datum_nadobudnutia = ?, cena = ? WHERE id = " + pole.getId();
-
             jdbcTemplate.update(sql,
                     pole.getParcela(),
                     pole.getVymera(),
@@ -94,6 +93,30 @@ public class MysqlPoleDao implements PoleDao {
 
     @Override
     public Pole findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT pole.id AS 'pId', pole.parcela AS 'pParcela', pole.vymera AS 'pVymera', pole.typ AS 'typ', pole.datum_nadobudnutia AS 'pDatumNadobudnutia', pole.cena AS 'pCena' FROM pole WHERE pole.id=" + id + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Pole>() {
+            @Override
+            public Pole extractData(ResultSet rs) throws SQLException, DataAccessException {
+                Pole pole = null;
+                while (rs.next()) {
+                    int poleId = rs.getInt("pId");
+                    if (pole == null || poleId != pole.getId()) {
+                        pole = new Pole();
+                        pole.setId(poleId);
+                        pole.setParcela(rs.getString("pParcela"));
+                        pole.setVymera(rs.getInt("pVymera"));
+                        pole.setTyp("pTyp");
+                        Timestamp ts = rs.getTimestamp("pDatumNadobudnutia");
+                        ts = rs.getTimestamp("pDatumNadobudnutia");
+                        if (ts != null) {
+                            pole.setDatumNadobudnutia(ts.toLocalDateTime());
+                        }
+                        pole.setCena(rs.getDouble("pCena"));
+                        return pole;
+                    }
+                }
+                return null;
+            }
+        });
     }
 }

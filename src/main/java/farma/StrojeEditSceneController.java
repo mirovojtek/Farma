@@ -1,11 +1,9 @@
 package farma;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,14 +14,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
-import javax.swing.text.DateFormatter;
 
 public class StrojeEditSceneController {
 
     private StrojFxModel aktualnyStroj;
     private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
-
-    ;
     
     public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();

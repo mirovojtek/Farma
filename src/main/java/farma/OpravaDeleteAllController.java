@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package farma;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-/**
- *
- * @author Ondrej Spišák
- */
 public class OpravaDeleteAllController {
    private OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
    private Stroj stroj; 

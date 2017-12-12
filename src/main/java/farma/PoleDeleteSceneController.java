@@ -1,8 +1,5 @@
 package farma;
 
-import farma.DaoFactory;
-import farma.PoleDao;
-import farma.PoleFxModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

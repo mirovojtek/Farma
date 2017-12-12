@@ -1,16 +1,18 @@
 package farma;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Oprava {
 
     private int id;
     private int idStroj;
-    private LocalDateTime datum;
+    private LocalDate datum;
     private double cena;
     private String porucha;
     private String popis;
+    
+    private String fDatum;
 
     public int getId() {
         return id;
@@ -28,11 +30,17 @@ public class Oprava {
         this.idStroj = idStroj;
     }
 
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
+    
+    public String getFDatum() {
+        DateTimeFormatter formatovac = DateTimeFormatter.
+                ofPattern("dd.MM.yyyy");
+        return datum.format(formatovac);
+    }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

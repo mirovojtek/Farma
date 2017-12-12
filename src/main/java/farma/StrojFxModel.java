@@ -22,7 +22,7 @@ public class StrojFxModel {
     private StringProperty typ = new SimpleStringProperty();
     private StringProperty kategoria = new SimpleStringProperty();
     private DoubleProperty cena = new SimpleDoubleProperty();
-    private ObjectProperty<LocalDateTime> datum = new SimpleObjectProperty();
+    private ObjectProperty<LocalDate> datum = new SimpleObjectProperty();
     private ObjectProperty<List<Oprava>> opravy = new SimpleObjectProperty();
     private ObjectProperty<List<Tankovanie>> tankovania = new SimpleObjectProperty();
     private StringProperty popis = new SimpleStringProperty();
@@ -75,15 +75,15 @@ public class StrojFxModel {
         return cena.get();
     }
 
-    public ObjectProperty<LocalDateTime> datumProperty() {
+    public ObjectProperty<LocalDate> datumProperty() {
         return datum;
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum.set(datum);
     }
     
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum.get();
     }
 

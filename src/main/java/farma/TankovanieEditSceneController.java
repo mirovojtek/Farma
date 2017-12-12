@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,14 +23,13 @@ public class TankovanieEditSceneController {
     
     public TankovanieEditSceneController(Stroj stroj){
         aktualneTankovanie = new TankovanieFxModel(stroj);
-        aktualneTankovanie.setDatum(LocalDateTime.now());
     }
     
     @FXML
     private TextField mnozstvoTextField;
 
     @FXML
-    private TextField datumTextField;
+    private DatePicker tankovanieDatePicker;
 
     @FXML
     private Button vlozitButton;
@@ -39,34 +39,12 @@ public class TankovanieEditSceneController {
      
         StringConverter<Number> converter = new NumberStringConverter();
         mnozstvoTextField.textProperty().bindBidirectional(aktualneTankovanie.mnozstvoProperty(), converter);
-        datumTextField.textProperty().bindBidirectional(aktualneTankovanie.datumProperty(),
-                new StringConverter<LocalDateTime>() {
-
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
-
-            @Override
-            public String toString(LocalDateTime t) {
-                return formatter.format(t);
-            }
-
-            @Override
-            public LocalDateTime fromString(String string) {
-                try {
-                    datumTextField.setStyle("-fx-background-color: white;");
-                    return LocalDateTime.parse(string, formatter);
-                } catch (DateTimeParseException e) {
-                    datumTextField.setStyle("-fx-background-color: lightcoral;");
-                    return null;
-                }
-            }
-            
-            });
         
         vlozitButton.setOnAction(eh ->{
             try{
+                aktualneTankovanie.setDatum(tankovanieDatePicker.getValue());
                 tankovanieDao.add(aktualneTankovanie.getTankovanie());
                 mnozstvoTextField.clear();
-                datumTextField.clear();
             }
                 catch (Exception e) {
                     System.err.println(e);

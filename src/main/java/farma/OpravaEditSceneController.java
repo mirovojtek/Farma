@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,12 +23,11 @@ public class OpravaEditSceneController {
     
     public OpravaEditSceneController(Stroj stroj){
         aktualnaOprava= new OpravaFxModel(stroj);
-        aktualnaOprava.setDatum(LocalDateTime.now());
     }
     
     @FXML
-    private TextField datumTextField;
-
+    private DatePicker opravyDatePicker;
+    
     @FXML
     private TextField cenaTextField;
 
@@ -47,37 +47,14 @@ public class OpravaEditSceneController {
         cenaTextField.textProperty().bindBidirectional(aktualnaOprava.cenaProperty(), converter);
         poruchaTextField.textProperty().bindBidirectional(aktualnaOprava.poruchaProperty());
         popisTextField.textProperty().bindBidirectional(aktualnaOprava.popisProperty());
-        
-        datumTextField.textProperty().bindBidirectional(aktualnaOprava.datumProperty(),
-                new StringConverter<LocalDateTime>() {
-
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
-
-            @Override
-            public String toString(LocalDateTime t) {
-                return formatter.format(t);
-            }
-
-            @Override
-            public LocalDateTime fromString(String string) {
-                try {
-                    datumTextField.setStyle("-fx-background-color: white;");
-                    return LocalDateTime.parse(string, formatter);
-                } catch (DateTimeParseException e) {
-                    datumTextField.setStyle("-fx-background-color: lightcoral;");
-                    return null;
-                }
-            }
-            
-            });
                 
         vlozitButton.setOnAction(eh ->{
              try{
+            aktualnaOprava.setDatum(opravyDatePicker.getValue());
             opravaDao.add(aktualnaOprava.getOprava());
             poruchaTextField.clear();
             popisTextField.clear();
             cenaTextField.clear();
-            datumTextField.clear();
            } catch (Exception e) {
                     System.err.println(e);
 

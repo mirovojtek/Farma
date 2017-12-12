@@ -22,7 +22,7 @@ public class StrojTabulkaOprav {
         opravyTableView.getColumns().add(idStrojCol);
         
         TableColumn<Oprava, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         opravyTableView.getColumns().add(datumCol);
         
         TableColumn<Oprava, Double> cenaCol = new TableColumn<>("Cena opravy");

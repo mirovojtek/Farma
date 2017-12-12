@@ -73,7 +73,7 @@ public class StrojPopisController {
         kliknutyStrojTableView.getColumns().add(kategoriaCol);
 
         TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         kliknutyStrojTableView.getColumns().add(datumCol);
 
         TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");

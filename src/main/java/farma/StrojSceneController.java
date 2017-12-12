@@ -197,7 +197,7 @@ public class StrojSceneController {
         strojeTableView.getColumns().add(kategoriaCol);
 
         TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         strojeTableView.getColumns().add(datumCol);
 
         TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");

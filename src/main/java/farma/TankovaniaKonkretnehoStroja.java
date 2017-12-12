@@ -71,7 +71,7 @@ public class TankovaniaKonkretnehoStroja {
          konkretnyStrojTableView.getColumns().add(kategoriaCol);
 
         TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
          konkretnyStrojTableView.getColumns().add(datumCol);
 
         TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");
@@ -85,7 +85,7 @@ public class TankovaniaKonkretnehoStroja {
         tankovaniaTableView.getColumns().add(idStrojCol);
         
         TableColumn<Tankovanie, Object> datumTankovanieCol = new TableColumn<>("Dátum");
-        datumTankovanieCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumTankovanieCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         tankovaniaTableView.getColumns().add(datumTankovanieCol);
         
         TableColumn<Tankovanie, Double> cenaTankovanieCol = new TableColumn<>("Množstvo paliva");

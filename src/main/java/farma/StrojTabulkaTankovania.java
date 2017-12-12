@@ -25,7 +25,7 @@ public class StrojTabulkaTankovania {
         tankovanieTableView.getColumns().add(mnozstvoCol);
         
         TableColumn<Tankovanie, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         tankovanieTableView.getColumns().add(datumCol);
         
        tankovanieTableView.setItems(FXCollections.observableArrayList(tankovanieDao.getAll()));

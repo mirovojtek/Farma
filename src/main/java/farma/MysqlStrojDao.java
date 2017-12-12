@@ -94,7 +94,7 @@ public class MysqlStrojDao implements StrojDao {
                         stroj.setKategoria(rs.getString("sKategoria"));
                         Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
                         if (ts != null) {
-                            stroj.setDatum(ts.toLocalDateTime());
+                            stroj.setDatum(ts.toLocalDateTime().toLocalDate());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
                         stroj.setPopis(rs.getString("sPopis"));
@@ -132,7 +132,7 @@ public class MysqlStrojDao implements StrojDao {
                         stroj.setKategoria(rs.getString("sKategoria"));
                         Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
                         if (ts != null) {
-                            stroj.setDatum(ts.toLocalDateTime());
+                            stroj.setDatum(ts.toLocalDateTime().toLocalDate());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
                         // tankovania
@@ -263,7 +263,7 @@ public class MysqlStrojDao implements StrojDao {
                         stroj.setKategoria(rs.getString("sKategoria"));
                         Timestamp ts = rs.getTimestamp("sDatumNadobudnutia");
                         if (ts != null) {
-                            stroj.setDatum(ts.toLocalDateTime());
+                            stroj.setDatum(ts.toLocalDateTime().toLocalDate());
                         }
                         stroj.setCena(rs.getDouble("sCena"));
                         // tankovania

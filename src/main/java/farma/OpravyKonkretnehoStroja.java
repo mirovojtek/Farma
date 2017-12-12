@@ -69,7 +69,7 @@ public class OpravyKonkretnehoStroja {
          konkretnyStrojTableView.getColumns().add(kategoriaCol);
 
         TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
          konkretnyStrojTableView.getColumns().add(datumCol);
 
         TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");
@@ -83,7 +83,7 @@ public class OpravyKonkretnehoStroja {
         opravyTableView.getColumns().add(idStrojCol);
         
         TableColumn<Oprava, Object> datumOpravaCol = new TableColumn<>("Dátum");
-        datumOpravaCol.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        datumOpravaCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         opravyTableView.getColumns().add(datumOpravaCol);
         
         TableColumn<Oprava, Double> cenaOpravaCol = new TableColumn<>("Cena opravy");

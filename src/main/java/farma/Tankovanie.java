@@ -2,13 +2,16 @@ package farma;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Tankovanie {
 
     private int id;
     private int strojId;
     private double mnozstvo;
-    private LocalDateTime datum;
+    private LocalDate datum;
+    
+    private String fDatum;
 
     public int getId() {
         return id;
@@ -34,11 +37,17 @@ public class Tankovanie {
         this.mnozstvo = mnozstvo;
     }
 
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
+    
+    public String getFDatum() {
+        DateTimeFormatter formatovac = DateTimeFormatter.
+                ofPattern("dd.MM.yyyy");
+        return datum.format(formatovac);
+    }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

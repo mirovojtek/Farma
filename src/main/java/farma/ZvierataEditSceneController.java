@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,6 +19,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -36,8 +36,6 @@ public class ZvierataEditSceneController {
 
     public ZvierataEditSceneController() {
         aktualneZviera = new ZvieraFxModel();
-        aktualneZviera.setDatumNarodenia(LocalDateTime.now());
-        aktualneZviera.setDatumNadobudnutia(LocalDateTime.now());
     }
 
     @FXML
@@ -53,11 +51,11 @@ public class ZvierataEditSceneController {
     private TextField druhTextField;
 
     @FXML
-    private TextField datumNarodeniaTextField;
-
+    private DatePicker datumNarodeniaDatePicker;
+       
     @FXML
-    private TextField datumNadobudnutiaTextField;
-
+    private DatePicker datumNadobudnutiaDatePicker;
+     
     @FXML
     private TextField plemenoTextField;
 
@@ -84,50 +82,6 @@ public class ZvierataEditSceneController {
         StringConverter<Number> converter = new NumberStringConverter();
         kupnaCenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
 
-        datumNarodeniaTextField.textProperty().bindBidirectional(aktualneZviera.datumNarodeniaProperty(),
-                new StringConverter<LocalDateTime>() {
-
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
-
-            @Override
-            public String toString(LocalDateTime t) {
-                return formatter.format(t);
-            }
-
-            @Override
-            public LocalDateTime fromString(String string) {
-                try {
-                    datumNarodeniaTextField.setStyle("-fx-background-color: white;");
-                    return LocalDateTime.parse(string, formatter);
-                } catch (DateTimeParseException e) {
-                    datumNarodeniaTextField.setStyle("-fx-background-color: lightcoral;");
-                    return null;
-                }
-            }
-        });
-
-        datumNadobudnutiaTextField.textProperty().bindBidirectional(aktualneZviera.datumNadobudnutiaProperty(),
-                new StringConverter<LocalDateTime>() {
-
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy H:m");
-
-            @Override
-            public String toString(LocalDateTime t) {
-                return formatter.format(t);
-            }
-
-            @Override
-            public LocalDateTime fromString(String string) {
-                try {
-                    datumNadobudnutiaTextField.setStyle("-fx-background-color: white;");
-                    return LocalDateTime.parse(string, formatter);
-                } catch (DateTimeParseException e) {
-                    datumNadobudnutiaTextField.setStyle("-fx-background-color: lightcoral;");
-                    return null;
-                }
-            }
-        });
-
         vlozitButton.setOnAction(eh -> {
             if (aktualneZviera.getRegistracneCislo() == null
                     || (aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().isEmpty())) {
@@ -150,14 +104,14 @@ public class ZvierataEditSceneController {
                 }
             } else {
                 try {
+                    aktualneZviera.setDatumNarodenia(datumNarodeniaDatePicker.getValue());
+                    aktualneZviera.setDatumNadobudnutia(datumNadobudnutiaDatePicker.getValue());
                     zvieraDao.add(aktualneZviera.getZviera());
                     // vyčistenie všetkých textFieldov po pridaní zvieraťa
                     registracneCisloTextField.clear();
                     druhTextField.clear();
                     plemenoTextField.clear();
                     pohlavieTextField.clear();
-                    datumNarodeniaTextField.clear();
-                    datumNadobudnutiaTextField.clear();
                     kupnaCenaTextField.clear();
                 } catch (Exception e) {
                     System.err.println("Problem s vložením.");

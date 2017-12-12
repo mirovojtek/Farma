@@ -1,10 +1,9 @@
 package farma;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 
 public class Stroj {
 
@@ -13,11 +12,13 @@ public class Stroj {
     private String typ;
     private String kategoria;
     private double cena;
-    private LocalDateTime datum;
+    private LocalDate datum;
     private List<Oprava> opravy = new ArrayList<Oprava>();
     private List<Tankovanie> tankovania = new ArrayList<Tankovanie>();
     private String popis;
 
+    private String fDatum;
+    
     public int getId() {
         return id;
     }
@@ -58,11 +59,17 @@ public class Stroj {
         this.cena = cena;
     }
 
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
+    
+    public String getFDatum() {
+        DateTimeFormatter formatovac = DateTimeFormatter.
+                ofPattern("dd.MM.yyyy");
+        return datum.format(formatovac);
+    }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

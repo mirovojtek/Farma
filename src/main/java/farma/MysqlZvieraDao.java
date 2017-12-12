@@ -70,9 +70,9 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                        zviera.setDatumNarodenia(ts.toLocalDateTime()); // dopísať nastavenie datumu - vhodný formát
+                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate()); // dopísať nastavenie datumu - vhodný formát
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                        zviera.setDatumNadobudnutia(ts.toLocalDateTime()); // dopísať dátum nadobudnutia - vhodný formát
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate()); // dopísať dátum nadobudnutia - vhodný formát
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zviera.setPopis(rs.getString("zPopis"));
                         return zviera;
@@ -101,11 +101,11 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
                         if (ts != null) {
-                            zviera.setDatumNarodenia(ts.toLocalDateTime());
+                            zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
                         }
                         ts = rs.getTimestamp("zDatumNadobudnutia");
                         if (ts != null) {
-                            zviera.setDatumNadobudnutia(ts.toLocalDateTime());
+                            zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         }
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zvierata.add(zviera);
@@ -245,11 +245,11 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPohlavie(rs.getString("pohlavie"));
                         Timestamp ts = rs.getTimestamp("datum_narodenia");
                         if (ts != null) {
-                            zviera.setDatumNarodenia(ts.toLocalDateTime());
+                            zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
                         }
                         ts = rs.getTimestamp("datum_nadobudnutia");
                         if (ts != null) {
-                            zviera.setDatumNadobudnutia(ts.toLocalDateTime());
+                            zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         }
                         zviera.setKupnaCena(rs.getDouble("kupna_cena"));
                         zvierata.add(zviera);

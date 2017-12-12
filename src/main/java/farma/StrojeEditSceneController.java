@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,7 +28,6 @@ public class StrojeEditSceneController {
     
     public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();
-        aktualnyStroj.setDatum(LocalDateTime.now());
     }
 
     @FXML
@@ -40,7 +40,8 @@ public class StrojeEditSceneController {
     private TextField kategoriaTextField;
 
     @FXML
-    private TextField datumTextField;
+    private DatePicker datumDatePicker;
+
 
     @FXML
     private TextField cenaTextField;
@@ -57,28 +58,6 @@ public class StrojeEditSceneController {
 
         StringConverter<Number> converter = new NumberStringConverter();
         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
-
-        datumTextField.textProperty().bindBidirectional(aktualnyStroj.datumProperty(),
-                new StringConverter<LocalDateTime>() {
-
-            private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyyy");
-
-            @Override
-            public String toString(LocalDateTime t) {
-                return formatter.format(t);
-            }
-
-            @Override
-            public LocalDateTime fromString(String string) {
-                try {
-                    datumTextField.setStyle("-fx-background-color: white;");
-                    return LocalDateTime.parse(string, formatter);
-                } catch (DateTimeParseException e) {
-                    datumTextField.setStyle("-fx-background-color: lightcoral;");
-                    return null;
-                }
-            }
-        });
 
         vlozitButton.setOnAction(eh -> {
             if (aktualnyStroj.getCena() < 0) {
@@ -102,17 +81,15 @@ public class StrojeEditSceneController {
                 kategoriaTextField.clear();
                 typTextField.clear();
                 cenaTextField.clear();
-                datumTextField.clear();
                 return;
             }
             try {
-
+                aktualnyStroj.setDatum(datumDatePicker.getValue());
                 strojDao.add(aktualnyStroj.getStroj());
                 vyrobcaTextField.clear();
                 kategoriaTextField.clear();
                 typTextField.clear();
                 cenaTextField.clear();
-                datumTextField.clear();
             } catch (Exception e) {
                 System.err.println(e);
 

@@ -11,8 +11,8 @@ public class Zviera {
     private String druh;
     private String plemeno;
     private String pohlavie;
-    private LocalDateTime datumNarodenia;
-    private LocalDateTime datumNadobudnutia;
+    private LocalDate datumNarodenia;
+    private LocalDate datumNadobudnutia;
     private double kupnaCena;
     private String popis;
 
@@ -59,7 +59,7 @@ public class Zviera {
         this.pohlavie = pohlavie;
     }
 
-    public LocalDateTime getDatumNarodenia() {
+    public LocalDate getDatumNarodenia() {
         return datumNarodenia;
     }
 
@@ -69,11 +69,11 @@ public class Zviera {
         return datumNarodenia.format(formatovac);
     }
 
-    public void setDatumNarodenia(LocalDateTime datumNarodenia) {
+    public void setDatumNarodenia(LocalDate datumNarodenia) {
         this.datumNarodenia = datumNarodenia;
     }
 
-    public LocalDateTime getDatumNadobudnutia() {
+    public LocalDate getDatumNadobudnutia() {
         return datumNadobudnutia;
     }
 
@@ -83,7 +83,7 @@ public class Zviera {
         return datumNadobudnutia.format(formatovac);
     }
 
-    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
+    public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {
         this.datumNadobudnutia = datumNadobudnutia;
     }
 

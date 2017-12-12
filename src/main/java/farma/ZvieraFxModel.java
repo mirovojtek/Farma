@@ -16,8 +16,8 @@ public class ZvieraFxModel {
     private StringProperty druh = new SimpleStringProperty();
     private StringProperty plemeno = new SimpleStringProperty();
     private StringProperty pohlavie = new SimpleStringProperty();
-    private ObjectProperty<LocalDateTime> datumNarodenia = new SimpleObjectProperty<>();
-    private ObjectProperty<LocalDateTime> datumNadobudnutia = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> datumNarodenia = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> datumNadobudnutia = new SimpleObjectProperty<>();
     private DoubleProperty kupnaCena = new SimpleDoubleProperty();
     private StringProperty popis = new SimpleStringProperty();
 
@@ -69,27 +69,27 @@ public class ZvieraFxModel {
         return pohlavie.get();
     }
 
-    public ObjectProperty<LocalDateTime> datumNarodeniaProperty() {
+    public ObjectProperty<LocalDate> datumNarodeniaProperty() {
         return datumNarodenia;
     }
 
-    public void setDatumNarodenia(LocalDateTime datumNarodenia) {
+    public void setDatumNarodenia(LocalDate datumNarodenia) {
         this.datumNarodenia.set(datumNarodenia);
     }
 
-    public LocalDateTime getDatumNarodenia() {
+    public LocalDate getDatumNarodenia() {
         return datumNarodenia.get();
     }
 
-    public ObjectProperty<LocalDateTime> datumNadobudnutiaProperty() {
+    public ObjectProperty<LocalDate> datumNadobudnutiaProperty() {
         return datumNadobudnutia;
     }
 
-    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
+    public void setDatumNadobudnutia(LocalDate datumNadobudnutia) {
         this.datumNadobudnutia.set(datumNadobudnutia);
     }
 
-    public LocalDateTime getDatumNadobudnutia() {
+    public LocalDate getDatumNadobudnutia() {
         return datumNadobudnutia.get();
     }
 

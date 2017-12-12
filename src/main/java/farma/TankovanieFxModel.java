@@ -1,7 +1,7 @@
 
 package farma;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -15,7 +15,7 @@ public class TankovanieFxModel {
     private Stroj stroj;
     private IntegerProperty id = new SimpleIntegerProperty();
     private DoubleProperty mnozstvo = new SimpleDoubleProperty();
-    private ObjectProperty<LocalDateTime> datum = new SimpleObjectProperty();
+    private ObjectProperty<LocalDate> datum = new SimpleObjectProperty();
     
     public TankovanieFxModel(Stroj stroj){
         this.stroj = stroj;
@@ -44,15 +44,15 @@ public class TankovanieFxModel {
         return mnozstvo.get();
     }
     
-    public ObjectProperty<LocalDateTime> datumProperty() {
+    public ObjectProperty<LocalDate> datumProperty() {
         return datum;
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum.set(datum);
     }
     
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum.get();
     }
     

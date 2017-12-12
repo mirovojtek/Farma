@@ -5,6 +5,7 @@
  */
 package farma;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -51,8 +52,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("viľk");
         zviera.setPlemeno("šivy");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -68,8 +69,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("viľkopies");
         zviera.setPlemeno("mixovanyj");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -91,8 +92,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -107,8 +108,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -125,8 +126,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -141,8 +142,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("d");
         zvieraDao.add(zviera);
@@ -157,8 +158,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("skusobne");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -173,8 +174,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.of(1787, Month.MARCH, 5, 5, 5));
-        zviera.setDatumNadobudnutia(LocalDateTime.now());
+        zviera.setDatumNarodenia(LocalDate.of(1787, Month.MARCH, 5));
+        zviera.setDatumNadobudnutia(LocalDate.now());
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -189,8 +190,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.now());
-        zviera.setDatumNadobudnutia(LocalDateTime.of(1787, Month.MARCH, 5, 5, 5));
+        zviera.setDatumNarodenia(LocalDate.now());
+        zviera.setDatumNadobudnutia(LocalDate.of(1787, Month.MARCH, 5));
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);
@@ -204,8 +205,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.of(1787, Month.MARCH, 1, 0, 0));
-        zviera.setDatumNadobudnutia(LocalDateTime.of(1787, Month.MARCH, 1, 0, 0));
+        zviera.setDatumNarodenia(LocalDate.of(1787, Month.MARCH, 1));
+        zviera.setDatumNadobudnutia(LocalDate.of(1787, Month.MARCH, 1));
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         List<Zviera> zvierata = new ArrayList<>();
@@ -224,8 +225,8 @@ public class MysqlZvieraDaoTest {
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
-        zviera.setDatumNarodenia(LocalDateTime.of(1787, Month.MARCH, 1, 0, 0));
-        zviera.setDatumNadobudnutia(LocalDateTime.of(1787, Month.MARCH, 1, 0, 0));
+        zviera.setDatumNarodenia(LocalDate.of(1787, Month.MARCH, 1));
+        zviera.setDatumNadobudnutia(LocalDate.of(1787, Month.MARCH, 1));
         zviera.setKupnaCena(50);
         zviera.setPohlavie("f");
         zvieraDao.add(zviera);

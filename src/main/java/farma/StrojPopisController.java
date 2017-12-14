@@ -21,15 +21,20 @@ import javafx.stage.Stage;
 
 public class StrojPopisController {
     
-    private StrojFxModel popisStroj;
-    private Stroj kliknutyStroj;
-    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
+    private final StrojFxModel popisStroj;
+    private final Stroj kliknutyStroj;
+    private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
     private ObservableList<Stroj> strojeList = null;
     
     public StrojPopisController(Stroj stroj){
         kliknutyStroj = stroj;
         popisStroj = new StrojFxModel();
     }
+    
+    
+    
+    
+    
     
     @FXML
     private TableView<Stroj> kliknutyStrojTableView;
@@ -48,6 +53,24 @@ public class StrojPopisController {
 
     @FXML
     private Button vlozitPopisButton;
+    
+    @FXML
+    private TableColumn<Stroj, Integer> idCol;
+
+    @FXML
+    private TableColumn<Stroj, String> vyrobcaCol;
+
+    @FXML
+    private TableColumn<Stroj, String> typCol;
+
+    @FXML
+    private TableColumn<Stroj, String> kategoriaCol;
+
+    @FXML
+    private TableColumn<Stroj, Object> datumCol;
+
+    @FXML
+    private TableColumn<Stroj, Double> cenaCol;
 
     @FXML
     void initialize() {
@@ -56,30 +79,14 @@ public class StrojPopisController {
         vybranyStroj.add(stroj);
         strojeList = FXCollections.observableArrayList(vybranyStroj);
         
-        TableColumn<Stroj, Integer> idCol = new TableColumn<>("ID");
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        kliknutyStrojTableView.getColumns().add(idCol);
-
-        TableColumn<Stroj, String> vyrobcaCol = new TableColumn<>("Výrobca");
-        vyrobcaCol.setCellValueFactory(new PropertyValueFactory<>("vyrobca"));
-        kliknutyStrojTableView.getColumns().add(vyrobcaCol);
-
-        TableColumn<Stroj, String> typCol = new TableColumn<>("Typ");
-        typCol.setCellValueFactory(new PropertyValueFactory<>("typ"));
-        kliknutyStrojTableView.getColumns().add(typCol);
-
-        TableColumn<Stroj, String> kategoriaCol = new TableColumn<>("Kategória");
-        kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
-        kliknutyStrojTableView.getColumns().add(kategoriaCol);
-
-        TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
-        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
-        kliknutyStrojTableView.getColumns().add(datumCol);
-
-        TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");
-        cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
-        kliknutyStrojTableView.getColumns().add(cenaCol);
         
+        
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        vyrobcaCol.setCellValueFactory(new PropertyValueFactory<>("vyrobca"));
+        typCol.setCellValueFactory(new PropertyValueFactory<>("typ"));
+        kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
+        datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
+        cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
         kliknutyStrojTableView.setItems(strojeList);
         
         popisStroj.setStroj(stroj);

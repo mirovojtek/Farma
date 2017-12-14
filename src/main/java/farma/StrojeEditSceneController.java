@@ -45,7 +45,6 @@ public class StrojeEditSceneController {
 
     @FXML
     void initialize() {
-
         vyrobcaTextField.textProperty().bindBidirectional(aktualnyStroj.vyrobcaProperty());
         typTextField.textProperty().bindBidirectional(aktualnyStroj.typProperty());
         kategoriaTextField.textProperty().bindBidirectional(aktualnyStroj.kategoriaProperty());

@@ -1,4 +1,3 @@
-
 package farma;
 
 import java.time.LocalDate;
@@ -14,9 +13,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-
 public class StrojFxModel {
-    
+
     private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty vyrobca = new SimpleStringProperty();
     private StringProperty typ = new SimpleStringProperty();
@@ -34,7 +32,7 @@ public class StrojFxModel {
     public void setVyrobca(String vyrobca) {
         this.vyrobca.set(vyrobca);
     }
-    
+
     public String getVyrobca() {
         return vyrobca.get();
     }
@@ -46,8 +44,8 @@ public class StrojFxModel {
     public void setTyp(String typ) {
         this.typ.set(typ);
     }
-    
-     public String getTyp() {
+
+    public String getTyp() {
         return typ.get();
     }
 
@@ -58,7 +56,7 @@ public class StrojFxModel {
     public void setKategoria(String kategoria) {
         this.kategoria.set(kategoria);
     }
-    
+
     public String getKategoria() {
         return kategoria.get();
     }
@@ -70,7 +68,7 @@ public class StrojFxModel {
     public void setCena(Double cena) {
         this.cena.set(cena);
     }
-    
+
     public Double getCena() {
         return cena.get();
     }
@@ -82,7 +80,7 @@ public class StrojFxModel {
     public void setDatum(LocalDate datum) {
         this.datum.set(datum);
     }
-    
+
     public LocalDate getDatum() {
         return datum.get();
     }
@@ -94,11 +92,10 @@ public class StrojFxModel {
     public void setOpravy(List<Oprava> opravy) {
         this.opravy.set(opravy);
     }
-    
-     public List<Oprava> getOpravy() {
+
+    public List<Oprava> getOpravy() {
         return opravy.get();
     }
-
 
     public ObjectProperty<List<Tankovanie>> tankovaniaProperty() {
         return tankovania;
@@ -107,11 +104,11 @@ public class StrojFxModel {
     public void setTankovania(List<Tankovanie> tankovania) {
         this.tankovania.set(tankovania);
     }
-    
+
     public List<Tankovanie> getTankovania() {
         return tankovania.get();
     }
-    
+
     public StringProperty popisProperty() {
         return popis;
     }
@@ -119,7 +116,7 @@ public class StrojFxModel {
     public void setPopis(String popis) {
         this.popis.set(popis);
     }
-    
+
     public String getPopis() {
         return popis.get();
     }
@@ -131,13 +128,12 @@ public class StrojFxModel {
     public void setId(Integer id) {
         this.id.set(id);
     }
-    public int getId(){
+
+    public int getId() {
         return id.get();
     }
-    
-    
-    
-    public Stroj getStroj(){
+
+    public Stroj getStroj() {
         Stroj stroj = new Stroj();
         stroj.setId(getId());
         stroj.setVyrobca(getVyrobca());
@@ -145,13 +141,13 @@ public class StrojFxModel {
         stroj.setKategoria(getKategoria());
         stroj.setCena(getCena());
         stroj.setDatum(getDatum());
-        //stroj.setOpravy(getOpravy());
-        //stroj.setTankovania(getTankovania());
+        stroj.setOpravy(getOpravy());
+        stroj.setTankovania(getTankovania());
         stroj.setPopis(getPopis());
         return stroj;
     }
-    
-    public void setStroj(Stroj stroj){
+
+    public void setStroj(Stroj stroj) {
         setId(stroj.getId());
         setVyrobca(stroj.getVyrobca());
         setTyp(stroj.getTyp());
@@ -162,8 +158,8 @@ public class StrojFxModel {
         setTankovania(stroj.getTankovania());
         setPopis(stroj.getPopis());
     }
-    
-    public void newStroj(){
+
+    public void newStroj() {
         setId(0);
         setVyrobca(null);
         setTyp(null);

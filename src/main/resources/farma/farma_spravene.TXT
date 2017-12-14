@@ -13,4 +13,5 @@ Farma - spravené veci
 - TabulkaOprav.fxml - prispôsobivé okno, upravené ståpce tabu¾ky, pridaný stlpec - ID stroja
 - StrojTabulkaOprav - prerobené ståpce
 
+- StrojEditScene - prispôsobivé okno
 

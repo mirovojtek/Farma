@@ -1,0 +1,16 @@
+Farma - spravené veci
+
+14.12.2017
+- TankovanieKonkrétnehoStroja: okno-prispôsobivé, upravené tabu¾ky,	controller-prerobené ståpce tabuliek
+
+- OpravyKonkretnehoStroja: okno-prispôsobivé, vyhodenie zobrazovania popisu opravy, 	controller-prerobené ståpce tabuliek
+
+- StrojScene - prerobené ståpce tabu¾ky
+
+- TabulkaTankovania.fxml - prispôsobivé okno, upravené ståpce tabu¾ky, pridaný stlpec - ID stroja
+- StrojTabulkaTankovania.java - prerobené stlpce tabu¾ky
+
+- TabulkaOprav.fxml - prispôsobivé okno, upravené ståpce tabu¾ky, pridaný stlpec - ID stroja
+- StrojTabulkaOprav - prerobené ståpce
+
+

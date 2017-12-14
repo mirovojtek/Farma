@@ -6,33 +6,11 @@ import java.time.format.DateTimeFormatter;
 public class Pole {
 
     private int id;
-    private String parcela;
-    private int vymera;
-    private String typ;
-    private LocalDateTime datumNadobudnutia;
-    private double cena;
-        
-    public LocalDateTime getDatumNadobudnutia() {
-        return datumNadobudnutia;
-    }
-
-    public String getFDatumNadobudnutia() {
-        DateTimeFormatter formatovac = DateTimeFormatter.
-                ofPattern("dd.MM.yyyy");
-        return datumNadobudnutia.format(formatovac);
-    }
-    
-    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
-        this.datumNadobudnutia = datumNadobudnutia;
-    }
-
-    public double getCena() {
-        return cena;
-    }
-
-    public void setCena(double cena) {
-        this.cena = cena;
-    }
+    private String typParcely;
+    private String cisloParcely;
+    private double vymera;
+    private String typPozemku;
+    private String vlastnictvo;
 
     public int getId() {
         return id;
@@ -42,33 +20,49 @@ public class Pole {
         this.id = id;
     }
 
-    public String getParcela() {
-        return parcela;
+    public String getTypParcely() {
+        return typParcely;
     }
 
-    public void setParcela(String parcela) {
-        this.parcela = parcela;
+    public void setTypParcely(String typParcely) {
+        this.typParcely = typParcely;
     }
 
-    public int getVymera() {
+    public String getCisloParcely() {
+        return cisloParcely;
+    }
+
+    public void setCisloParcely(String parcela) {
+        this.cisloParcely = parcela;
+    }
+
+    public double getVymera() {
         return vymera;
     }
 
-    public void setVymera(int vymera) {
+    public void setVymera(double vymera) {
         this.vymera = vymera;
     }
 
-    public String getTyp() {
-        return typ;
+    public String getTypPozemku() {
+        return typPozemku;
     }
 
-    public void setTyp(String typ) {
-        this.typ = typ;
+    public void setTypPozemku(String typ) {
+        this.typPozemku = typ;
+    }
+
+    public String getVlastnictvo() {
+        return vlastnictvo;
+    }
+
+    public void setVlastnictvo(String vlastnictvo) {
+        this.vlastnictvo = vlastnictvo;
     }
 
     @Override
     public String toString() {
-        return id + " " + parcela + " " + vymera + " " + typ;
+        return id + " " + typParcely + " " + cisloParcely + " " + vymera + " " + typPozemku;
     }
 
 }

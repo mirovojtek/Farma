@@ -13,11 +13,11 @@ import javafx.beans.property.StringProperty;
 public class PoleFxModel {
 
     private IntegerProperty id = new SimpleIntegerProperty();
-    private StringProperty parcela = new SimpleStringProperty();
-    private IntegerProperty vymera = new SimpleIntegerProperty();
-    private StringProperty typ = new SimpleStringProperty();
-    private ObjectProperty<LocalDateTime> datumNadobudnutia = new SimpleObjectProperty<>();
-    private DoubleProperty cena = new SimpleDoubleProperty();
+    private StringProperty typParcely = new SimpleStringProperty();
+    private StringProperty cisloParcely = new SimpleStringProperty();
+    private DoubleProperty vymera = new SimpleDoubleProperty();
+    private StringProperty typPozemku = new SimpleStringProperty();
+    private StringProperty vlastnictvo = new SimpleStringProperty();
 
     public IntegerProperty idProperty() {
         return id;
@@ -31,92 +31,92 @@ public class PoleFxModel {
         return id.get();
     }
 
-    public StringProperty parcelaProperty() {
-        return parcela;
+    public StringProperty typParcelyProperty() {
+        return typParcely;
     }
 
-    public void setParcela(String parcela) {
-        this.parcela.set(parcela);
+    public void setTypParcely(String parcela) {
+        this.typParcely.set(parcela);
     }
 
-    public String getParcela() {
-        return parcela.get();
+    public String getTypParcely() {
+        return typParcely.get();
+    }
+    
+    public StringProperty cisloParcelyProperty() {
+        return cisloParcely;
     }
 
-    public IntegerProperty vymeraProperty() {
+    public void setCisloParcely(String parcela) {
+        this.cisloParcely.set(parcela);
+    }
+
+    public String getCisloParcely() {
+        return cisloParcely.get();
+    }
+
+    public DoubleProperty vymeraProperty() {
         return vymera;
     }
 
-    public void setVymera(Integer vymera) {
+    public void setVymera(Double vymera) {
         this.vymera.set(vymera);
     }
 
-    public Integer getVymera() {
+    public Double getVymera() {
         return vymera.get();
     }
 
-    public StringProperty typProperty() {
-        return typ;
+    public StringProperty typPozemkuProperty() {
+        return typPozemku;
     }
 
-    public void setTyp(String typ) {
-        this.typ.set(typ);
+    public void setTypPozemku(String typ) {
+        this.typPozemku.set(typ);
     }
 
-    public String getTyp() {
-        return typ.get();
+    public String getTypPozemku() {
+        return typPozemku.get();
     }
 
-    public ObjectProperty<LocalDateTime> datumNadobudnutiaProperty() {
-        return datumNadobudnutia;
+    public StringProperty vlastnictvoProperty() {
+        return vlastnictvo;
     }
 
-    public void setDatumNadobudnutia(LocalDateTime datumNadobudnutia) {
-        this.datumNadobudnutia.set(datumNadobudnutia);
+    public void setVlastnictvo(String vlastnictvo) {
+        this.vlastnictvo.set(vlastnictvo);
     }
 
-    public LocalDateTime getDatumNadobudnutia() {
-        return datumNadobudnutia.get();
-    }
-
-    public DoubleProperty cenaProperty() {
-        return cena;
-    }
-
-    public void setCena(Double cena) {
-        this.cena.set(cena);
-    }
-
-    public Double getCena() {
-        return cena.get();
+    public String getVlastnictvo() {
+        return vlastnictvo.get();
     }
 
     public Pole getPole() {
         Pole pole = new Pole();
         pole.setId(getId());
-        pole.setParcela(getParcela());
+        pole.setTypParcely(getTypParcely());
+        pole.setCisloParcely(getCisloParcely());
         pole.setVymera(getVymera());
-        pole.setTyp(getTyp());
-        pole.setDatumNadobudnutia(getDatumNadobudnutia());
-        pole.setCena(getCena());
+        pole.setTypPozemku(getTypPozemku());
+        pole.setVlastnictvo(getVlastnictvo());
         return pole;
     }
 
     public void setPole(Pole pole) {
         setId(pole.getId());
-        setParcela(pole.getParcela());
+        setTypParcely(pole.getTypParcely());
+        setCisloParcely(pole.getCisloParcely());
         setVymera(pole.getVymera());
-        setTyp(pole.getTyp());
-        setDatumNadobudnutia(pole.getDatumNadobudnutia());
-        setCena(pole.getCena());
+        setTypPozemku(pole.getTypPozemku());
+        setVlastnictvo(pole.getVlastnictvo());
     }
 
     public void newPole() {
         setId(0);
-        setParcela(null);
-        setVymera(0);
-        setTyp(null);
-        setDatumNadobudnutia(null);
-        setCena(0.0);
+        setTypParcely(null);
+        setCisloParcely(null);
+        setVymera(0.0);
+        setTypPozemku(null);
+        setVlastnictvo(null);
     }
 }

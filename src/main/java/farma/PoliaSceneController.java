@@ -60,9 +60,13 @@ public class PoliaSceneController {
         poliaTableView.getColumns().add(idCol);
 
         // parcela
-        TableColumn<Pole, String> parcelaCol = new TableColumn<>("Parcela");
-        parcelaCol.setCellValueFactory(new PropertyValueFactory<>("parcela"));
-        poliaTableView.getColumns().add(parcelaCol);
+        TableColumn<Pole, String> typParcelyCol = new TableColumn<>("Typ Parcely");
+        typParcelyCol.setCellValueFactory(new PropertyValueFactory<>("typParcely"));
+        poliaTableView.getColumns().add(typParcelyCol );
+        
+        TableColumn<Pole, String> cisloParcelyCol = new TableColumn<>("Cislo Parcely");
+        cisloParcelyCol.setCellValueFactory(new PropertyValueFactory<>("cisloParcely"));
+        poliaTableView.getColumns().add(cisloParcelyCol);
 
         // vymera
         TableColumn<Pole, Integer> vymeraCol = new TableColumn<>("Výmera");
@@ -70,19 +74,14 @@ public class PoliaSceneController {
         poliaTableView.getColumns().add(vymeraCol);
 
         // typ
-        TableColumn<Pole, String> typCol = new TableColumn<>("Typ");
-        typCol.setCellValueFactory(new PropertyValueFactory<>("typ"));
+        TableColumn<Pole, String> typCol = new TableColumn<>("Typ Pozemku");
+        typCol.setCellValueFactory(new PropertyValueFactory<>("typPozemku"));
         poliaTableView.getColumns().add(typCol);
 
-        // dátum nadobudnutia
-        TableColumn<Pole, Object> datumNadobudnutiaCol = new TableColumn<>("Dátum nadobudnutia");
-        datumNadobudnutiaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
-        poliaTableView.getColumns().add(datumNadobudnutiaCol);
-
         // kúpna cena
-        TableColumn<Pole, Double> cenaCol = new TableColumn<>("Cena");
-        cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
-        poliaTableView.getColumns().add(cenaCol);
+        TableColumn<Pole, Double> vlastnictvoCol = new TableColumn<>("Vlastnictvo");
+        vlastnictvoCol.setCellValueFactory(new PropertyValueFactory<>("vlastnictvo"));
+        poliaTableView.getColumns().add(vlastnictvoCol);
 
         poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
 

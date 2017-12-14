@@ -22,7 +22,9 @@ public class MysqlPoleDao implements PoleDao {
 
     @Override
     public List<Pole> getAll() {
-        String sql = "SELECT pole.id AS 'pId', pole.parcela AS 'pParcela', pole.vymera AS 'pVymera', pole.typ AS 'typ', pole.datum_nadobudnutia AS 'pDatumNadobudnutia', pole.cena AS 'pCena' FROM pole;";
+        String sql = "SELECT pole.id AS 'pId', pole.typ_parcely AS 'pTypParcely',"
+                + " pole.cislo_parcely AS 'pCisloParcely', pole.vymera AS 'pVymera',"
+                + " pole.typ_pozemku AS 'pTypPozemku', pole.vlastnictvo AS 'pVlastnictvo' FROM pole";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Pole>>() {
             @Override
             public List<Pole> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -33,15 +35,11 @@ public class MysqlPoleDao implements PoleDao {
                     if (pole == null || poleId != pole.getId()) {
                         pole = new Pole();
                         pole.setId(poleId);
-                        pole.setParcela(rs.getString("pParcela"));
-                        pole.setVymera(rs.getInt("pVymera"));
-                        pole.setTyp("pTyp");
-                        Timestamp ts = rs.getTimestamp("pDatumNadobudnutia");
-                        ts = rs.getTimestamp("pDatumNadobudnutia");
-                        if (ts != null) {
-                            pole.setDatumNadobudnutia(ts.toLocalDateTime());
-                        }
-                        pole.setCena(rs.getDouble("pCena"));
+                        pole.setTypParcely(rs.getString("pTypParcely"));
+                        pole.setCisloParcely(rs.getString("pCisloParcely"));
+                        pole.setVymera(rs.getDouble("pVymera"));
+                        pole.setTypPozemku(rs.getString("pTypPozemku"));
+                        pole.setVlastnictvo(rs.getString("pVlastnictvo"));
                         polia.add(pole);
                     }
                 }
@@ -59,23 +57,23 @@ public class MysqlPoleDao implements PoleDao {
             SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
             simpleJdbcInsert.withTableName("pole");
             simpleJdbcInsert.usingGeneratedKeyColumns("id");
-            simpleJdbcInsert.usingColumns("parcela", "vymera", "typ", "cena");
+            simpleJdbcInsert.usingColumns("typ_parcely","cislo_parcely","vymera","typ_pozemku","vlastnictvo");
             Map<String, Object> data = new HashMap<>();
-            data.put("parcela", pole.getParcela());
+            data.put("typ_parcely", pole.getTypParcely());
+            data.put("cislo_parcely", pole.getCisloParcely());
             data.put("vymera", pole.getVymera());
-            data.put("typ", pole.getTyp());
-            data.put("datum_nadobudnutia", pole.getDatumNadobudnutia());
-            data.put("cena", pole.getCena());
+            data.put("typ_pozemku", pole.getTypPozemku());
+            data.put("vlastnictvo", pole.getVlastnictvo());
             pole.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
         } else { // UPDATE
-            String sql = "UPDATE pole SET parcela = ?, vymera = ?,"
-                    + "typ = ?, datum_nadobudnutia = ?, cena = ? WHERE id = " + pole.getId();
+            String sql = "UPDATE pole SET typ_parcely = ?, cislo_parcely = ?, vymera = ?,"
+                    + "typ_pozemku = ?, vlastnictvo = ? WHERE id = " + pole.getId();
             jdbcTemplate.update(sql,
-                    pole.getParcela(),
+                    pole.getTypParcely(),
+                    pole.getCisloParcely(),
                     pole.getVymera(),
-                    pole.getTyp(),
-                    pole.getDatumNadobudnutia(),
-                    pole.getCena());
+                    pole.getTypPozemku(),
+                    pole.getVlastnictvo());
         }
         return pole;
     }
@@ -93,7 +91,9 @@ public class MysqlPoleDao implements PoleDao {
 
     @Override
     public Pole findById(int id) {
-        String sql = "SELECT pole.id AS 'pId', pole.parcela AS 'pParcela', pole.vymera AS 'pVymera', pole.typ AS 'typ', pole.datum_nadobudnutia AS 'pDatumNadobudnutia', pole.cena AS 'pCena' FROM pole WHERE pole.id=" + id + ";";
+        String sql = "SELECT pole.id AS 'pId', pole.typ_parcely AS 'pTypParcely',"
+                + " pole.cislo_parcely AS 'pCisloParcely', pole.vymera AS 'pVymera',"
+                + " pole.typ_pozemku AS 'pTypPozemku', pole.vlastnictvo AS 'pVlastnictvo' FROM pole WHERE pole.id=" + id + ";";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Pole>() {
             @Override
             public Pole extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -103,15 +103,11 @@ public class MysqlPoleDao implements PoleDao {
                     if (pole == null || poleId != pole.getId()) {
                         pole = new Pole();
                         pole.setId(poleId);
-                        pole.setParcela(rs.getString("pParcela"));
-                        pole.setVymera(rs.getInt("pVymera"));
-                        pole.setTyp("pTyp");
-                        Timestamp ts = rs.getTimestamp("pDatumNadobudnutia");
-                        ts = rs.getTimestamp("pDatumNadobudnutia");
-                        if (ts != null) {
-                            pole.setDatumNadobudnutia(ts.toLocalDateTime());
-                        }
-                        pole.setCena(rs.getDouble("pCena"));
+                        pole.setTypParcely(rs.getString("pTypParcely"));
+                        pole.setCisloParcely(rs.getString("pCisloParcely"));
+                        pole.setVymera(rs.getDouble("pVymera"));
+                        pole.setTypPozemku(rs.getString("pTypPozemku"));
+                        pole.setVlastnictvo(rs.getString("pVlastnictvo"));
                         return pole;
                     }
                 }

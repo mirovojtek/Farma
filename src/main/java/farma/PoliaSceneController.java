@@ -85,6 +85,26 @@ public class PoliaSceneController {
 
         poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
 
+        pridatPoleButton.setOnAction(eh ->{
+             PoliaEditSceneController controller
+                    = new PoliaEditSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PoliaEditScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Pridať pole");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+        });
+        
         zmazatPoleButton.setOnAction(eh -> {
             if (kliknutePole == null) {
                 PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();

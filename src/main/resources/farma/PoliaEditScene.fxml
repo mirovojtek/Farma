@@ -30,8 +30,8 @@
       <Label layoutX="19.0" layoutY="73.0" text="Typ parcely:" />
       <RadioButton fx:id="eRadioButton" layoutX="126.0" layoutY="73.0" mnemonicParsing="false" text="E" />
       <RadioButton fx:id="cRadioButton" layoutX="211.0" layoutY="73.0" mnemonicParsing="false" text="C" />
-      <RadioButton fx:id="najomcaRadioButton" layoutX="192.0" layoutY="212.0" mnemonicParsing="false" text="nájomca" />
-      <RadioButton fx:id="vlastnikRadioButton" layoutX="96.0" layoutY="212.0" mnemonicParsing="false" text="vlastník" />
-      <RadioButton fx:id="ineRadioButton" layoutX="277.0" layoutY="212.0" mnemonicParsing="false" text="iné" />
+      <RadioButton fx:id="najomcaRadioButton" layoutX="192.0" layoutY="212.0" mnemonicParsing="false" text="najomca" />
+      <RadioButton fx:id="vlastnikRadioButton" layoutX="96.0" layoutY="212.0" mnemonicParsing="false" text="vlastnik" />
+      <RadioButton fx:id="ineRadioButton" layoutX="277.0" layoutY="212.0" mnemonicParsing="false" text="ine" />
    </children>
 </AnchorPane>

@@ -20,7 +20,7 @@ public class StrojeEditSceneController {
 
     private StrojFxModel aktualnyStroj;
     private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
-    
+
     public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();
     }
@@ -36,7 +36,6 @@ public class StrojeEditSceneController {
 
     @FXML
     private DatePicker datumDatePicker;
-
 
     @FXML
     private TextField cenaTextField;
@@ -100,13 +99,10 @@ public class StrojeEditSceneController {
                     stage.setTitle("Nesprávne vyplnenie údajov");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
-
             }
-
         });
     }
 }

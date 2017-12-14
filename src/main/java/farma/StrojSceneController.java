@@ -47,6 +47,24 @@ public class StrojSceneController {
     private Button zobrazVsetkyButton;
 
     @FXML
+    private TableColumn<Stroj, Integer> idCol;
+
+    @FXML
+    private TableColumn<Stroj, String> vyrobcaCol;
+
+    @FXML
+    private TableColumn<Stroj, String> typCol;
+
+    @FXML
+    private TableColumn<Stroj, String> kategoriaCol;
+
+    @FXML
+    private TableColumn<Stroj, Object> datumCol;
+
+    @FXML
+    private TableColumn<Stroj, Double> cenaCol;
+
+    @FXML
     void initialize() {
 
         zobrazVsetkyButton.setOnAction(eh -> {
@@ -68,7 +86,6 @@ public class StrojSceneController {
                 stage.setTitle("Rozšírené vyhľadávanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -97,7 +114,6 @@ public class StrojSceneController {
                 stage.setTitle("Pridať stroj");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -118,11 +134,9 @@ public class StrojSceneController {
                     stage.setTitle("Zmazať stroj");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
-
                 return;
             }
             StrojDeleteSceneController controller
@@ -138,7 +152,6 @@ public class StrojSceneController {
                 stage.setTitle("Zmazať stroj");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -174,36 +187,17 @@ public class StrojSceneController {
                     } catch (IOException iOException) {
                         iOException.printStackTrace();
                     }
-
                 }
             });
             return row;
         });
 
-        TableColumn<Stroj, Integer> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        strojeTableView.getColumns().add(idCol);
-
-        TableColumn<Stroj, String> vyrobcaCol = new TableColumn<>("Výrobca");
         vyrobcaCol.setCellValueFactory(new PropertyValueFactory<>("vyrobca"));
-        strojeTableView.getColumns().add(vyrobcaCol);
-
-        TableColumn<Stroj, String> typCol = new TableColumn<>("Typ");
         typCol.setCellValueFactory(new PropertyValueFactory<>("typ"));
-        strojeTableView.getColumns().add(typCol);
-
-        TableColumn<Stroj, String> kategoriaCol = new TableColumn<>("Kategória");
         kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
-        strojeTableView.getColumns().add(kategoriaCol);
-
-        TableColumn<Stroj, Object> datumCol = new TableColumn<>("Dátum");
         datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
-        strojeTableView.getColumns().add(datumCol);
-
-        TableColumn<Stroj, Double> cenaCol = new TableColumn<>("Cena");
         cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
-        strojeTableView.getColumns().add(cenaCol);
-
         strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
 
         opravyButton.setOnAction(eh -> {
@@ -220,7 +214,6 @@ public class StrojSceneController {
                 stage.setTitle("Opravy");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -240,7 +233,6 @@ public class StrojSceneController {
                 stage.setTitle("Tankovanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }

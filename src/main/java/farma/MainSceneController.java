@@ -34,28 +34,22 @@ public class MainSceneController {
     @FXML
     void initialize() {
         zvierataButton.setOnAction(eh -> {
-
             ZvieraSceneController controller
                     = new ZvieraSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("ZvierataScene.fxml"));
                 loader.setController(controller);
-
                 Parent parentPane = loader.load();
                 Scene scene = new Scene(parentPane);
-
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Zvierata");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
-
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-
         });
 
         strojeButton.setOnAction(eh -> {
@@ -64,17 +58,13 @@ public class MainSceneController {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("StrojeScene.fxml"));
                 loader.setController(controller);
-
                 Parent parentPane = loader.load();
                 Scene scene = new Scene(parentPane);
-
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Stroje");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
-
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -93,8 +83,6 @@ public class MainSceneController {
                 stage.setTitle("Polia");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
-
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }

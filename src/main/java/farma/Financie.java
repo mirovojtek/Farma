@@ -1,12 +1,13 @@
 package farma;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Financie {
 
     private int id;
-    private LocalDateTime datum;
+    private LocalDate datum;
     private double suma;
     private String typ;
     private String popis;
@@ -19,7 +20,7 @@ public class Financie {
         this.id = id;
     }
 
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
@@ -29,7 +30,7 @@ public class Financie {
         return datum.format(formatovac);
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

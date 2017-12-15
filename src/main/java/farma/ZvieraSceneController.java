@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 
 public class ZvieraSceneController {
 
-    private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
-    private ZvieraFxModel aktualneZviera = new ZvieraFxModel();
+    private final ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
+    private ZvieraFxModel aktualneZviera;
     private ObservableList<Zviera> z;
     private Zviera kliknuteZviera;
 
@@ -33,6 +33,27 @@ public class ZvieraSceneController {
 
     @FXML
     private TableView<Zviera> zvierataTableView;
+
+    @FXML
+    private TableColumn<Zviera, String> registracneCisloZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> druhZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> plemenoZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> pohlavieZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Object> datumNarodeniaZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Object> datumNadobudnutiaZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Double> cenaZvieraCol;
 
     @FXML
     private Button zmazatZvieraButton;
@@ -48,8 +69,6 @@ public class ZvieraSceneController {
 
     @FXML
     void initialize() {
-        // List<Zviera> zvierata = zvieraDao.getAll();
-
         zobrazVsetkyButton.setOnAction(eh -> {
             zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
             kliknuteZviera = null;
@@ -86,40 +105,13 @@ public class ZvieraSceneController {
             }
         });
 
-        // registračné číslo
-        TableColumn<Zviera, String> registracneCisloCol = new TableColumn<>("Registračné číslo");
-        registracneCisloCol.setCellValueFactory(new PropertyValueFactory<>("registracneCislo"));
-        zvierataTableView.getColumns().add(registracneCisloCol);
-
-        // druh
-        TableColumn<Zviera, String> druhCol = new TableColumn<>("Druh");
-        druhCol.setCellValueFactory(new PropertyValueFactory<>("druh"));
-        zvierataTableView.getColumns().add(druhCol);
-
-        // plemeno
-        TableColumn<Zviera, String> plemenoCol = new TableColumn<>("Plemeno");
-        plemenoCol.setCellValueFactory(new PropertyValueFactory<>("plemeno"));
-        zvierataTableView.getColumns().add(plemenoCol);
-
-        // pohlavie
-        TableColumn<Zviera, String> pohlavieCol = new TableColumn<>("Pohlavie");
-        pohlavieCol.setCellValueFactory(new PropertyValueFactory<>("pohlavie"));
-        zvierataTableView.getColumns().add(pohlavieCol);
-
-        // dátum narodenia
-        TableColumn<Zviera, Object> datumNarodeniaCol = new TableColumn<>("Dátum narodenia");
-        datumNarodeniaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNarodenia"));
-        zvierataTableView.getColumns().add(datumNarodeniaCol);
-
-        // dátum nadobudnutia
-        TableColumn<Zviera, Object> datumNadobudnutiaCol = new TableColumn<>("Dátum nadobudnutia");
-        datumNadobudnutiaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
-        zvierataTableView.getColumns().add(datumNadobudnutiaCol);
-
-        // kúpna cena
-        TableColumn<Zviera, Double> kupnaCenaCol = new TableColumn<>("Kúpna cena");
-        kupnaCenaCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
-        zvierataTableView.getColumns().add(kupnaCenaCol);
+        registracneCisloZvieraCol.setCellValueFactory(new PropertyValueFactory<>("registracneCislo"));
+        druhZvieraCol.setCellValueFactory(new PropertyValueFactory<>("druh"));
+        plemenoZvieraCol.setCellValueFactory(new PropertyValueFactory<>("plemeno"));
+        pohlavieZvieraCol.setCellValueFactory(new PropertyValueFactory<>("pohlavie"));
+        datumNarodeniaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNarodenia"));
+        datumNadobudnutiaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
+        cenaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
 
         zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
 

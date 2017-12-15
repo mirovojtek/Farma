@@ -88,7 +88,6 @@ public class ZvieraRozsireneVyhladavanieController {
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                 pohlavie = newValue;
             }
-
         });
         plemenoComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPlemena()));
         plemenoComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {

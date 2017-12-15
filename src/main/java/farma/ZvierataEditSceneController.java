@@ -1,48 +1,36 @@
 package farma;
 
-import farma.DaoFactory;
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import javafx.util.converter.NumberStringConverter;
-import javax.swing.text.DateFormatter;
 
 public class ZvierataEditSceneController {
 
     private Zviera zviera;
-    private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
-    private ZvieraFxModel aktualneZviera;
+    private final ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
+    private final ZvieraFxModel aktualneZviera;
     private ObservableList<Zviera> zvierataList = null;
+    private String pohlavie = "%";
 
     public ZvierataEditSceneController() {
         aktualneZviera = new ZvieraFxModel();
     }
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField registracneCisloTextField;
@@ -51,22 +39,26 @@ public class ZvierataEditSceneController {
     private TextField druhTextField;
 
     @FXML
-    private DatePicker datumNarodeniaDatePicker;
-       
-    @FXML
-    private DatePicker datumNadobudnutiaDatePicker;
-     
-    @FXML
     private TextField plemenoTextField;
 
     @FXML
-    private TextField kupnaCenaTextField;
+    private ComboBox<String> pohlavieComboBox;
 
     @FXML
-    private TextField pohlavieTextField;
+    private DatePicker datumNarodeniaDatePicker;
+
+    @FXML
+    private DatePicker datumNadobudnutiaDatePicker;
+
+    @FXML
+    private TextField cenaTextField;
 
     @FXML
     private Button vlozitButton;
+
+    public String getPohlavie() {
+        return pohlavie;
+    }
 
     @FXML
     void initialize() {
@@ -77,10 +69,16 @@ public class ZvierataEditSceneController {
         registracneCisloTextField.textProperty().bindBidirectional(aktualneZviera.registracneCisloProperty());
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
         plemenoTextField.textProperty().bindBidirectional(aktualneZviera.plemenoProperty());
-        pohlavieTextField.textProperty().bindBidirectional(aktualneZviera.pohlavieProperty());
 
+        pohlavieComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPohlavia()));
+        pohlavieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
+                pohlavie = newValue;
+            }
+        });
         StringConverter<Number> converter = new NumberStringConverter();
-        kupnaCenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
+        cenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
 
         vlozitButton.setOnAction(eh -> {
             if (aktualneZviera.getRegistracneCislo() == null
@@ -98,7 +96,6 @@ public class ZvierataEditSceneController {
                     stage.setTitle("Registračné číslo");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
@@ -106,16 +103,18 @@ public class ZvierataEditSceneController {
                 try {
                     aktualneZviera.setDatumNarodenia(datumNarodeniaDatePicker.getValue());
                     aktualneZviera.setDatumNadobudnutia(datumNadobudnutiaDatePicker.getValue());
+                    aktualneZviera.setPohlavie(pohlavieComboBox.getValue());
                     zvieraDao.add(aktualneZviera.getZviera());
                     // vyčistenie všetkých textFieldov po pridaní zvieraťa
                     registracneCisloTextField.clear();
                     druhTextField.clear();
                     plemenoTextField.clear();
-                    pohlavieTextField.clear();
-                    kupnaCenaTextField.clear();
+                    pohlavieComboBox.setItems(FXCollections.observableList(new ArrayList<String>()));
+                    datumNadobudnutiaDatePicker.getEditor().clear();
+                    datumNarodeniaDatePicker.getEditor().clear();
+                    cenaTextField.clear();
                 } catch (Exception e) {
                     System.err.println("Problem s vložením.");
-
                     NespravneVyplnanieController controller = new NespravneVyplnanieController();
                     try {
                         FXMLLoader loader = new FXMLLoader(
@@ -128,15 +127,11 @@ public class ZvierataEditSceneController {
                         stage.setTitle("Nesprávne vyplnenie údajov");
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
                     } catch (IOException iOException) {
                         iOException.printStackTrace();
                     }
-
                 }
-
             }
         });
-
     }
 }

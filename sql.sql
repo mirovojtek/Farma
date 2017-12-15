@@ -14,6 +14,9 @@ select * from oprava;
 select * from zviera;
 select * from pole;
 
+select financie.id as 'fId', financie.datum as 'fDatum', financie.suma as 'fSuma', financie.typ as 'fTyp', financie.popis as 'fPopis' from financie;
+
+
 SELECT DISTINCT vyrobca AS 'vyrobca' FROM farma.stroj;
 SELECT DISTINCT typ AS 'typ' FROM farma.stroj WHERE vyrobca='Zetor';
 

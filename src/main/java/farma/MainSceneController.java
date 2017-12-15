@@ -87,5 +87,23 @@ public class MainSceneController {
                 iOException.printStackTrace();
             }
         });
+
+        financieButton.setOnAction(eh -> {
+            FinancieSceneController controller = new FinancieSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("FinancieScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Financie");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
     }
 }

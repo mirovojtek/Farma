@@ -19,7 +19,7 @@ public class ZvieraPopisController {
 
     private ZvieraFxModel popisZviera;
     private Zviera kliknuteZviera;
-    private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
+    private final ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
     private ObservableList<Zviera> zvierataList = null;
 
     public ZvieraPopisController(Zviera zviera) {

@@ -1,5 +1,5 @@
-
 package farma;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,22 +20,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class StrojPopisController {
-    
+
     private final StrojFxModel popisStroj;
     private final Stroj kliknutyStroj;
     private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
     private ObservableList<Stroj> strojeList = null;
-    
-    public StrojPopisController(Stroj stroj){
+
+    public StrojPopisController(Stroj stroj) {
         kliknutyStroj = stroj;
         popisStroj = new StrojFxModel();
     }
-    
-    
-    
-    
-    
-    
+
     @FXML
     private TableView<Stroj> kliknutyStrojTableView;
 
@@ -53,7 +48,7 @@ public class StrojPopisController {
 
     @FXML
     private Button vlozitPopisButton;
-    
+
     @FXML
     private TableColumn<Stroj, Integer> idCol;
 
@@ -78,9 +73,7 @@ public class StrojPopisController {
         List<Stroj> vybranyStroj = new ArrayList<>();
         vybranyStroj.add(stroj);
         strojeList = FXCollections.observableArrayList(vybranyStroj);
-        
-        
-        
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         vyrobcaCol.setCellValueFactory(new PropertyValueFactory<>("vyrobca"));
         typCol.setCellValueFactory(new PropertyValueFactory<>("typ"));
@@ -88,56 +81,55 @@ public class StrojPopisController {
         datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
         kliknutyStrojTableView.setItems(strojeList);
-        
+
         popisStroj.setStroj(stroj);
         Text t1 = new Text(popisStroj.getPopis());
         popisTextFlow.getChildren().add(t1);
         popisTextArea.textProperty().bindBidirectional(popisStroj.popisProperty());
-        
+
         vlozitPopisButton.setOnAction(eh -> {
             strojDao.pridajPopis(popisStroj.getStroj());
-             Text t2 = new Text(popisStroj.getPopis());
-             popisTextFlow.getChildren().clear();
+            Text t2 = new Text(popisStroj.getPopis());
+            popisTextFlow.getChildren().clear();
             popisTextFlow.getChildren().add(t2);
         });
-        opravyButton.setOnAction(eh ->{
-          OpravyKonkretnehoStroja  controller = new OpravyKonkretnehoStroja(kliknutyStroj);
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("OpravyKonkretnehoStroja.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Opravy");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
+        opravyButton.setOnAction(eh -> {
+            OpravyKonkretnehoStroja controller = new OpravyKonkretnehoStroja(kliknutyStroj);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("OpravyKonkretnehoStroja.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Opravy");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
         });
-        
-                 tankovaniaButton.setOnAction(eh ->{
-                        TankovaniaKonkretnehoStroja  controller = new TankovaniaKonkretnehoStroja(kliknutyStroj);
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("TankovaniaKonkretnehoStroja.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Tankovania");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
-                    });
+
+        tankovaniaButton.setOnAction(eh -> {
+            TankovaniaKonkretnehoStroja controller = new TankovaniaKonkretnehoStroja(kliknutyStroj);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("TankovaniaKonkretnehoStroja.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Tankovania");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
     }
-    
-    
+
 }

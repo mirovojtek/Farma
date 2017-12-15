@@ -102,6 +102,48 @@ public class MysqlOpravaDao implements OpravaDao {
         });
     }
 
+    //
+    @Override
+    public Oprava findById(int id) {
+        String sql = "select "
+                + "oprava.id as 'oId', "
+                + "oprava.stroj_id as 'oStrojId', "
+                + "oprava.datum as 'oDatum', "
+                + "oprava.cena as 'oCena', "
+                + "oprava.porucha as 'oPorucha', "
+                + "oprava.popis as 'oPopis' "
+                + "from oprava where oprava.id=" + id + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Oprava>() {
+            @Override
+            public Oprava extractData(ResultSet rs) throws SQLException, DataAccessException {
+                Oprava oprava = null;
+                while (rs.next()) {
+                    int opravaId = rs.getInt("oId");
+                    if (oprava == null || opravaId != oprava.getId()) {
+                        oprava = new Oprava();
+                        oprava.setId(opravaId);
+                        oprava.setIdStroj(rs.getInt("oStrojId"));
+                        Timestamp ts = rs.getTimestamp("oDatum");
+                        if (ts != null) {
+                            oprava.setDatum(ts.toLocalDateTime().toLocalDate());
+                        }
+                        oprava.setCena(rs.getDouble("oCena"));
+                        oprava.setPorucha(rs.getString("oPorucha"));
+                        String popis = rs.getString("oPopis");
+                        if (popis == null) {
+                            oprava.setPopis("");
+                        } else {
+                            oprava.setPopis(popis);
+                        }
+                        return oprava;
+                    }
+                }
+                return null;
+            }
+        });
+    }
+
+    //
     @Override
     public void add(Oprava oprava) {
         if (oprava == null) {
@@ -147,6 +189,14 @@ public class MysqlOpravaDao implements OpravaDao {
             int zmazany = jdbcTemplate.update(sql);
         } catch (Exception e) {
         }
+    }
+    
+    
+    @Override
+    public void pridajPopis(Oprava oprava) {
+        String sql = "UPDATE farma.oprava SET popis = ? WHERE id = "
+                + oprava.getId();
+        jdbcTemplate.update(sql, oprava.getPopis());
     }
 
 }

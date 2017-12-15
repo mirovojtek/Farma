@@ -22,8 +22,8 @@ public class OpravyKonkretnehoStroja {
 
     private Stroj kliknutyStroj;
     private Oprava kliknutaOprava;
-    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
-    private OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
+    private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
+    private final OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
     private ObservableList<Stroj> strojeList = null;
 
     public OpravyKonkretnehoStroja(Stroj stroj) {
@@ -96,7 +96,7 @@ public class OpravyKonkretnehoStroja {
         poruchaOpravaCol.setCellValueFactory(new PropertyValueFactory<>("porucha"));
 
         opravyTableView.setItems(FXCollections.observableArrayList(opravaDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
-
+       
         pridatButton.setOnAction(eh -> {
             OpravaEditSceneController controller = new OpravaEditSceneController(kliknutyStroj);
             try {
@@ -116,8 +116,8 @@ public class OpravyKonkretnehoStroja {
             opravyTableView.setItems(FXCollections.observableArrayList(opravaDao.getAllPodlaIdStroja(kliknutyStroj.getId())));
         });
 
-        TableView<Oprava> table = opravyTableView;
-        table.setRowFactory(tv -> {
+        TableView<Oprava> tabulka = opravyTableView;
+        tabulka.setRowFactory(tv -> {
             TableRow<Oprava> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY

@@ -1,38 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="12.0" layoutY="147.0" text="Dátum narodenia:" />
-      <Label layoutX="11.0" layoutY="73.0" prefHeight="17.0" prefWidth="65.0" text="Reg. číslo:" />
-      <Label layoutX="11.0" layoutY="110.0" prefHeight="17.0" prefWidth="42.0" text="Druh:" />
-      <VBox layoutX="114.0" layoutY="73.0" prefHeight="234.0" prefWidth="163.0" spacing="10.0">
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <TextField fx:id="registracneCisloTextField" prefHeight="25.0" prefWidth="163.0" />
-            <TextField fx:id="druhTextField" />
-            <DatePicker fx:id="datumNarodeniaDatePicker" />
-            <TextField fx:id="kupnaCenaTextField" prefHeight="25.0" prefWidth="163.0" />
-            <TextField fx:id="pohlavieTextField" prefHeight="16.0" prefWidth="163.0" />
-            <DatePicker fx:id="datumNadobudnutiaDatePicker" />
-            <TextField fx:id="plemenoTextField" />
+            <VBox alignment="CENTER" prefHeight="380.0" prefWidth="580.0">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="60.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label text="Pridať zviera">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="R. číslo" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="32.0">
+                                 <children>
+                                    <Label text="Druh" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Plemeno" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Pohlavie" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="D. narodenia" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="D. nadobudnutia" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" spacing="5.0">
+                                 <children>
+                                    <Label text="Cena" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="registracneCisloTextField" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="druhTextField" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="plemenoTextField" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <ComboBox fx:id="pohlavieComboBox" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <DatePicker fx:id="datumNarodeniaDatePicker" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <DatePicker fx:id="datumNadobudnutiaDatePicker" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="cenaTextField" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="vlozitButton" mnemonicParsing="false" text="Pridať zviera">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
-      </VBox>
-      <Label layoutX="12.0" layoutY="185.0" text="Kúpna cena:" />
-      <Label layoutX="12.0" layoutY="218.0" text="Pohlavie:" />
-      <Label layoutX="123.0" layoutY="10.0" prefHeight="51.0" prefWidth="138.0" text="Zvieratá">
-         <font>
-            <Font name="System Bold" size="35.0" />
-         </font>
-      </Label>
-      <Button fx:id="vlozitButton" layoutX="323.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="vložiť" />
-      <Label layoutX="12.0" layoutY="253.0" text="Dátum nadobud.:" />
-      <Label layoutX="13.0" layoutY="283.0" text="Plemeno:" />
+      </HBox>
    </children>
 </AnchorPane>

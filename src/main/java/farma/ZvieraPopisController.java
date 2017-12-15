@@ -1,4 +1,3 @@
-
 package farma;
 
 import farma.DaoFactory;
@@ -17,21 +16,22 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class ZvieraPopisController {
-     private ZvieraFxModel popisZviera;
-     private Zviera kliknuteZviera;
-     private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
-     private ObservableList<Zviera> zvierataList = null;
-     
-    public ZvieraPopisController(Zviera zviera){
+
+    private ZvieraFxModel popisZviera;
+    private Zviera kliknuteZviera;
+    private ZvieraDao zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
+    private ObservableList<Zviera> zvierataList = null;
+
+    public ZvieraPopisController(Zviera zviera) {
         kliknuteZviera = zviera;
         popisZviera = new ZvieraFxModel();
     }
-    
+
     @FXML
     private TextArea popisTextArea;
 
     @FXML
-    private Button ulozitPopisButton;
+    private Button vlozitPopisButton;
 
     @FXML
     private TextFlow popisTextFlow;
@@ -40,58 +40,51 @@ public class ZvieraPopisController {
     private TableView<Zviera> vybraneZvieraTableView;
 
     @FXML
+    private TableColumn<Zviera, String> registracneCisloZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> druhZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> plemenoZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, String> pohlavieZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Object> datumNarodeniaZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Object> datumNadobudnutiaZvieraCol;
+
+    @FXML
+    private TableColumn<Zviera, Double> cenaZvieraCol;
+
+    @FXML
     void initialize() {
         Zviera zviera = zvieraDao.findByRegistracneCislo(kliknuteZviera.getRegistracneCislo());
         List<Zviera> vybraneZviera = new ArrayList<>();
         vybraneZviera.add(kliknuteZviera);
         zvierataList = FXCollections.observableArrayList(vybraneZviera);
-        
-        // registračné číslo
-        TableColumn<Zviera, String> registracneCisloCol = new TableColumn<>("Registračné číslo");
-        registracneCisloCol.setCellValueFactory(new PropertyValueFactory<>("registracneCislo"));
-        vybraneZvieraTableView.getColumns().add(registracneCisloCol);
 
-        // druh
-        TableColumn<Zviera, String> druhCol = new TableColumn<>("Druh");
-        druhCol.setCellValueFactory(new PropertyValueFactory<>("druh"));
-        vybraneZvieraTableView.getColumns().add(druhCol);
-
-        // plemeno
-        TableColumn<Zviera, String> plemenoCol = new TableColumn<>("Plemeno");
-        plemenoCol.setCellValueFactory(new PropertyValueFactory<>("plemeno"));
-        vybraneZvieraTableView.getColumns().add(plemenoCol);
-
-        // pohlavie
-        TableColumn<Zviera, String> pohlavieCol = new TableColumn<>("Pohlavie");
-        pohlavieCol.setCellValueFactory(new PropertyValueFactory<>("pohlavie"));
-        vybraneZvieraTableView.getColumns().add(pohlavieCol);
-
-        // dátum narodenia
-        TableColumn<Zviera, Object> datumNarodeniaCol = new TableColumn<>("Dátum narodenia");
-        datumNarodeniaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNarodenia"));
-        vybraneZvieraTableView.getColumns().add(datumNarodeniaCol);
-
-        // dátum nadobudnutia
-        TableColumn<Zviera, Object> datumNadobudnutiaCol = new TableColumn<>("Dátum nadobudnutia");
-        datumNadobudnutiaCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
-        vybraneZvieraTableView.getColumns().add(datumNadobudnutiaCol);
-
-        // kúpna cena
-        TableColumn<Zviera, Double> kupnaCenaCol = new TableColumn<>("Kúpna cena");
-        kupnaCenaCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
-        vybraneZvieraTableView.getColumns().add(kupnaCenaCol);
-
+        registracneCisloZvieraCol.setCellValueFactory(new PropertyValueFactory<>("registracneCislo"));
+        druhZvieraCol.setCellValueFactory(new PropertyValueFactory<>("druh"));
+        plemenoZvieraCol.setCellValueFactory(new PropertyValueFactory<>("plemeno"));
+        pohlavieZvieraCol.setCellValueFactory(new PropertyValueFactory<>("pohlavie"));
+        datumNarodeniaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNarodenia"));
+        datumNadobudnutiaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
+        cenaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
         vybraneZvieraTableView.setItems(zvierataList);
-          
+
         popisZviera.setZviera(zviera);
         Text t1 = new Text(popisZviera.getPopis());
         popisTextFlow.getChildren().add(t1);
         popisTextArea.textProperty().bindBidirectional(popisZviera.popisProperty());
-        
-        ulozitPopisButton.setOnAction(eh -> {
+
+        vlozitPopisButton.setOnAction(eh -> {
             zvieraDao.pridajPopis(popisZviera.getZviera());
-             Text t2 = new Text(popisZviera.getPopis());
-             popisTextFlow.getChildren().clear();
+            Text t2 = new Text(popisZviera.getPopis());
+            popisTextFlow.getChildren().clear();
             popisTextFlow.getChildren().add(t2);
         });
     }

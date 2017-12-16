@@ -1,7 +1,10 @@
 package farma;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +29,12 @@ public class FinancieEditSceneController {
         aktualnaPolozka = new FinancieFxModel();
     }
 
+    private boolean bolaPridanaPolozka = false;
+
+    boolean getBolaPridanaPolozka() {
+        return bolaPridanaPolozka;
+    }
+
     @FXML
     private DatePicker datumDatePicker;
 
@@ -41,51 +50,57 @@ public class FinancieEditSceneController {
     @FXML
     private Button pridatPolozkuButton;
 
-    private final String[] poleTypov = {"výdaj", "príjem"};
-    private final ObservableList<String> typy = FXCollections.observableArrayList(Arrays.asList(poleTypov));
-
     @FXML
     void initialize() {
+        typComboBox.getItems().addAll("výdaj", "príjem");
 
-        // datum
+        //datum
+        datumDatePicker.valueProperty().bindBidirectional(aktualnaPolozka.datumProperty());
+
+        //suma
         StringConverter<Number> converter = new NumberStringConverter();
-        sumaTextField.textProperty().bindBidirectional(aktualnaPolozka.sumaProperty(), converter);
-        typComboBox.setItems(typy);
+        try {
+            sumaTextField.textProperty().bindBidirectional(aktualnaPolozka.sumaProperty(), converter);
+        } catch (Exception chyba) {
+        }
 
+        // typ
+        typComboBox.valueProperty().bindBidirectional(aktualnaPolozka.typProperty());
+
+        //popis
         popisTextField.textProperty().bindBidirectional(aktualnaPolozka.popisProperty());
 
         pridatPolozkuButton.setOnAction(eh -> {
-            if (aktualnaPolozka.getSuma() < 0) {
-                NespravneVyplnanieController controller = new NespravneVyplnanieController();
-                try {
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("NespravneVyplnenie.fxml"));
-                    loader.setController(controller);
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle("Nesprávne vyplnenie údajov");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
+            boolean daSaPridat = true;
 
-                } catch (Exception e) {
-                }
-                datumDatePicker.getEditor().clear();
-                sumaTextField.clear();
-                popisTextField.clear();
-                typComboBox.setItems(FXCollections.observableList(new ArrayList<String>()));
-                return;
+            // ošetrenie zadania dátumu - je zadaný a je najneskôr dnešný
+            daSaPridat = daSaPridat && aktualnaPolozka.getDatum() != null && aktualnaPolozka.getDatum().compareTo(LocalDate.now()) <= 0;
+
+            // ošetrenie sumy
+            if (daSaPridat) {
+                daSaPridat = daSaPridat && aktualnaPolozka.getSuma() > 0;
             }
-            try {
-                aktualnaPolozka.setDatum(datumDatePicker.getValue());
+
+            // ošetrenie typu
+            if (daSaPridat) {
+                daSaPridat = daSaPridat && aktualnaPolozka.getTyp() != null;
+            }
+
+            // ošetrenie popisu
+            if (daSaPridat) {
+                daSaPridat = daSaPridat && aktualnaPolozka.getPopis() != null && aktualnaPolozka.getPopis().length() > 0 && aktualnaPolozka.getPopis().length() <= 200;
+            }
+
+            if (daSaPridat) {
                 financieDao.add(aktualnaPolozka.getPolozka());
+                bolaPridanaPolozka = true;
                 datumDatePicker.getEditor().clear();
                 sumaTextField.clear();
                 popisTextField.clear();
-                typComboBox.setItems(FXCollections.observableList(new ArrayList<String>()));
-            } catch (Exception e) {
-                System.err.println(e);
+                typComboBox.getItems().addAll("výdaj", "príjem");
+                popisTextField.clear();
+
+            } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
@@ -98,7 +113,7 @@ public class FinancieEditSceneController {
                     stage.setTitle("Nesprávne vyplnenie údajov");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                } catch (Exception ee) {
+                } catch (Exception e) {
                 }
             }
         });

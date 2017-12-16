@@ -26,6 +26,12 @@ public class FinancieSceneController {
     private Financie kliknutaPolozka;
 
     @FXML
+    private Button zobrazDenButton;
+
+    @FXML
+    private Button zobrazTypButton;
+
+    @FXML
     private Button zobrazVsetkyButton;
 
     @FXML
@@ -65,6 +71,36 @@ public class FinancieSceneController {
         popisFinancieCol.setCellValueFactory(new PropertyValueFactory<>("popis"));
         financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
 
+        zobrazDenButton.setOnAction(eh -> {
+            FinancieVyberDnaSceneController controller = new FinancieVyberDnaSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("FinancieVyberDnaScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vybrať deň");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            if (controller.getDate() != null) {
+                System.out.println("podarilo sa ziskať datum");
+                System.out.println(controller.getDate());
+                List<Financie> listF = financieDao.getAllByDate(controller.getDate());
+                financieTableView.setItems(FXCollections.observableArrayList(listF));
+
+                if (listF.size() == 0) {
+                    financieTableView.setPlaceholder(new Label("Finančné položky k danému dňu sa nenašli."));
+                    // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+                }
+            }
+            kliknutaPolozka = null;
+        });
+
         zobrazVsetkyButton.setOnAction(eh -> {
             financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
             kliknutaPolozka = null;
@@ -72,8 +108,8 @@ public class FinancieSceneController {
 
         /*
         rozsireneVyhladavanieButton.setOnAction(eh -> {
-            StrojRozsireneVyhladavanieController controller
-                    = new StrojRozsireneVyhladavanieController();
+            FinancieRozsireneVyhladavanieController controller
+                    = new FinancieRozsireneVyhladavanieController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("StrojRozsireneVyhladavanie.fxml"));
@@ -93,12 +129,10 @@ public class FinancieSceneController {
 
                 strojeTableView.setItems(FXCollections.observableArrayList(strojRozsirene));
                 if (strojRozsirene.size() == 0) {
-                    strojeTableView.setPlaceholder(new Label("Stroje so zadanými parametrami sa v databáze nenachádzajú."));
-                    // lebo: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+                    
                 }
             }
-        });
-         */
+        }); */
         pridatPolozkuButton.setOnAction(eh -> {
 
             FinancieEditSceneController controller = new FinancieEditSceneController();

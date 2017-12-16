@@ -30,7 +30,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="zobrazVsetkyButton" mnemonicParsing="false" text="Zobraz všetky" HBox.hgrow="ALWAYS">
+                        <Button fx:id="zobrazDenButton" mnemonicParsing="false" text="Zobraziť deň" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </HBox.margin>
@@ -39,9 +39,18 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="rozsireneVyhladavanieButton" mnemonicParsing="false" text="Rozšírené vyhľadávanie" HBox.hgrow="ALWAYS">
+                        <Button fx:id="zobrazTypButton" mnemonicParsing="false" text="Zobraziť typ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
-                              <Insets bottom="5.0" />
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="zobrazVsetkyButton" mnemonicParsing="false" text="Zobraziť všetky" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
                      </children>

@@ -3,6 +3,7 @@ package farma;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,40 @@ public class MysqlFinancieDao implements FinancieDao {
     @Override
     public List<Financie> getAll() {
         String sql = "SELECT financie.id AS 'fId', financie.datum AS 'fDatum',financie.suma AS 'fSuma', financie.typ AS 'fTyp', financie.popis AS 'fPopis' from farma.financie;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Financie>>() {
+            @Override
+            public List<Financie> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Financie> financie = new ArrayList<>();
+                Financie polozka = null;
+                while (rs.next()) {
+                    int polozkaId = rs.getInt("fId");
+                    if (polozka == null || polozkaId != polozka.getId()) {
+                        polozka = new Financie();
+                        polozka.setId(polozkaId);
+                        Timestamp ts = rs.getTimestamp("fDatum");
+                        polozka.setDatum(ts.toLocalDateTime().toLocalDate());
+                        polozka.setSuma(rs.getDouble("fSuma"));
+                        polozka.setTyp(rs.getString("fTyp"));
+                        polozka.setPopis(rs.getString("fPopis"));
+                        financie.add(polozka);
+                    }
+                }
+                return financie;
+            }
+        }
+        );
+    }
+
+    @Override
+    public List<Financie> getAllByDate(LocalDate localDate) {
+        String sql = "SELECT "
+                + "financie.id AS 'fId', "
+                + "financie.datum AS 'fDatum',"
+                + "financie.suma AS 'fSuma', "
+                + "financie.typ AS 'fTyp', "
+                + "financie.popis AS 'fPopis' "
+                + "from farma.financie "
+                + "WHERE financie.datum='" + localDate + "';";
         return jdbcTemplate.query(sql, new ResultSetExtractor<List<Financie>>() {
             @Override
             public List<Financie> extractData(ResultSet rs) throws SQLException, DataAccessException {

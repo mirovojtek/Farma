@@ -15,4 +15,6 @@ public interface FinancieDao {
 
     List<Financie> getAllByDate(LocalDate localDate);
 
+    public List<Financie> getAllByTyp(String typ);
+
 }

@@ -89,12 +89,13 @@ public class FinancieSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            // dorobiť testovanie
-            List<Financie> listF = new ArrayList<>();
-            if (listF.size() == 0) {
-                financieTableView.setPlaceholder(new Label("Finančné položky k danému dňu sa nenašli."));
-                // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
-
+            if (controller.getTyp() != null) {
+                List<Financie> listF = financieDao.getAllByTyp(controller.getTyp());
+                financieTableView.setItems(FXCollections.observableArrayList(listF));
+                if (listF.size() == 0) {
+                    financieTableView.setPlaceholder(new Label("Finančné položky daného typu sa nenašli."));
+                    // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+                }
             }
             kliknutaPolozka = null;
         });
@@ -134,33 +135,6 @@ public class FinancieSceneController {
             kliknutaPolozka = null;
         });
 
-        /*
-        rozsireneVyhladavanieButton.setOnAction(eh -> {
-            FinancieRozsireneVyhladavanieController controller
-                    = new FinancieRozsireneVyhladavanieController();
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("StrojRozsireneVyhladavanie.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Rozšírené vyhľadávanie");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-            if (controller.getAkcia()) {
-                List<Stroj> strojRozsirene = strojDao.rozsireneVyhladavanie(controller.getVyrobca(), controller.getTyp(), controller.getKategoria(), controller.getRokNadobudnutia());
-
-                strojeTableView.setItems(FXCollections.observableArrayList(strojRozsirene));
-                if (strojRozsirene.size() == 0) {
-                    
-                }
-            }
-        }); */
         pridatPolozkuButton.setOnAction(eh -> {
 
             FinancieEditSceneController controller = new FinancieEditSceneController();

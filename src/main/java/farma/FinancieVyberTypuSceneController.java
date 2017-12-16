@@ -36,13 +36,25 @@ public class FinancieVyberTypuSceneController {
     void initialize() {
         typComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(poleTypov)));
         vybratTypButton.setOnAction(eh -> {
-
             if (typComboBox.getValue() != null) {
-                System.out.println(typComboBox.getValue());
+                setTyp(typComboBox.getValue());
+                vybratTypButton.getScene().getWindow().hide();
+            } else {
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NespravneVyplnenie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Nesprávne vyplnenie údajov");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                } catch (Exception e) {
+                }
             }
-        }
-        );
-
+        });
     }
-
 }

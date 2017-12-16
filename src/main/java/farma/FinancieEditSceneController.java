@@ -94,7 +94,7 @@ public class FinancieEditSceneController {
                 datumDatePicker.getEditor().clear();
                 sumaTextField.clear();
                 popisTextField.clear();
-                typComboBox.setItems(Arrays.asList(poleTypov));
+                typComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(poleTypov)));
                 popisTextField.clear();
 
             } else {

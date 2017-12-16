@@ -124,6 +124,26 @@ public class OpravyKonkretnehoStroja {
                         && event.getClickCount() == 1) {
                     kliknutaOprava = row.getItem();
                 }
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 2) {
+                    kliknutaOprava = row.getItem();
+                    OpravaPopisController controller = new OpravaPopisController(kliknutaOprava, kliknutyStroj);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("OpravaKonkretnyPopis.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Popis opravy");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                // toto sa vykona az po zatvoreni okna
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+                }
             });
             return row;
         });

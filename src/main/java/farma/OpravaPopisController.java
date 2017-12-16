@@ -70,13 +70,13 @@ public class OpravaPopisController {
 
         
         idOpravaCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idStrojaOpravaCol.setCellValueFactory(new PropertyValueFactory<>("idStroj"));
         datumOpravaCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         cenaOpravaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
         poruchaOpravaCol.setCellValueFactory(new PropertyValueFactory<>("porucha"));
         kliknutaOpravaTableView.setItems(opravyList);
 
         popisOprava.setOprava(oprava);
-        
         Text t1 = new Text(popisOprava.getPopis());
         popisTextFlow.getChildren().add(t1);
         popisTextArea.textProperty().bindBidirectional(popisOprava.popisProperty());

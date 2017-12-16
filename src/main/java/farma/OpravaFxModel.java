@@ -53,7 +53,7 @@ public class OpravaFxModel {
     }
 
     public void setPopis(String popis) {
-        this.porucha.set(popis);
+        this.popis.set(popis);
     }
     
     public String getPopis(){
@@ -99,7 +99,7 @@ public class OpravaFxModel {
           setCena(oprava.getCena());
           setDatum(oprava.getDatum());
           setPopis(oprava.getPopis());
-          setPorucha(oprava.getPorucha());          
+          setPorucha(oprava.getPorucha());    
      }
      
      public void newOprava(){

@@ -1,12 +1,8 @@
 package farma;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +20,7 @@ public class FinancieEditSceneController {
 
     private final FinancieFxModel aktualnaPolozka;
     private final FinancieDao financieDao = DaoFactory.INSTANCE.getFinancieDao();
+    private final String[] poleTypov = {"výdaj", "príjem"};
 
     public FinancieEditSceneController() {
         aktualnaPolozka = new FinancieFxModel();
@@ -52,7 +49,7 @@ public class FinancieEditSceneController {
 
     @FXML
     void initialize() {
-        typComboBox.getItems().addAll("výdaj", "príjem");
+        typComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(poleTypov)));
 
         //datum
         datumDatePicker.valueProperty().bindBidirectional(aktualnaPolozka.datumProperty());
@@ -97,7 +94,7 @@ public class FinancieEditSceneController {
                 datumDatePicker.getEditor().clear();
                 sumaTextField.clear();
                 popisTextField.clear();
-                typComboBox.getItems().addAll("výdaj", "príjem");
+                typComboBox.setItems(Arrays.asList(poleTypov));
                 popisTextField.clear();
 
             } else {

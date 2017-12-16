@@ -1,6 +1,7 @@
 package farma;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,6 +71,33 @@ public class FinancieSceneController {
         sumaFinancieCol.setCellValueFactory(new PropertyValueFactory<>("suma"));
         popisFinancieCol.setCellValueFactory(new PropertyValueFactory<>("popis"));
         financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+
+        zobrazTypButton.setOnAction(eh -> {
+
+            FinancieVyberTypuSceneController controller = new FinancieVyberTypuSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("FinancieVyberTypuScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vybrať typ");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            // dorobiť testovanie
+            List<Financie> listF = new ArrayList<>();
+            if (listF.size() == 0) {
+                financieTableView.setPlaceholder(new Label("Finančné položky k danému dňu sa nenašli."));
+                // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+
+            }
+            kliknutaPolozka = null;
+        });
 
         zobrazDenButton.setOnAction(eh -> {
             FinancieVyberDnaSceneController controller = new FinancieVyberDnaSceneController();

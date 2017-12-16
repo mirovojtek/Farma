@@ -1,7 +1,6 @@
 package farma;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
 
 public class PoliaSceneController {
 
-    private PoleDao poleDao = DaoFactory.INSTANCE.getPoleDao();
+    private final PoleDao poleDao = DaoFactory.INSTANCE.getPoleDao();
     private PoleFxModel aktualnePole = new PoleFxModel();
     private ObservableList<Pole> p;
     private Pole kliknutePole;
@@ -38,7 +37,7 @@ public class PoliaSceneController {
 
     @FXML
     private TableView<Pole> poliaTableView;
-    
+
     @FXML
     private TableColumn<Pole, Integer> idTableColumn;
 
@@ -66,22 +65,16 @@ public class PoliaSceneController {
     @FXML
     void initialize() {
 
-        zobrazVsetkyButton.setOnAction(eh -> {
-            poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
-            kliknutePole = null;
-        });
-
         idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         typParcelyTableColumn.setCellValueFactory(new PropertyValueFactory<>("typParcely"));
         cisloParcelyTableColumn.setCellValueFactory(new PropertyValueFactory<>("cisloParcely"));
         vymeraTableColumn.setCellValueFactory(new PropertyValueFactory<>("vymera"));
         typPozemkuTableColumn.setCellValueFactory(new PropertyValueFactory<>("typPozemku"));
         vlastnictvoTableColumn.setCellValueFactory(new PropertyValueFactory<>("vlastnictvo"));
-
         poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
 
-        pridatPoleButton.setOnAction(eh ->{
-             PoliaEditSceneController controller
+        pridatPoleButton.setOnAction(eh -> {
+            PoliaEditSceneController controller
                     = new PoliaEditSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
@@ -99,7 +92,7 @@ public class PoliaSceneController {
             }
             poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
         });
-        
+
         zmazatPoleButton.setOnAction(eh -> {
             if (kliknutePole == null) {
                 PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();
@@ -142,7 +135,7 @@ public class PoliaSceneController {
             poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
             kliknutePole = null;
         });
-        
+
         rozsireneVyhladavanieButton.setOnAction(eh -> {
             PoliaRozsireneVyhladavanieController controller
                     = new PoliaRozsireneVyhladavanieController();
@@ -170,6 +163,11 @@ public class PoliaSceneController {
                     // lebo: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
                 }
             }
+        });
+
+        zobrazVsetkyButton.setOnAction(eh -> {
+            poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+            kliknutePole = null;
         });
 
         TableView<Pole> table = poliaTableView;
@@ -206,7 +204,6 @@ public class PoliaSceneController {
             });
             return row;
         });
-
     }
 
 }

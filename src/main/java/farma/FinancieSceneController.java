@@ -116,13 +116,26 @@ public class FinancieSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+            if (controller.getBolaPridanaPolozka()) {
+                financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+            }
 
         });
-        /*
-        zmazatPolozkuButton.setOnAction(eh -> {
-           
-            if (kliknutyStroj == null) {
+
+        TableView<Financie> table = financieTableView;
+        table.setRowFactory(tv -> {
+            TableRow<Financie> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
+                    kliknutaPolozka = row.getItem();
+                }
+            });
+            return row;
+        });
+
+        zmazatpolozkuButton.setOnAction(eh -> {
+            if (kliknutaPolozka == null) {
                 PrazdneMazanieSceneController controller = new PrazdneMazanieSceneController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
@@ -132,7 +145,7 @@ public class FinancieSceneController {
                     Scene scene = new Scene(parentPane);
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    stage.setTitle("Zmazať stroj");
+                    stage.setTitle("Zmazať položku");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
                 } catch (IOException iOException) {
@@ -140,8 +153,8 @@ public class FinancieSceneController {
                 }
                 return;
             }
-            StrojDeleteSceneController controller
-                    = new StrojDeleteSceneController(kliknutyStroj.getId());
+            FinancieDeleteSceneController controller
+                    = new FinancieDeleteSceneController(kliknutaPolozka.getId());
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("PotvrdenieZmazania.fxml"));
@@ -150,16 +163,16 @@ public class FinancieSceneController {
                 Scene scene = new Scene(parentPane);
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Zmazať stroj");
+                stage.setTitle("Zmazať položku");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
-            kliknutyStroj = null;
+            if (controller.getZmazanaPolozka()) {
+                financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
             }
-                );
-         */
+            kliknutaPolozka = null;
+        });
     }
 }

@@ -69,7 +69,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ComboBox fx:id="typComboBox" prefWidth="150.0" />
+                                    <ComboBox fx:id="typComboBox" prefWidth="150.0" visibleRowCount="2" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">

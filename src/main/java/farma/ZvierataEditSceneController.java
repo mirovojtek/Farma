@@ -62,7 +62,7 @@ public class ZvierataEditSceneController {
 
     @FXML
     void initialize() {
-
+        pohlavieComboBox.getItems().addAll("f", "m");
         List<Zviera> zvierata = zvieraDao.getAll();
         zvierataList = FXCollections.observableArrayList(zvierata);
 
@@ -70,7 +70,7 @@ public class ZvierataEditSceneController {
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
         plemenoTextField.textProperty().bindBidirectional(aktualneZviera.plemenoProperty());
 
-        pohlavieComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPohlavia()));
+        //pohlavieComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPohlavia()));
         pohlavieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {

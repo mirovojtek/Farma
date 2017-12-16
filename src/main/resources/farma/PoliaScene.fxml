@@ -3,13 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="380.0" prefWidth="580.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -29,15 +30,6 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="podlaParcelyButton" mnemonicParsing="false" text="Nájdi podľa parcely" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <children>
                         <Button fx:id="zobrazVsetkyButton" mnemonicParsing="false" text="Zobraz všetky" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" top="5.0" />
@@ -45,6 +37,7 @@
                         </Button>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Button fx:id="rozsireneVyhladavanieButton" mnemonicParsing="false" text="Rozšírené vyhľadávanie" HBox.hgrow="ALWAYS">
@@ -58,10 +51,21 @@
             </HBox>
             <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="poliaTableView" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="poliaTableView" prefHeight="323.0" prefWidth="570.0" tableMenuButtonVisible="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
+                     <columns>
+                        <TableColumn fx:id="idTableColumn" prefWidth="35.0" text="ID" />
+                        <TableColumn fx:id="typParcelyTableColumn" prefWidth="86.0" text="Typ parcely" />
+                        <TableColumn fx:id="cisloParcelyTableColumn" prefWidth="115.0" text="Číslo parcely" />
+                        <TableColumn fx:id="vymeraTableColumn" prefWidth="101.0" text="Výmera(v ha)" />
+                        <TableColumn fx:id="typPozemkuTableColumn" prefWidth="112.0" text="Typ pozemku" />
+                        <TableColumn fx:id="vlastnictvoTableColumn" prefWidth="120.0" text="Vlastníctvo" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </HBox>

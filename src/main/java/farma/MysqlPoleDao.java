@@ -115,4 +115,90 @@ public class MysqlPoleDao implements PoleDao {
             }
         });
     }
+    
+    @Override
+    public List<String> getTypyParciel() {
+        List<String> typyParciel = new ArrayList<>();
+        String sql = "SELECT DISTINCT typ_parcely AS 'TypParcely' FROM farma.pole;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    typyParciel.add(rs.getString("TypParcely"));
+                }
+                return typyParciel;
+            }
+        });
+    }
+    @Override
+    public List<String> getCislaParcielPodlaTypu(String typParcely) {
+        List<String> cislaParciel = new ArrayList<>();
+        String sql = "SELECT DISTINCT cislo_parcely AS 'CisloParcely' FROM farma.pole WHERE typ_parcely = '" + typParcely + "';";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    cislaParciel.add(rs.getString("CisloParcely"));
+                }
+                return cislaParciel;
+            }
+        });
+    }
+    
+    @Override
+    public List<String> getTypyPozemkov(){
+        List<String> typyPozemkov = new ArrayList<>();
+        String sql = "SELECT DISTINCT typ_pozemku AS 'TypPozemku' FROM farma.pole;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    typyPozemkov.add(rs.getString("TypPozemku"));
+                }
+                return typyPozemkov;
+            }
+        });
+    }
+    
+    @Override
+    public List<String> getVlastnictvo() {
+        List<String> vlastnictvo = new ArrayList<>();
+        String sql = "SELECT DISTINCT vlastnictvo AS 'Vlastnictvo' FROM farma.pole;";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                while (rs.next()) {
+                    vlastnictvo.add(rs.getString("Vlastnictvo"));
+                }
+                return vlastnictvo;
+            }
+        });
+    }
+    
+    @Override
+    public List<Pole> rozsireneVyhladavanie(String typParcely, String cisloParcely, String typPozemku, String Vlastnictvo){
+        String sql = "SELECT * FROM farma.pole WHERE typ_parcely LIKE " + "'" + typParcely + "'"
+                + " AND cislo_parcely LIKE " + "'" + cisloParcely + "'" + " AND typ_pozemku LIKE " + "'" + typPozemku + "'"
+                + " AND vlastnictvo LIKE " + "'" + Vlastnictvo + "'" + ";";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Pole>>() {
+            @Override
+            public List<Pole> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Pole> polia = new ArrayList<>();
+                Pole pole = null;
+                while (rs.next()) {
+                    int poleId = rs.getInt("id");
+                    if (pole == null || poleId != pole.getId()) {
+                        pole = new Pole();
+                        pole.setId(poleId);
+                        pole.setTypParcely(rs.getString("typ_parcely"));
+                        pole.setCisloParcely(rs.getString("cislo_parcely"));
+                        pole.setTypPozemku(rs.getString("typ_pozemku"));
+                        pole.setVlastnictvo(rs.getString("vlastnictvo"));
+                        polia.add(pole);
+                    }
+                }
+                return polia;
+            }
+        });
+    }
 }

@@ -117,7 +117,9 @@ public class StrojSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+            if (controller.getBolaPridanaPolozka()) {
+                strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+            }
         });
 
         zmazatButton.setOnAction(eh -> {

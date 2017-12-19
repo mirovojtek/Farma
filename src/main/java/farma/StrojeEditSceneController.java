@@ -1,6 +1,9 @@
 package farma;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Arrays;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,11 +20,16 @@ public class StrojeEditSceneController {
 
     private final StrojFxModel aktualnyStroj;
     private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
+    private boolean bolaPridanaPolozka = false;
 
     public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();
     }
 
+    boolean getBolaPridanaPolozka() {
+        return bolaPridanaPolozka;
+    }
+    
     @FXML
     private TextField vyrobcaTextField;
 
@@ -50,38 +58,33 @@ public class StrojeEditSceneController {
         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
 
         vlozitButton.setOnAction(eh -> {
-            if (aktualnyStroj.getCena() < 0) {
-                NespravneVyplnanieController controller = new NespravneVyplnanieController();
-                try {
-                    FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("NespravneVyplnenie.fxml"));
-                    loader.setController(controller);
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle("Nesprávne vyplnenie údajov");
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
-                } catch (Exception e) {
-                }
-                vyrobcaTextField.clear();
-                kategoriaTextField.clear();
-                typTextField.clear();
-                cenaTextField.clear();
-                return;
-            }
-            try {
-                aktualnyStroj.setDatum(datumDatePicker.getValue());
-                strojDao.add(aktualnyStroj.getStroj());
-                vyrobcaTextField.clear();
-                kategoriaTextField.clear();
-                typTextField.clear();
-                cenaTextField.clear();
-            } catch (Exception e) {
-                System.err.println(e);
+            //
+            boolean daSaPridat = true;
 
+            // ošetrenie výrobcu
+            daSaPridat = daSaPridat && aktualnyStroj.getVyrobca() != null && aktualnyStroj.getVyrobca().length() > 0 && aktualnyStroj.getVyrobca().length() <= 45;
+
+            // ošeternie typu
+            daSaPridat = daSaPridat && aktualnyStroj.getTyp() != null && aktualnyStroj.getTyp().length() > 0 && aktualnyStroj.getTyp().length() <= 45;
+
+            // ošetrenie kategórie
+            daSaPridat = daSaPridat && aktualnyStroj.getKategoria() != null && aktualnyStroj.getKategoria().length() > 0 && aktualnyStroj.getKategoria().length() <= 20;
+
+            // ošetrenie zadania dátumu - je zadaný a je najneskôr dnešný
+            daSaPridat = daSaPridat && aktualnyStroj.getDatum() != null && aktualnyStroj.getDatum().compareTo(LocalDate.now()) <= 0;
+
+            // ošetrenie ceny
+            daSaPridat = daSaPridat && aktualnyStroj.getCena() != null && aktualnyStroj.getCena() >= 0 && aktualnyStroj.getCena() < 1000000;
+
+            if (daSaPridat) {
+                strojDao.add(aktualnyStroj.getStroj());
+                bolaPridanaPolozka = true;
+                vyrobcaTextField.clear();
+                typTextField.clear();
+                kategoriaTextField.clear();
+                datumDatePicker.getEditor().clear();
+                cenaTextField.clear();
+            } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
@@ -94,7 +97,7 @@ public class StrojeEditSceneController {
                     stage.setTitle("Nesprávne vyplnenie údajov");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                } catch (Exception ee) {
+                } catch (Exception e) {
                 }
             }
         });

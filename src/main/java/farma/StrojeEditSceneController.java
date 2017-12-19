@@ -29,7 +29,7 @@ public class StrojeEditSceneController {
     boolean getBolaPridanaPolozka() {
         return bolaPridanaPolozka;
     }
-    
+
     @FXML
     private TextField vyrobcaTextField;
 
@@ -53,7 +53,7 @@ public class StrojeEditSceneController {
         vyrobcaTextField.textProperty().bindBidirectional(aktualnyStroj.vyrobcaProperty());
         typTextField.textProperty().bindBidirectional(aktualnyStroj.typProperty());
         kategoriaTextField.textProperty().bindBidirectional(aktualnyStroj.kategoriaProperty());
-
+        datumDatePicker.valueProperty().bindBidirectional(aktualnyStroj.datumProperty());
         StringConverter<Number> converter = new NumberStringConverter();
         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
 
@@ -63,18 +63,32 @@ public class StrojeEditSceneController {
 
             // ošetrenie výrobcu
             daSaPridat = daSaPridat && aktualnyStroj.getVyrobca() != null && aktualnyStroj.getVyrobca().length() > 0 && aktualnyStroj.getVyrobca().length() <= 45;
+            if (!daSaPridat) {
+                System.out.println("vyrobca");
+            }
 
             // ošeternie typu
             daSaPridat = daSaPridat && aktualnyStroj.getTyp() != null && aktualnyStroj.getTyp().length() > 0 && aktualnyStroj.getTyp().length() <= 45;
-
+            if (!daSaPridat) {
+                System.out.println("typ");
+            }
             // ošetrenie kategórie
             daSaPridat = daSaPridat && aktualnyStroj.getKategoria() != null && aktualnyStroj.getKategoria().length() > 0 && aktualnyStroj.getKategoria().length() <= 20;
+            if (!daSaPridat) {
+                System.out.println("kategoria");
+            }
 
             // ošetrenie zadania dátumu - je zadaný a je najneskôr dnešný
-            daSaPridat = daSaPridat && aktualnyStroj.getDatum() != null && aktualnyStroj.getDatum().compareTo(LocalDate.now()) <= 0;
+            daSaPridat = daSaPridat && aktualnyStroj.getDatum() != null && (aktualnyStroj.getDatum().compareTo(LocalDate.now()) <= 0);
+            if (!daSaPridat) {
+                System.out.println("datum");
+            }
 
             // ošetrenie ceny
             daSaPridat = daSaPridat && aktualnyStroj.getCena() != null && aktualnyStroj.getCena() >= 0 && aktualnyStroj.getCena() < 1000000;
+            if (!daSaPridat) {
+                System.out.println("cena");
+            }
 
             if (daSaPridat) {
                 strojDao.add(aktualnyStroj.getStroj());
@@ -84,6 +98,7 @@ public class StrojeEditSceneController {
                 kategoriaTextField.clear();
                 datumDatePicker.getEditor().clear();
                 cenaTextField.clear();
+                vlozitButton.getScene().getWindow().hide();
             } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {

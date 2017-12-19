@@ -51,13 +51,13 @@ public class MysqlStrojDao implements StrojDao {
                     stroj.getDatum(),
                     stroj.getCena());
         }
-        if (stroj.getTankovania().size() > 0) {
+        if (stroj.getTankovania() != null && stroj.getTankovania().size() > 0) {
             String sql = "INSERT INTO tankovanie (stroj_id, mnozstvo, datum) VALUES (?,?,?)";
             for (Tankovanie tankovanie : stroj.getTankovania()) {
                 jdbcTemplate.update(sql, stroj.getId(), tankovanie.getMnozstvo(), tankovanie.getDatum());
             }
         }
-        if (stroj.getOpravy().size() > 0) {
+        if (stroj.getOpravy() != null && stroj.getOpravy().size() > 0) {
             String sql = "INSERT INTO oprava (stroj_id, datum, cena, porucha, popis) VALUES (?,?,?,?,?)";
             for (Oprava oprava : stroj.getOpravy()) {
                 jdbcTemplate.update(sql,

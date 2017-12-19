@@ -1,8 +1,6 @@
 package farma;
 
 import java.io.IOException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,7 +53,7 @@ public class PoliaEditSceneController {
     @FXML
     void initialize() {
 
-      //  https://docs.oracle.com/javafx/2/ui_controls/radio-button.htm
+        //https://docs.oracle.com/javafx/2/ui_controls/radio-button.htm
         ToggleGroup group1 = new ToggleGroup();
         eRadioButton.setToggleGroup(group1);
         eRadioButton.setUserData("E");
@@ -77,19 +74,17 @@ public class PoliaEditSceneController {
         vlastnikRadioButton.setUserData("vlastnik");
         ineRadioButton.setToggleGroup(group2);
         ineRadioButton.setUserData("ine");
-        
 
         vlozitButton.setOnAction(eh -> {
             try {
-           aktualnePole.setVlastnictvo(group2.getSelectedToggle().getUserData().toString());
-             aktualnePole.setTypParcely(group1.getSelectedToggle().getUserData().toString());
+                aktualnePole.setVlastnictvo(group2.getSelectedToggle().getUserData().toString());
+                aktualnePole.setTypParcely(group1.getSelectedToggle().getUserData().toString());
                 poleDao.add(aktualnePole.getPole());
                 cisloParcelyTextField.clear();
                 typPozemkuTextField.clear();
                 vymeraTextField.clear();
             } catch (Exception e) {
                 System.err.println(e);
-
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
@@ -106,7 +101,6 @@ public class PoliaEditSceneController {
                     iOException.printStackTrace();
                 }
             }
-            
         });
     }
 }

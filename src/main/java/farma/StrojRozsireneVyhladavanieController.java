@@ -21,8 +21,6 @@ public class StrojRozsireneVyhladavanieController {
         strojDao = DaoFactory.INSTANCE.getStrojDao();
     }
 
-    ;
-    
     public boolean getAkcia() {
         return akcia;
     }
@@ -70,7 +68,7 @@ public class StrojRozsireneVyhladavanieController {
             }
         });
         //je to zakomentovane lebo nam netreba vediet typy ked nemame vybraneho vyrobcu
-       // typComboBox.setItems(FXCollections.observableArrayList(strojDao.getTypy()));
+        // typComboBox.setItems(FXCollections.observableArrayList(strojDao.getTypy()));
         typComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
@@ -99,6 +97,5 @@ public class StrojRozsireneVyhladavanieController {
             vyhladatButton.getScene().getWindow().hide();
         });
     }
-
 
 }

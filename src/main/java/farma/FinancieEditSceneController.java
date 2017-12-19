@@ -74,19 +74,13 @@ public class FinancieEditSceneController {
             daSaPridat = daSaPridat && aktualnaPolozka.getDatum() != null && aktualnaPolozka.getDatum().compareTo(LocalDate.now()) <= 0;
 
             // ošetrenie sumy
-            if (daSaPridat) {
-                daSaPridat = daSaPridat && aktualnaPolozka.getSuma() > 0;
-            }
+            daSaPridat = daSaPridat && aktualnaPolozka.getSuma() > 0 && aktualnaPolozka.getSuma() < 10000000000.0;
 
             // ošetrenie typu
-            if (daSaPridat) {
-                daSaPridat = daSaPridat && aktualnaPolozka.getTyp() != null;
-            }
+            daSaPridat = daSaPridat && aktualnaPolozka.getTyp() != null;
 
             // ošetrenie popisu
-            if (daSaPridat) {
-                daSaPridat = daSaPridat && aktualnaPolozka.getPopis() != null && aktualnaPolozka.getPopis().length() > 0 && aktualnaPolozka.getPopis().length() <= 200;
-            }
+            daSaPridat = daSaPridat && aktualnaPolozka.getPopis() != null && aktualnaPolozka.getPopis().length() > 0 && aktualnaPolozka.getPopis().length() <= 200;
 
             if (daSaPridat) {
                 financieDao.add(aktualnaPolozka.getPolozka());
@@ -96,7 +90,7 @@ public class FinancieEditSceneController {
                 popisTextField.clear();
                 typComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(poleTypov)));
                 popisTextField.clear();
-
+                pridatPolozkuButton.getScene().getWindow().hide();
             } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {

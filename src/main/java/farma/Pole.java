@@ -8,7 +8,7 @@ public class Pole {
     private int id;
     private String typParcely;
     private String cisloParcely;
-    private double vymera;
+    private int vymera;
     private String typPozemku;
     private String vlastnictvo;
 
@@ -36,11 +36,11 @@ public class Pole {
         this.cisloParcely = parcela;
     }
 
-    public double getVymera() {
+    public int getVymera() {
         return vymera;
     }
 
-    public void setVymera(double vymera) {
+    public void setVymera(int vymera) {
         this.vymera = vymera;
     }
 

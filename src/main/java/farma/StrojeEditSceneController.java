@@ -1,6 +1,7 @@
 package farma;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import javafx.collections.FXCollections;
@@ -20,7 +21,6 @@ public class StrojeEditSceneController {
 
     private final StrojFxModel aktualnyStroj;
     private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
-    private boolean bolaPridanaPolozka = false;
 
     public StrojeEditSceneController() {
         aktualnyStroj = new StrojFxModel();
@@ -29,6 +29,7 @@ public class StrojeEditSceneController {
     boolean getBolaPridanaPolozka() {
         return bolaPridanaPolozka;
     }
+    private boolean bolaPridanaPolozka = false;
 
     @FXML
     private TextField vyrobcaTextField;
@@ -56,7 +57,6 @@ public class StrojeEditSceneController {
         datumDatePicker.valueProperty().bindBidirectional(aktualnyStroj.datumProperty());
         StringConverter<Number> converter = new NumberStringConverter();
         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
-
         vlozitButton.setOnAction(eh -> {
             //
             boolean daSaPridat = true;

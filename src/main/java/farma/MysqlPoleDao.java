@@ -2,7 +2,6 @@ package farma;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,7 @@ public class MysqlPoleDao implements PoleDao {
                         pole.setId(poleId);
                         pole.setTypParcely(rs.getString("pTypParcely"));
                         pole.setCisloParcely(rs.getString("pCisloParcely"));
-                        pole.setVymera(rs.getDouble("pVymera"));
+                        pole.setVymera(rs.getInt("pVymera"));
                         pole.setTypPozemku(rs.getString("pTypPozemku"));
                         pole.setVlastnictvo(rs.getString("pVlastnictvo"));
                         polia.add(pole);
@@ -105,7 +104,7 @@ public class MysqlPoleDao implements PoleDao {
                         pole.setId(poleId);
                         pole.setTypParcely(rs.getString("pTypParcely"));
                         pole.setCisloParcely(rs.getString("pCisloParcely"));
-                        pole.setVymera(rs.getDouble("pVymera"));
+                        pole.setVymera(rs.getInt("pVymera"));
                         pole.setTypPozemku(rs.getString("pTypPozemku"));
                         pole.setVlastnictvo(rs.getString("pVlastnictvo"));
                         return pole;
@@ -192,6 +191,7 @@ public class MysqlPoleDao implements PoleDao {
                         pole.setId(poleId);
                         pole.setTypParcely(rs.getString("typ_parcely"));
                         pole.setCisloParcely(rs.getString("cislo_parcely"));
+                        pole.setVymera(rs.getInt("vymera"));
                         pole.setTypPozemku(rs.getString("typ_pozemku"));
                         pole.setVlastnictvo(rs.getString("vlastnictvo"));
                         polia.add(pole);

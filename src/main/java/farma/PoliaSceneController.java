@@ -48,7 +48,7 @@ public class PoliaSceneController {
     private TableColumn<Pole, String> cisloParcelyTableColumn;
 
     @FXML
-    private TableColumn<Pole, String> vymeraTableColumn;
+    private TableColumn<Pole, Integer> vymeraTableColumn;
 
     @FXML
     private TableColumn<Pole, String> typPozemkuTableColumn;
@@ -90,7 +90,9 @@ public class PoliaSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+            if (controller.getBolaPridanaPolozka()) {
+                poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+            }
         });
 
         zmazatPoleButton.setOnAction(eh -> {

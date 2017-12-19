@@ -23,6 +23,12 @@ public class PoliaEditSceneController {
         aktualnePole = new PoleFxModel();
     }
 
+    boolean getBolaPridanaPolozka() {
+        return bolaPridanaPolozka;
+    }
+    private boolean bolaPridanaPolozka = false;
+    private boolean daSaPridat = false;
+
     @FXML
     private TextField cisloParcelyTextField;
 
@@ -76,15 +82,26 @@ public class PoliaEditSceneController {
         ineRadioButton.setUserData("ine");
 
         vlozitButton.setOnAction(eh -> {
-            try {
+            daSaPridat = true;
+
+            // ošetrenie čísla parcely
+            daSaPridat = daSaPridat && aktualnePole.getCisloParcely() != null && aktualnePole.getCisloParcely().length() > 0 && aktualnePole.getCisloParcely().length() <= 50;
+
+            // ošetrenie výmery // menšie ako 10 000 000
+            daSaPridat = daSaPridat && aktualnePole.getVymera() != null && aktualnePole.getVymera() > 0 && aktualnePole.getVymera() < 10000000;
+
+            // ošetrenie typu pozemku
+            daSaPridat = daSaPridat && aktualnePole.getTypPozemku() != null && aktualnePole.getTypPozemku().length() > 0 && aktualnePole.getTypPozemku().length() <= 50;
+
+            if (daSaPridat) {
                 aktualnePole.setVlastnictvo(group2.getSelectedToggle().getUserData().toString());
                 aktualnePole.setTypParcely(group1.getSelectedToggle().getUserData().toString());
                 poleDao.add(aktualnePole.getPole());
                 cisloParcelyTextField.clear();
                 typPozemkuTextField.clear();
                 vymeraTextField.clear();
-            } catch (Exception e) {
-                System.err.println(e);
+                vlozitButton.getScene().getWindow().hide();
+            } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {
                     FXMLLoader loader = new FXMLLoader(

@@ -123,6 +123,7 @@ public class ZvierataEditSceneController {
                 datumNarodeniaDatePicker.getEditor().clear();
                 datumNadobudnutiaDatePicker.getEditor().clear();
                 cenaTextField.clear();
+                vlozitButton.getScene().getWindow().hide();
             } else {
                 NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {

@@ -181,7 +181,7 @@ public class MysqlZvieraDaoTest {
     @Test
     public void getRokyNadobudnutiaTest(){
         int pocet = zvieraDao.getRokyNadobudnutia().size();
-       Zviera zviera = new Zviera();
+        Zviera zviera = new Zviera();
         zviera.setRegistracneCislo("100");
         zviera.setDruh("koza");
         zviera.setPlemeno("cierna");
@@ -228,4 +228,6 @@ public class MysqlZvieraDaoTest {
         assertEquals(1, zvieraDao.getPlemenaPodlaDruhu("koza").size());
         zvieraDao.deleteByRegistracneCislo("100");
     }
+    
+    
 }

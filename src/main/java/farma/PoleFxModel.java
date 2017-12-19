@@ -15,7 +15,7 @@ public class PoleFxModel {
     private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty typParcely = new SimpleStringProperty();
     private StringProperty cisloParcely = new SimpleStringProperty();
-    private DoubleProperty vymera = new SimpleDoubleProperty();
+    private IntegerProperty vymera = new SimpleIntegerProperty();
     private StringProperty typPozemku = new SimpleStringProperty();
     private StringProperty vlastnictvo = new SimpleStringProperty();
 
@@ -42,7 +42,7 @@ public class PoleFxModel {
     public String getTypParcely() {
         return typParcely.get();
     }
-    
+
     public StringProperty cisloParcelyProperty() {
         return cisloParcely;
     }
@@ -55,15 +55,15 @@ public class PoleFxModel {
         return cisloParcely.get();
     }
 
-    public DoubleProperty vymeraProperty() {
+    public IntegerProperty vymeraProperty() {
         return vymera;
     }
 
-    public void setVymera(Double vymera) {
+    public void setVymera(Integer vymera) {
         this.vymera.set(vymera);
     }
 
-    public Double getVymera() {
+    public Integer getVymera() {
         return vymera.get();
     }
 
@@ -115,7 +115,7 @@ public class PoleFxModel {
         setId(0);
         setTypParcely(null);
         setCisloParcely(null);
-        setVymera(0.0);
+        setVymera(0);
         setTypPozemku(null);
         setVlastnictvo(null);
     }

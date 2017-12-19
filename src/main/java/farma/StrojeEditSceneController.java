@@ -50,13 +50,14 @@ public class StrojeEditSceneController {
     private Button vlozitButton;
 
     @FXML
-    void initialize() {
+    void initialize() throws ParseException {
         vyrobcaTextField.textProperty().bindBidirectional(aktualnyStroj.vyrobcaProperty());
         typTextField.textProperty().bindBidirectional(aktualnyStroj.typProperty());
         kategoriaTextField.textProperty().bindBidirectional(aktualnyStroj.kategoriaProperty());
         datumDatePicker.valueProperty().bindBidirectional(aktualnyStroj.datumProperty());
         StringConverter<Number> converter = new NumberStringConverter();
         cenaTextField.textProperty().bindBidirectional(aktualnyStroj.cenaProperty(), converter);
+
         vlozitButton.setOnAction(eh -> {
             //
             boolean daSaPridat = true;

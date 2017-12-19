@@ -132,7 +132,9 @@ public class ZvieraSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+            if (controller.getBolaPridanaPolozka()) {
+                zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+            }
         });
 
         TableView<Zviera> table = zvierataTableView;

@@ -1,7 +1,9 @@
 package farma;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,9 +29,15 @@ public class ZvierataEditSceneController {
     private final ZvieraFxModel aktualneZviera;
     private ObservableList<Zviera> zvierataList = null;
     private String pohlavie = "%";
+    private boolean bolaPridanaPolozka = false;
+    private final String[] pohlavia = {"m", "f"};
 
     public ZvierataEditSceneController() {
         aktualneZviera = new ZvieraFxModel();
+    }
+
+    boolean getBolaPridanaPolozka() {
+        return bolaPridanaPolozka;
     }
 
     @FXML
@@ -62,7 +70,7 @@ public class ZvierataEditSceneController {
 
     @FXML
     void initialize() {
-        pohlavieComboBox.getItems().addAll("f", "m");
+        pohlavieComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(pohlavia)));
         List<Zviera> zvierata = zvieraDao.getAll();
         zvierataList = FXCollections.observableArrayList(zvierata);
 
@@ -70,66 +78,65 @@ public class ZvierataEditSceneController {
         druhTextField.textProperty().bindBidirectional(aktualneZviera.druhProperty());
         plemenoTextField.textProperty().bindBidirectional(aktualneZviera.plemenoProperty());
 
-        //pohlavieComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPohlavia()));
-        pohlavieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
-                pohlavie = newValue;
-            }
-        });
+        pohlavieComboBox.valueProperty().bindBidirectional(aktualneZviera.pohlavieProperty());
+
+        datumNarodeniaDatePicker.valueProperty().bindBidirectional(aktualneZviera.datumNarodeniaProperty());
+        datumNadobudnutiaDatePicker.valueProperty().bindBidirectional(aktualneZviera.datumNadobudnutiaProperty());
+
         StringConverter<Number> converter = new NumberStringConverter();
         cenaTextField.textProperty().bindBidirectional(aktualneZviera.kupnaCenaProperty(), converter);
 
         vlozitButton.setOnAction(eh -> {
-            if (aktualneZviera.getRegistracneCislo() == null
-                    || (aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().isEmpty())) {
-                ZvieraNevyplneneRegistracneCisloController controller
-                        = new ZvieraNevyplneneRegistracneCisloController();
+            boolean daSaPridat = true;
+
+            // ošetrenie registračného čísla
+            daSaPridat = daSaPridat && aktualneZviera.getRegistracneCislo() != null && aktualneZviera.getRegistracneCislo().length() > 0 && aktualneZviera.getRegistracneCislo().length() <= 30;
+
+            // ošetrenie druhu
+            daSaPridat = daSaPridat && aktualneZviera.getDruh() != null && aktualneZviera.getDruh().length() > 0 && aktualneZviera.getDruh().length() <= 25;
+
+            // ošetrenie plemena
+            daSaPridat = daSaPridat && aktualneZviera.getPlemeno() != null && aktualneZviera.getPlemeno().length() > 0 && aktualneZviera.getPlemeno().length() <= 45;
+
+            // ošetrenie pohlavia
+            daSaPridat = daSaPridat && aktualneZviera.getPohlavie() != null;
+
+            // ošetrenie datumu narodenia
+            daSaPridat = daSaPridat && aktualneZviera.getDatumNarodenia() != null && aktualneZviera.getDatumNarodenia().compareTo(LocalDate.now()) <= 0;
+
+            // ošetrenie datumu nadobudnutia
+            daSaPridat = daSaPridat && aktualneZviera.getDatumNadobudnutia() != null && aktualneZviera.getDatumNadobudnutia().compareTo(LocalDate.now()) <= 0;
+
+            // ošetrenie správnosti oboch dátumov
+            daSaPridat = daSaPridat && aktualneZviera.getDatumNarodenia().compareTo(aktualneZviera.getDatumNadobudnutia()) <= 0;
+
+            // ošetrenie ceny
+            daSaPridat = daSaPridat && aktualneZviera.getKupnaCena() != null && aktualneZviera.getKupnaCena() >= 0 && aktualneZviera.getKupnaCena() < 10000;
+
+            if (daSaPridat) {
+                zvieraDao.add(aktualneZviera.getZviera());
+                bolaPridanaPolozka = true;
+                registracneCisloTextField.clear();
+                druhTextField.clear();
+                plemenoTextField.clear();
+                pohlavieComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(pohlavia)));
+                datumNarodeniaDatePicker.getEditor().clear();
+                datumNadobudnutiaDatePicker.getEditor().clear();
+                cenaTextField.clear();
+            } else {
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
                 try {
                     FXMLLoader loader = new FXMLLoader(
-                            getClass().getResource("NevyplneneRegCislo.fxml"));
+                            getClass().getResource("NespravneVyplnenie.fxml"));
                     loader.setController(controller);
                     Parent parentPane = loader.load();
                     Scene scene = new Scene(parentPane);
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    stage.setTitle("Registračné číslo");
+                    stage.setTitle("Nesprávne vyplnenie údajov");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                } catch (IOException iOException) {
-                    iOException.printStackTrace();
-                }
-            } else {
-                try {
-                    aktualneZviera.setDatumNarodenia(datumNarodeniaDatePicker.getValue());
-                    aktualneZviera.setDatumNadobudnutia(datumNadobudnutiaDatePicker.getValue());
-                    aktualneZviera.setPohlavie(pohlavieComboBox.getValue());
-                    zvieraDao.add(aktualneZviera.getZviera());
-                    // vyčistenie všetkých textFieldov po pridaní zvieraťa
-                    registracneCisloTextField.clear();
-                    druhTextField.clear();
-                    plemenoTextField.clear();
-                    pohlavieComboBox.setItems(FXCollections.observableList(new ArrayList<String>()));
-                    datumNadobudnutiaDatePicker.getEditor().clear();
-                    datumNarodeniaDatePicker.getEditor().clear();
-                    cenaTextField.clear();
                 } catch (Exception e) {
-                    System.err.println("Problem s vložením.");
-                    NespravneVyplnanieController controller = new NespravneVyplnanieController();
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("NespravneVyplnenie.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Nesprávne vyplnenie údajov");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
                 }
             }
         });

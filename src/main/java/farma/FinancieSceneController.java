@@ -36,7 +36,7 @@ public class FinancieSceneController {
     private Button zobrazVsetkyButton;
 
     @FXML
-    private Button rozsireneVyhladavanieButton;
+    private Button celkovyStavButton;
 
     @FXML
     private TableView<Financie> financieTableView;
@@ -142,6 +142,25 @@ public class FinancieSceneController {
                 financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
             }
             kliknutaPolozka = null;
+        });
+
+        celkovyStavButton.setOnAction(eh -> {
+            FinancieCelkovyStavSceneController controller = new FinancieCelkovyStavSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("CelkovyStavScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Celkový stav");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+
         });
 
         pridatPolozkuButton.setOnAction(eh -> {

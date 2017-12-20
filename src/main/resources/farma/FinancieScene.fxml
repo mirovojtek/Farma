@@ -89,6 +89,11 @@
                   </HBox>
                   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                      <children>
+                        <Button fx:id="celkovyStavButton" mnemonicParsing="false" text="Celkový stav" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
                         <Button fx:id="zmazatpolozkuButton" mnemonicParsing="false" text="Zmazať položku">
                            <HBox.margin>
                               <Insets bottom="5.0" top="5.0" />

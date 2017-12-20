@@ -1,10 +1,16 @@
 package farma;
 
+import com.sun.prism.paint.Color;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -45,6 +51,12 @@ public class FinancieCelkovyStavSceneController {
                 }
             }
             spolu = prijmy - vydaje;
+            if (spolu < 0) {
+                spoluTextFlow.setStyle("-fx-background-color: red");
+            }
+            if (spolu > 0) {
+                spoluTextFlow.setStyle("-fx-background-color: lightgreen");
+            }
             vydajeTextFlow.getChildren().add(new Text(Double.toString(vydaje)));
             prijmyTextFlow.getChildren().add(new Text(Double.toString(prijmy)));
             spoluTextFlow.getChildren().add(new Text(Double.toString(spolu)));

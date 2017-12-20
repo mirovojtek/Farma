@@ -71,7 +71,7 @@
                         <TableColumn fx:id="druhZvieraCol" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Druh" />
                         <TableColumn fx:id="plemenoZvieraCol" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Plemeno" />
                         <TableColumn fx:id="pohlavieZvieraCol" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Pohlavie" />
-                        <TableColumn fx:id="datumNarodeniaZvieraCol" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: CENTTER;" text="D. narodenia" />
+                        <TableColumn fx:id="datumNarodeniaZvieraCol" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="D. narodenia" />
                         <TableColumn fx:id="datumNadobudnutiaZvieraCol" minWidth="100.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="D. nadobudnutia" />
                         <TableColumn fx:id="cenaZvieraCol" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Cena" />
                      </columns>

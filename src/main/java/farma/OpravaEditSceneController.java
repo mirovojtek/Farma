@@ -1,5 +1,5 @@
-
 package farma;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,17 +17,17 @@ import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 public class OpravaEditSceneController {
-    
+
     private OpravaFxModel aktualnaOprava;
     private OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
-    
-    public OpravaEditSceneController(Stroj stroj){
-        aktualnaOprava= new OpravaFxModel(stroj);
+
+    public OpravaEditSceneController(Stroj stroj) {
+        aktualnaOprava = new OpravaFxModel(stroj);
     }
-    
+
     @FXML
     private DatePicker opravyDatePicker;
-    
+
     @FXML
     private TextField cenaTextField;
 
@@ -47,39 +47,40 @@ public class OpravaEditSceneController {
         cenaTextField.textProperty().bindBidirectional(aktualnaOprava.cenaProperty(), converter);
         poruchaTextField.textProperty().bindBidirectional(aktualnaOprava.poruchaProperty());
         popisTextField.textProperty().bindBidirectional(aktualnaOprava.popisProperty());
-                
-        vlozitButton.setOnAction(eh ->{
-             try{
-            aktualnaOprava.setDatum(opravyDatePicker.getValue());
-            opravaDao.add(aktualnaOprava.getOprava());
-            poruchaTextField.clear();
-            popisTextField.clear();
-            cenaTextField.clear();
-           } catch (Exception e) {
-                    System.err.println(e);
+        opravyDatePicker.valueProperty().bindBidirectional(aktualnaOprava.datumProperty());
 
-                    NespravneVyplnanieController controller = new NespravneVyplnanieController();
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("NespravneVyplnenie.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Nesprávne vyplnenie údajov");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
+        vlozitButton.setOnAction(eh -> {
 
+            try {
+                aktualnaOprava.setDatum(opravyDatePicker.getValue());
+                opravaDao.add(aktualnaOprava.getOprava());
+                poruchaTextField.clear();
+                popisTextField.clear();
+                cenaTextField.clear();
+            } catch (Exception e) {
+                System.err.println(e);
+
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NespravneVyplnenie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Nesprávne vyplnenie údajov");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                    // toto sa vykona az po zatvoreni okna
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
                 }
-            
-         });
-        
+
+            }
+
+        });
+
     }
-    
-    
+
 }

@@ -33,12 +33,12 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                      <columns>
-                        <TableColumn fx:id="idCol" maxWidth="-1.0" minWidth="30.0" prefWidth="-1.0" text="ID" />
-                        <TableColumn fx:id="vyrobcaCol" minWidth="80.0" prefWidth="-1.0" text="Výrobca" />
-                        <TableColumn fx:id="typCol" minWidth="80.0" prefWidth="-1.0" text="Typ" />
-                        <TableColumn fx:id="kategoriaCol" minWidth="80.0" prefWidth="-1.0" text="Kategória" />
-                        <TableColumn fx:id="datumCol" minWidth="70.0" prefWidth="-1.0" text="Dátum" />
-                        <TableColumn fx:id="cenaCol" minWidth="60.0" prefWidth="-1.0" text="Cena" />
+                        <TableColumn fx:id="idCol" maxWidth="-1.0" minWidth="30.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="ID" />
+                        <TableColumn fx:id="vyrobcaCol" minWidth="80.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Výrobca" />
+                        <TableColumn fx:id="typCol" minWidth="80.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Typ" />
+                        <TableColumn fx:id="kategoriaCol" minWidth="80.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Kategória" />
+                        <TableColumn fx:id="datumCol" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Dátum" />
+                        <TableColumn fx:id="cenaCol" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Cena" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -50,10 +50,10 @@
                <children>
                   <TableView fx:id="opravyTableView" tableMenuButtonVisible="true">
                     <columns>
-                      <TableColumn fx:id="idOpravaCol" maxWidth="-1.0" minWidth="30.0" prefWidth="30.0" text="ID" />
-                      <TableColumn fx:id="datumOpravaCol" maxWidth="-1.0" minWidth="70.0" prefWidth="-1.0" text="Dátum" />
-                        <TableColumn fx:id="cenaOpravaCol" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="Cena" />
-                        <TableColumn fx:id="poruchaOpravaCol" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Porucha" />
+                      <TableColumn fx:id="idOpravaCol" maxWidth="-1.0" minWidth="30.0" prefWidth="30.0" style="-fx-alignment: CENTER;" text="ID" />
+                      <TableColumn fx:id="datumOpravaCol" maxWidth="-1.0" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Dátum" />
+                        <TableColumn fx:id="cenaOpravaCol" maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Cena" />
+                        <TableColumn fx:id="poruchaOpravaCol" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Porucha" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

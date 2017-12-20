@@ -1,10 +1,7 @@
 package farma;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -64,11 +64,11 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                      <columns>
-                        <TableColumn fx:id="idFinancieCol" maxWidth="-1.0" minWidth="30.0" prefWidth="-1.0" text="ID" />
-                        <TableColumn fx:id="datumFinancieCol" minWidth="50.0" prefWidth="-1.0" text="Dátum" />
-                        <TableColumn fx:id="typFinancieCol" minWidth="50.0" prefWidth="-1.0" text="Typ" />
-                        <TableColumn fx:id="sumaFinancieCol" minWidth="50.0" prefWidth="-1.0" text="Suma" />
-                        <TableColumn fx:id="popisFinancieCol" minWidth="70.0" prefWidth="-1.0" text="Popis" />
+                        <TableColumn fx:id="idFinancieCol" maxWidth="-1.0" minWidth="30.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="ID" />
+                        <TableColumn fx:id="datumFinancieCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Dátum" />
+                        <TableColumn fx:id="typFinancieCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Typ" />
+                        <TableColumn fx:id="sumaFinancieCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Suma" />
+                        <TableColumn fx:id="popisFinancieCol" minWidth="70.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Popis" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

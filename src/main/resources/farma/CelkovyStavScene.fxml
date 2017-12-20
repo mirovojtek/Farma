@@ -24,19 +24,19 @@
             <HBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Výdaje" />
-                  <TextFlow fx:id="vydajeTextFlow" maxHeight="30.0" maxWidth="120.0" minHeight="30.0" minWidth="120.0" prefHeight="30.0" prefWidth="120.0" textAlignment="CENTER" />
+                  <TextFlow fx:id="vydajeTextFlow" maxHeight="25.0" maxWidth="120.0" minHeight="25.0" minWidth="120.0" prefHeight="25.0" prefWidth="120.0" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Príjmy" />
-                  <TextFlow fx:id="prijmyTextFlow" maxHeight="30.0" maxWidth="120.0" minHeight="30.0" minWidth="120.0" prefHeight="30.0" prefWidth="120.0" textAlignment="CENTER" />
+                  <TextFlow fx:id="prijmyTextFlow" maxHeight="25.0" maxWidth="120.0" minHeight="25.0" minWidth="120.0" prefHeight="25.0" prefWidth="120.0" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Spolu" />
-                  <TextFlow fx:id="spoluTextFlow" maxHeight="30.0" maxWidth="120.0" minHeight="30.0" minWidth="120.0" prefHeight="30.0" prefWidth="120.0" textAlignment="CENTER" />
+                  <TextFlow fx:id="spoluTextFlow" maxHeight="25.0" maxWidth="120.0" minHeight="25.0" minWidth="120.0" prefHeight="25.0" prefWidth="120.0" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox alignment="CENTER" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" VBox.vgrow="ALWAYS">

@@ -8,7 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class StrojTabulkaOprav {
 
-    private OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
+    private final OpravaDao opravaDao = DaoFactory.INSTANCE.getOpravaDao();
 
     @FXML
     private TableView<Oprava> opravyTableView;

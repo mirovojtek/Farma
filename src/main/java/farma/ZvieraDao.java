@@ -11,21 +11,20 @@ public interface ZvieraDao {
     List<Zviera> getAll();
 
     boolean deleteByRegistracneCislo(String rc);
-    
 
     void pridajPopis(Zviera zviera);
-    
+
     List<String> getDruhy();
-    
+
     List<String> getPohlavia();
-    
+
     List<String> getPlemena();
-    
+
     List<String> getPlemenaPodlaDruhu(String druh);
-    
+
     List<String> getRokyNarodenia();
-    
+
     List<String> getRokyNadobudnutia();
-    
+
     List<Zviera> rozsireneVyhladavanie(String druh, String plemeno, String rokNarodenia, String rokNadobudnutia, String pohlavie);
 }

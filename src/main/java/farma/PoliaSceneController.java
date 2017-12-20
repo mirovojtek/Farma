@@ -24,6 +24,7 @@ public class PoliaSceneController {
     private PoleFxModel aktualnePole = new PoleFxModel();
     private ObservableList<Pole> p;
     private Pole kliknutePole;
+    private List<Pole> polia;
 
     public PoliaSceneController() {
         aktualnePole = new PoleFxModel();
@@ -71,7 +72,13 @@ public class PoliaSceneController {
         vymeraTableColumn.setCellValueFactory(new PropertyValueFactory<>("vymera"));
         typPozemkuTableColumn.setCellValueFactory(new PropertyValueFactory<>("typPozemku"));
         vlastnictvoTableColumn.setCellValueFactory(new PropertyValueFactory<>("vlastnictvo"));
+
+        polia = poleDao.getAll();
         poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+        if (polia.isEmpty()) {
+            poliaTableView.setPlaceholder(new Label("Žiadne polia sa v databáze nenáchadzajú."));
+
+        }
 
         pridatPoleButton.setOnAction(eh -> {
             PoliaEditSceneController controller
@@ -158,7 +165,6 @@ public class PoliaSceneController {
             if (controller.getAkcia()) {
                 List<Pole> poleRozsirene = poleDao.rozsireneVyhladavanie(controller.getTypParcely(),
                         controller.getCisloParcely(), controller.getTypPozemku(), controller.getVlastnictvo());
-
                 poliaTableView.setItems(FXCollections.observableArrayList(poleRozsirene));
                 if (poleRozsirene.size() == 0) {
                     poliaTableView.setPlaceholder(new Label("Polia so zadanými parametrami sa v databáze nenachádzajú."));
@@ -168,44 +174,29 @@ public class PoliaSceneController {
         });
 
         zobrazVsetkyButton.setOnAction(eh -> {
+            polia = poleDao.getAll();
             poliaTableView.setItems(FXCollections.observableArrayList(poleDao.getAll()));
+            if (polia.isEmpty()) {
+                poliaTableView.setPlaceholder(new Label("Žiadne polia sa v databáze nenáchadzajú."));
+            }
             kliknutePole = null;
         });
 
+        // zdroj: https://stackoverflow.com/questions/30191264/javafx-tableview-how-to-get-the-row-i-clicked
         TableView<Pole> table = poliaTableView;
         table.setRowFactory(tv -> {
             TableRow<Pole> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     kliknutePole = row.getItem();
                 }
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 2) {
                     kliknutePole = row.getItem();
-                    /*
-                    PolePopisController controller = new PolePopisController(kliknutePole);
-                    try {
-                        FXMLLoader loader = new FXMLLoader(
-                                getClass().getResource("ZvieraPopis.fxml"));
-                        loader.setController(controller);
-                        Parent parentPane = loader.load();
-                        Scene scene = new Scene(parentPane);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.setTitle("Popis");
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
-                    } catch (IOException iOException) {
-                        iOException.printStackTrace();
-                    }
-                     */
                 }
             });
             return row;
         });
     }
-
 }

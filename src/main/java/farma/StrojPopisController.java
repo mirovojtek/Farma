@@ -88,11 +88,29 @@ public class StrojPopisController {
         popisTextArea.textProperty().bindBidirectional(popisStroj.popisProperty());
 
         vlozitPopisButton.setOnAction(eh -> {
-            strojDao.pridajPopis(popisStroj.getStroj());
-            Text t2 = new Text(popisStroj.getPopis());
-            popisTextFlow.getChildren().clear();
-            popisTextFlow.getChildren().add(t2);
+            if (popisTextArea.getText().length() <= 500) {
+                strojDao.pridajPopis(popisStroj.getStroj());
+                Text t2 = new Text(popisStroj.getPopis());
+                popisTextFlow.getChildren().clear();
+                popisTextFlow.getChildren().add(t2);
+            } else {
+                NespravneVyplnanieController controller = new NespravneVyplnanieController();
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("NespravneVyplnenie.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Nesprávne vyplnenie údajov");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                } catch (Exception e) {
+                }
+            }
         });
+
         opravyButton.setOnAction(eh -> {
             OpravyKonkretnehoStroja controller = new OpravyKonkretnehoStroja(kliknutyStroj);
             try {
@@ -106,7 +124,6 @@ public class StrojPopisController {
                 stage.setTitle("Opravy");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -125,11 +142,9 @@ public class StrojPopisController {
                 stage.setTitle("Tankovania");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
         });
     }
-
 }

@@ -106,7 +106,6 @@ public class TankovaniaKonkretnehoStroja {
                 stage.setTitle("Pridať tankovanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -119,7 +118,6 @@ public class TankovaniaKonkretnehoStroja {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     kliknuteTankovanie = row.getItem();
                 }
             });
@@ -140,7 +138,6 @@ public class TankovaniaKonkretnehoStroja {
                     stage.setTitle("Zmazať tankovanie");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
@@ -160,7 +157,6 @@ public class TankovaniaKonkretnehoStroja {
                 stage.setTitle("Zmazať tankovanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
@@ -182,7 +178,6 @@ public class TankovaniaKonkretnehoStroja {
                 stage.setTitle("Vymaž všetko");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }

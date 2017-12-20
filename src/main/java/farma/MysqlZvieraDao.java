@@ -1,11 +1,8 @@
 package farma;
 
-import farma.Zviera;
-import farma.ZvieraDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +52,6 @@ public class MysqlZvieraDao implements ZvieraDao {
 
     @Override
     public Zviera findByRegistracneCislo(String rc) {
-
         String sql = "select zviera.id as 'zId', zviera.registracne_cislo as 'zRegistracneCislo', zviera.druh as 'zDruh', zviera.plemeno as 'zPlemeno', zviera.pohlavie as 'zPohlavie', datum_narodenia as 'zDatumNarodenia', zviera.datum_nadobudnutia as 'zDatumNadobudnutia', zviera.kupna_cena as 'zKupnaCena', zviera.popis as 'zPopis'  from zviera;";
         return jdbcTemplate.query(sql, new ResultSetExtractor<Zviera>() {
             @Override
@@ -100,13 +96,9 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("zPlemeno"));
                         zviera.setPohlavie(rs.getString("zPohlavie"));
                         Timestamp ts = rs.getTimestamp("zDatumNarodenia");
-                        if (ts != null) {
-                            zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
-                        }
+                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
                         ts = rs.getTimestamp("zDatumNadobudnutia");
-                        if (ts != null) {
-                            zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
-                        }
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         zviera.setKupnaCena(rs.getDouble("zKupnaCena"));
                         zvierata.add(zviera);
                     }
@@ -147,7 +139,6 @@ public class MysqlZvieraDao implements ZvieraDao {
                 return druhy;
             }
         });
-
     }
 
     @Override
@@ -244,13 +235,9 @@ public class MysqlZvieraDao implements ZvieraDao {
                         zviera.setPlemeno(rs.getString("plemeno"));
                         zviera.setPohlavie(rs.getString("pohlavie"));
                         Timestamp ts = rs.getTimestamp("datum_narodenia");
-                        if (ts != null) {
-                            zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
-                        }
+                        zviera.setDatumNarodenia(ts.toLocalDateTime().toLocalDate());
                         ts = rs.getTimestamp("datum_nadobudnutia");
-                        if (ts != null) {
-                            zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
-                        }
+                        zviera.setDatumNadobudnutia(ts.toLocalDateTime().toLocalDate());
                         zviera.setKupnaCena(rs.getDouble("kupna_cena"));
                         zvierata.add(zviera);
                     }

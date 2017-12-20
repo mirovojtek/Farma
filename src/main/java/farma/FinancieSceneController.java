@@ -23,7 +23,7 @@ public class FinancieSceneController {
 
     private final FinancieDao financieDao = DaoFactory.INSTANCE.getFinancieDao();
     private FinancieFxModel aktualnaPolozka = new FinancieFxModel();
-    private ObservableList<Financie> f;
+    private List<Financie> vsetkyPolozky;
     private Financie kliknutaPolozka;
 
     @FXML
@@ -72,6 +72,11 @@ public class FinancieSceneController {
         popisFinancieCol.setCellValueFactory(new PropertyValueFactory<>("popis"));
         financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
 
+        vsetkyPolozky = financieDao.getAll();
+        financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+        if (vsetkyPolozky.isEmpty()) {
+            financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
+        }
         zobrazTypButton.setOnAction(eh -> {
 
             FinancieVyberTypuSceneController controller = new FinancieVyberTypuSceneController();
@@ -131,7 +136,11 @@ public class FinancieSceneController {
         });
 
         zobrazVsetkyButton.setOnAction(eh -> {
-            financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+            vsetkyPolozky = financieDao.getAll();
+            financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+            if (vsetkyPolozky.isEmpty()) {
+                financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
+            }
             kliknutaPolozka = null;
         });
 

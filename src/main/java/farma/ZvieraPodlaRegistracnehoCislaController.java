@@ -22,7 +22,7 @@ public class ZvieraPodlaRegistracnehoCislaController {
     public boolean getAkcia() {
         return akcia;
     }
-    
+
     @FXML
     private Button okButton;
 
@@ -33,10 +33,8 @@ public class ZvieraPodlaRegistracnehoCislaController {
     void initialize() {
 
         okButton.setOnAction(eh -> {
-
             if (regCisloTextField.getText().equals("")) {
                 // vyskoči okno, že registračné číslo musi byť zadene
-
                 ZvieraNevyplneneRegistracneCisloController controller
                         = new ZvieraNevyplneneRegistracneCisloController();
                 try {
@@ -50,18 +48,14 @@ public class ZvieraPodlaRegistracnehoCislaController {
                     stage.setTitle("Registračné číslo");
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
-
             } else {
                 rc = regCisloTextField.getText();
                 akcia = true;
                 okButton.getScene().getWindow().hide();
             }
         });
-
     }
-
 }

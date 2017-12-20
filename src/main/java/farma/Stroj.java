@@ -17,8 +17,6 @@ public class Stroj {
     private List<Tankovanie> tankovania = new ArrayList<Tankovanie>();
     private String popis;
 
-    private String fDatum;
-    
     public int getId() {
         return id;
     }
@@ -62,7 +60,7 @@ public class Stroj {
     public LocalDate getDatum() {
         return datum;
     }
-    
+
     public String getFDatum() {
         DateTimeFormatter formatovac = DateTimeFormatter.
                 ofPattern("dd.MM.yyyy");
@@ -89,16 +87,16 @@ public class Stroj {
         this.tankovania = tankovania;
     }
 
-    public String getPopis(){
+    public String getPopis() {
         return popis;
     }
-    public void setPopis(String popis){
+
+    public void setPopis(String popis) {
         this.popis = popis;
     }
-    
+
     @Override
     public String toString() {
-        return id + " " + vyrobca + " " + typ + " " + kategoria + " " + cena + " " + datum;
+        return "stroj [" + id + " " + vyrobca + " " + typ + " " + kategoria + " " + cena + " " + datum + "]";
     }
-
 }

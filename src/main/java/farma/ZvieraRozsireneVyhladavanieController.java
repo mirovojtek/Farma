@@ -1,9 +1,5 @@
 package farma;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,8 +21,6 @@ public class ZvieraRozsireneVyhladavanieController {
         zvieraDao = DaoFactory.INSTANCE.getZvieraDao();
     }
 
-    ;
-    
     public boolean getAkcia() {
         return akcia;
     }
@@ -76,12 +70,10 @@ public class ZvieraRozsireneVyhladavanieController {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                 druh = newValue;
-                //
                 plemenoComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPlemenaPodlaDruhu(druh)));
-                //
             }
-
         });
+
         pohlavieComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPohlavia()));
         pohlavieComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -89,37 +81,34 @@ public class ZvieraRozsireneVyhladavanieController {
                 pohlavie = newValue;
             }
         });
+
         plemenoComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getPlemena()));
         plemenoComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                 plemeno = newValue;
             }
-
         });
+
         rokNarodeniaComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getRokyNarodenia()));
         rokNarodeniaComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                 rokNarodenia = newValue;
             }
-
         });
-        
+
         rokNadobudnutiaComboBox.setItems(FXCollections.observableArrayList(zvieraDao.getRokyNadobudnutia()));
         rokNadobudnutiaComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> ov, String old, String newValue) {
                 rokNadobudnutia = newValue;
             }
-
         });
-
 
         vyhladatButton.setOnAction(eh -> {
             akcia = true;
             vyhladatButton.getScene().getWindow().hide();
         });
-
     }
 }

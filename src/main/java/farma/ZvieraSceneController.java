@@ -1,6 +1,8 @@
 package farma;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -70,7 +72,12 @@ public class ZvieraSceneController {
     @FXML
     void initialize() {
         zobrazVsetkyButton.setOnAction(eh -> {
-            zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+            List<Zviera> vsetkyZvierata = new ArrayList<Zviera>();
+            vsetkyZvierata.addAll(zvieraDao.getAll());
+            zvierataTableView.setItems(FXCollections.observableArrayList(vsetkyZvierata));
+            if (vsetkyZvierata.isEmpty()) {
+                zvierataTableView.setPlaceholder(new Label("V databáze sa žiadne zvieratá nenachádzajú."));
+            }
             kliknuteZviera = null;
         });
 
@@ -113,7 +120,11 @@ public class ZvieraSceneController {
         datumNadobudnutiaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("fDatumNadobudnutia"));
         cenaZvieraCol.setCellValueFactory(new PropertyValueFactory<>("kupnaCena"));
 
-        zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+        List<Zviera> vsetkyZvierata = zvieraDao.getAll();
+        zvierataTableView.setItems(FXCollections.observableArrayList(vsetkyZvierata));
+        if (vsetkyZvierata.isEmpty()) {
+            zvierataTableView.setPlaceholder(new Label("V databáze sa žiadne zvieratá nenachádzajú."));
+        }
 
         pridatZvieraButton.setOnAction(eh -> {
             ZvierataEditSceneController controller
@@ -137,13 +148,13 @@ public class ZvieraSceneController {
             }
         });
 
+        // zdroj: https://stackoverflow.com/questions/30191264/javafx-tableview-how-to-get-the-row-i-clicked
         TableView<Zviera> table = zvierataTableView;
         table.setRowFactory(tv -> {
             TableRow<Zviera> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     kliknuteZviera = row.getItem();
                 }
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
@@ -161,11 +172,9 @@ public class ZvieraSceneController {
                         stage.setTitle("Popis");
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
                     } catch (IOException iOException) {
                         iOException.printStackTrace();
                     }
-
                 }
             });
             return row;
@@ -186,32 +195,31 @@ public class ZvieraSceneController {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setResizable(false);
                     stage.showAndWait();
-                    // toto sa vykona az po zatvoreni okna
                 } catch (IOException iOException) {
                     iOException.printStackTrace();
                 }
-
-                return;
+            } else {
+                ZvieraDeleteSceneController controller
+                        = new ZvieraDeleteSceneController(kliknuteZviera.getRegistracneCislo());
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("PotvrdenieZmazania.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Zmazať zviera");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+                if (controller.getBoloZmazaneZviera()) {
+                    zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
+                    kliknuteZviera = null;
+                }
             }
-            ZvieraDeleteSceneController controller
-                    = new ZvieraDeleteSceneController(kliknuteZviera.getRegistracneCislo());
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("PotvrdenieZmazania.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Zmazať zviera");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-            zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.getAll()));
-            kliknuteZviera = null;
         });
 
         rozsireneVyhladavanieButton.setOnAction(eh -> {
@@ -227,17 +235,14 @@ public class ZvieraSceneController {
                 stage.setTitle("Rozšírene vyhľadávanie");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                // toto sa vykona az po zatvoreni okna
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-
             if (controller.getAkcia() == true) {
                 zvierataTableView.setItems(FXCollections.observableArrayList(zvieraDao.rozsireneVyhladavanie(
                         controller.getDruh(), controller.getPlemeno(), controller.getRokNarodenia(),
                         controller.getRokNadobudnutia(), controller.getPohlavie())));
             }
         });
-
     }
 }

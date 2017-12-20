@@ -1,7 +1,6 @@
 package farma;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Zviera {
@@ -15,9 +14,6 @@ public class Zviera {
     private LocalDate datumNadobudnutia;
     private double kupnaCena;
     private String popis;
-
-    private String fDatumNarodenia;
-    private String fDatumNadobudnutia;
 
     public int getId() {
         return id;
@@ -105,8 +101,7 @@ public class Zviera {
 
     @Override
     public String toString() {
-        return registracneCislo + " "
-                + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena + "" + popis;
+        return "zviera [" + registracneCislo + " "
+                + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena + " " + popis + "]";
     }
-
 }

@@ -17,12 +17,11 @@ public class FarmaApp extends Application {
         Parent parentPane = loader.load();
         Scene scene = new Scene(parentPane);
         stage.setScene(scene);
-        stage.show();
         stage.setTitle("Farma");
+        stage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }

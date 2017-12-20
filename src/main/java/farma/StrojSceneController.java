@@ -1,6 +1,7 @@
 package farma;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,10 +21,11 @@ import javafx.stage.Stage;
 
 public class StrojSceneController {
 
-    private StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
+    private final StrojDao strojDao = DaoFactory.INSTANCE.getStrojDao();
     private StrojFxModel aktualnyStroj = new StrojFxModel();
     private ObservableList<Stroj> s;
     private Stroj kliknutyStroj;
+    List<Stroj> vsetkyStroje = new ArrayList<>();
 
     @FXML
     private TableView<Stroj> strojeTableView;
@@ -68,7 +70,11 @@ public class StrojSceneController {
     void initialize() {
 
         zobrazVsetkyButton.setOnAction(eh -> {
-            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+            vsetkyStroje = strojDao.getAll();
+            strojeTableView.setItems(FXCollections.observableArrayList(vsetkyStroje));
+            if (vsetkyStroje.isEmpty()) {
+                strojeTableView.setPlaceholder(new Label("V databáze sa žiadne stroje nenachádzajú."));
+            }
             kliknutyStroj = null;
         });
 
@@ -91,7 +97,6 @@ public class StrojSceneController {
             }
             if (controller.getAkcia()) {
                 List<Stroj> strojRozsirene = strojDao.rozsireneVyhladavanie(controller.getVyrobca(), controller.getTyp(), controller.getKategoria(), controller.getRokNadobudnutia());
-
                 strojeTableView.setItems(FXCollections.observableArrayList(strojRozsirene));
                 if (strojRozsirene.size() == 0) {
                     strojeTableView.setPlaceholder(new Label("Stroje so zadanými parametrami sa v databáze nenachádzajú."));
@@ -140,34 +145,37 @@ public class StrojSceneController {
                     iOException.printStackTrace();
                 }
                 return;
+            } else {
+                StrojDeleteSceneController controller
+                        = new StrojDeleteSceneController(kliknutyStroj.getId());
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("PotvrdenieZmazania.fxml"));
+                    loader.setController(controller);
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle("Zmazať stroj");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+                } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                }
+                if (controller.getBolZmazanyStroj()) {
+                    strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
+                    kliknutyStroj = null;
+                }
             }
-            StrojDeleteSceneController controller
-                    = new StrojDeleteSceneController(kliknutyStroj.getId());
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("PotvrdenieZmazania.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Zmazať stroj");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-            strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
-            kliknutyStroj = null;
         });
 
+        // zdroj: https://stackoverflow.com/questions/30191264/javafx-tableview-how-to-get-the-row-i-clicked
         TableView<Stroj> table = strojeTableView;
         table.setRowFactory(tv -> {
             TableRow<Stroj> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-
                     kliknutyStroj = row.getItem();
                 }
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
@@ -185,7 +193,6 @@ public class StrojSceneController {
                         stage.setTitle("Popis");
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
-                        // toto sa vykona az po zatvoreni okna
                     } catch (IOException iOException) {
                         iOException.printStackTrace();
                     }
@@ -200,6 +207,13 @@ public class StrojSceneController {
         kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
         datumCol.setCellValueFactory(new PropertyValueFactory<>("fDatum"));
         cenaCol.setCellValueFactory(new PropertyValueFactory<>("cena"));
+
+        vsetkyStroje = strojDao.getAll();
+        strojeTableView.setItems(FXCollections.observableArrayList(vsetkyStroje));
+        if (vsetkyStroje.isEmpty()) {
+            strojeTableView.setPlaceholder(new Label("V databáze sa žiadne stroje nenachádzajú."));
+        }
+
         strojeTableView.setItems(FXCollections.observableArrayList(strojDao.getAll()));
 
         opravyButton.setOnAction(eh -> {

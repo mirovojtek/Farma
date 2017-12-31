@@ -1,5 +1,8 @@
 package farma;
 
+import farma.DaoFactory;
+import farma.Oprava;
+import farma.OpravaDao;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;

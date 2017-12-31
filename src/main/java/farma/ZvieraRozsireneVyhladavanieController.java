@@ -1,5 +1,6 @@
 package farma;
 
+import farma.DaoFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

@@ -1,5 +1,7 @@
 package farma;
 
+import farma.Oprava;
+import farma.Tankovanie;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

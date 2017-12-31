@@ -17,4 +17,6 @@ public interface FinancieDao {
 
     public List<Financie> getAllByTyp(String typ);
 
+    public List<Financie> getAllZaObdobie(LocalDate datumOd, LocalDate datumDo);
+
 }

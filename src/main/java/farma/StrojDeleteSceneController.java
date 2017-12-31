@@ -1,5 +1,7 @@
 package farma;
 
+import farma.DaoFactory;
+import farma.StrojFxModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

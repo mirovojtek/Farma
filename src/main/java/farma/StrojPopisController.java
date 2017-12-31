@@ -1,5 +1,10 @@
 package farma;
 
+import farma.DaoFactory;
+import farma.NespravneVyplnanieController;
+import farma.OpravyKonkretnehoStroja;
+import farma.TankovaniaKonkretnehoStroja;
+import farma.StrojFxModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

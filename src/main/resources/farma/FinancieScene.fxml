@@ -30,7 +30,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="zobrazDenButton" mnemonicParsing="false" text="Zobraziť deň" HBox.hgrow="ALWAYS">
+                        <Button fx:id="zobrazitObdobieButton" mnemonicParsing="false" text="Obdobie" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </HBox.margin>
@@ -39,7 +39,16 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="zobrazTypButton" mnemonicParsing="false" text="Zobraziť typ" HBox.hgrow="ALWAYS">
+                        <Button fx:id="zobrazDenButton" mnemonicParsing="false" text="Deň" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="zobrazTypButton" mnemonicParsing="false" text="Typ" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </HBox.margin>
@@ -59,7 +68,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <TableView fx:id="financieTableView" tableMenuButtonVisible="true" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="financieTableView" prefHeight="310.0" tableMenuButtonVisible="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -76,6 +85,7 @@
                   </TableView>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
@@ -89,7 +99,16 @@
                   </HBox>
                   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="celkovyStavButton" mnemonicParsing="false" text="Celkový stav" />
+                        <TableView fx:id="stavTableView" maxHeight="50.0" minHeight="50.0" minWidth="-Infinity" prefHeight="50.0">
+                          <columns>
+                            <TableColumn fx:id="prijmyCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Príjmy" />
+                            <TableColumn fx:id="vydajeCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Výdaje" />
+                              <TableColumn fx:id="spoluCol" minWidth="50.0" prefWidth="-1.0" style="-fx-alignment: CENTER;" text="Spolu" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" HBox.hgrow="ALWAYS">

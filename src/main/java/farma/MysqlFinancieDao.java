@@ -183,4 +183,37 @@ public class MysqlFinancieDao implements FinancieDao {
             }
         });
     }
+
+    @Override
+    public List<Financie> getAllZaObdobie(LocalDate datumOd, LocalDate datumDo) {
+        String sql = "SELECT "
+                + "financie.id AS 'fId', "
+                + "financie.datum AS 'fDatum',"
+                + "financie.suma AS 'fSuma', "
+                + "financie.typ AS 'fTyp', "
+                + "financie.popis AS 'fPopis' "
+                + "from farma.financie "
+                + "where datum between '" + datumOd + "' AND '" + datumDo + "';";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<List<Financie>>() {
+            @Override
+            public List<Financie> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Financie> financie = new ArrayList<>();
+                Financie polozka = null;
+                while (rs.next()) {
+                    int polozkaId = rs.getInt("fId");
+                    if (polozka == null || polozkaId != polozka.getId()) {
+                        polozka = new Financie();
+                        polozka.setId(polozkaId);
+                        Timestamp ts = rs.getTimestamp("fDatum");
+                        polozka.setDatum(ts.toLocalDateTime().toLocalDate());
+                        polozka.setSuma(rs.getDouble("fSuma"));
+                        polozka.setTyp(rs.getString("fTyp"));
+                        polozka.setPopis(rs.getString("fPopis"));
+                        financie.add(polozka);
+                    }
+                }
+                return financie;
+            }
+        });
+    }
 }

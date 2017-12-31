@@ -1,10 +1,11 @@
 package farma;
 
+import farma.biznis.FinancieManager;
+import farma.biznis.FinancieManagerImpl;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,12 @@ public class FinancieSceneController {
     private FinancieFxModel aktualnaPolozka = new FinancieFxModel();
     private List<Financie> vsetkyPolozky;
     private Financie kliknutaPolozka;
+    private FinancieManager fManager = new FinancieManagerImpl();
+    private Stav stav;
+    private List<Stav> stavList = new ArrayList<>();
+
+    @FXML
+    private Button zobrazitObdobieButton;
 
     @FXML
     private Button zobrazDenButton;
@@ -34,9 +41,6 @@ public class FinancieSceneController {
 
     @FXML
     private Button zobrazVsetkyButton;
-
-    @FXML
-    private Button celkovyStavButton;
 
     @FXML
     private TableView<Financie> financieTableView;
@@ -63,6 +67,18 @@ public class FinancieSceneController {
     private Button zmazatpolozkuButton;
 
     @FXML
+    private TableView<Stav> stavTableView;
+
+    @FXML
+    private TableColumn<Stav, Double> prijmyCol;
+
+    @FXML
+    private TableColumn<Stav, Double> vydajeCol;
+
+    @FXML
+    private TableColumn<Stav, Double> spoluCol;
+
+    @FXML
     void initialize() {
 
         idFinancieCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -74,36 +90,18 @@ public class FinancieSceneController {
 
         vsetkyPolozky = financieDao.getAll();
         financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+
+        stav = fManager.getStav(vsetkyPolozky);
+        prijmyCol.setCellValueFactory(new PropertyValueFactory<>("prijmy"));
+        vydajeCol.setCellValueFactory(new PropertyValueFactory<>("vydaje"));
+        spoluCol.setCellValueFactory(new PropertyValueFactory<>("spolu"));
+        stavList.clear();
+        stavList.add(stav);
+        stavTableView.setItems(FXCollections.observableArrayList(stav));
+
         if (vsetkyPolozky.isEmpty()) {
             financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
         }
-        zobrazTypButton.setOnAction(eh -> {
-
-            FinancieVyberTypuSceneController controller = new FinancieVyberTypuSceneController();
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("FinancieVyberTypuScene.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Vybrať typ");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-            if (controller.getTyp() != null) {
-                List<Financie> listF = financieDao.getAllByTyp(controller.getTyp());
-                financieTableView.setItems(FXCollections.observableArrayList(listF));
-                if (listF.size() == 0) {
-                    financieTableView.setPlaceholder(new Label("Finančné položky daného typu sa nenašli."));
-                    // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
-                }
-            }
-            kliknutaPolozka = null;
-        });
 
         zobrazDenButton.setOnAction(eh -> {
             FinancieVyberDnaSceneController controller = new FinancieVyberDnaSceneController();
@@ -122,15 +120,78 @@ public class FinancieSceneController {
                 iOException.printStackTrace();
             }
             if (controller.getDate() != null) {
-                System.out.println("podarilo sa ziskať datum");
-                System.out.println(controller.getDate());
-                List<Financie> listF = financieDao.getAllByDate(controller.getDate());
-                financieTableView.setItems(FXCollections.observableArrayList(listF));
-
-                if (listF.size() == 0) {
-                    financieTableView.setPlaceholder(new Label("Finančné položky k danému dňu sa nenašli."));
+                vsetkyPolozky = financieDao.getAllByDate(controller.getDate());
+                financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+                stav = fManager.getStav(vsetkyPolozky);
+                stavList.clear();
+                stavList.add(stav);
+                stavTableView.setItems(FXCollections.observableArrayList(stav));
+                if (vsetkyPolozky.size() == 0) {
+                    financieTableView.setPlaceholder(new Label("Finančné položky daného typu sa nenašli."));
                     // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
                 }
+            }
+            kliknutaPolozka = null;
+        });
+
+        zobrazTypButton.setOnAction(eh -> {
+            FinancieVyberTypuSceneController controller = new FinancieVyberTypuSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("FinancieVyberTypuScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vybrať typ");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            if (controller.getTyp() != null) {
+                vsetkyPolozky = financieDao.getAllByTyp(controller.getTyp());
+                financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+
+                stav = fManager.getStav(vsetkyPolozky);
+                stavList.clear();
+                stavList.add(stav);
+                stavTableView.setItems(FXCollections.observableArrayList(stav));
+
+                if (vsetkyPolozky.size() == 0) {
+                    financieTableView.setPlaceholder(new Label("Finančné položky daného typu sa nenašli."));
+                    // zdroj: https://stackoverflow.com/questions/24765549/remove-the-default-no-content-in-table-text-for-empty-javafx-table
+                }
+            }
+            kliknutaPolozka = null;
+        });
+
+        zobrazitObdobieButton.setOnAction(eh -> {
+            FinancieZaObdobieSceneController controller = new FinancieZaObdobieSceneController();
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("FinancieZaObdobieScene.fxml"));
+                loader.setController(controller);
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Vybrať typ");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+            vsetkyPolozky = financieDao.getAllZaObdobie(controller.getDatumOd(), controller.getDatumDo());
+            financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+
+            stav = fManager.getStav(vsetkyPolozky);
+            stavList.clear();
+            stavList.add(stav);
+            stavTableView.setItems(FXCollections.observableArrayList(stav));
+            if (vsetkyPolozky.isEmpty()) {
+                financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
             }
             kliknutaPolozka = null;
         });
@@ -138,33 +199,23 @@ public class FinancieSceneController {
         zobrazVsetkyButton.setOnAction(eh -> {
             vsetkyPolozky = financieDao.getAll();
             financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+
+            stav = fManager.getStav(vsetkyPolozky);
+            prijmyCol.setCellValueFactory(new PropertyValueFactory<>("prijmy"));
+            vydajeCol.setCellValueFactory(new PropertyValueFactory<>("vydaje"));
+            spoluCol.setCellValueFactory(new PropertyValueFactory<>("spolu"));
+            stavList.clear();
+            stavList.add(stav);
+
+            stavTableView.setItems(FXCollections.observableArrayList(stav));
+
             if (vsetkyPolozky.isEmpty()) {
                 financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
             }
             kliknutaPolozka = null;
         });
 
-        celkovyStavButton.setOnAction(eh -> {
-            FinancieCelkovyStavSceneController controller = new FinancieCelkovyStavSceneController();
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("CelkovyStavScene.fxml"));
-                loader.setController(controller);
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("Celkový stav");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            } catch (IOException iOException) {
-                iOException.printStackTrace();
-            }
-
-        });
-
         pridatPolozkuButton.setOnAction(eh -> {
-
             FinancieEditSceneController controller = new FinancieEditSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
@@ -182,8 +233,11 @@ public class FinancieSceneController {
             }
             if (controller.getBolaPridanaPolozka()) {
                 financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+                stav = fManager.getStav(financieDao.getAll());
+                stavList.clear();
+                stavList.add(stav);
+                stavTableView.setItems(FXCollections.observableArrayList(stavList));
             }
-
         });
 
         TableView<Financie> table = financieTableView;
@@ -234,7 +288,12 @@ public class FinancieSceneController {
                 iOException.printStackTrace();
             }
             if (controller.getZmazanaPolozka()) {
-                financieTableView.setItems(FXCollections.observableArrayList(financieDao.getAll()));
+                vsetkyPolozky = financieDao.getAll();
+                financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+                stav = fManager.getStav(vsetkyPolozky);
+                stavList.clear();
+                stavList.add(stav);
+                stavTableView.setItems(FXCollections.observableArrayList(stav));
             }
             kliknutaPolozka = null;
         });

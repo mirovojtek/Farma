@@ -101,7 +101,6 @@ public class Zviera {
 
     @Override
     public String toString() {
-        return "zviera [" + registracneCislo + " "
-                + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena + " " + popis + "]";
+        return "zviera [" + registracneCislo + " " + druh + " " + plemeno + " " + pohlavie + " " + datumNarodenia + " " + datumNadobudnutia + " " + kupnaCena + " " + popis + "]";
     }
 }

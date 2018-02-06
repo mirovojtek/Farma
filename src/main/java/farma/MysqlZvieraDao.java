@@ -39,6 +39,17 @@ public class MysqlZvieraDao implements ZvieraDao {
             data.put("datum_nadobudnutia", zviera.getDatumNadobudnutia());
             data.put("kupna_cena", zviera.getKupnaCena());
             zviera.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
+
+            // ak pridávame zviera, ktorého cena je nenulová (niečo nás to stálo), pridáme aj vo financiách položku
+            if (zviera.getKupnaCena() > 0) {
+                FinancieDao financieDao = DaoFactory.INSTANCE.getFinancieDao();
+                Financie polozka = new Financie();
+                polozka.setDatum(zviera.getDatumNadobudnutia());
+                polozka.setSuma(zviera.getKupnaCena());
+                polozka.setTyp("výdaj");
+                polozka.setPopis(zviera.toString());
+                financieDao.add(polozka);
+            }
         } else { // UPDATE
             String sql = "UPDATE zviera SET registracne_cislo = ?, druh = ?,"
                     + "plemeno = ?, pohlavie = ?, datum_narodenia = ?, datum_nadobudnutia = ?,"

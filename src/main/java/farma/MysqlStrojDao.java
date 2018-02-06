@@ -42,6 +42,20 @@ public class MysqlStrojDao implements StrojDao {
             data.put("datum_nadobudnutia", stroj.getDatum());
             data.put("cena", stroj.getCena());
             stroj.setId(simpleJdbcInsert.executeAndReturnKey(data).intValue());
+
+            // ak pridávame stroj, ktorého cena je nenulová (niečo nás to stálo), pridáme aj vo financiách položku
+            if (stroj.getCena() > 0) {
+                FinancieDao financieDao = DaoFactory.INSTANCE.getFinancieDao();
+                Financie polozka = new Financie();
+                polozka.setDatum(stroj.getDatum());
+                polozka.setSuma(stroj.getCena());
+                polozka.setTyp("výdaj");
+                polozka.setPopis(stroj.toString());
+
+                System.out.println(stroj.toString());
+
+                financieDao.add(polozka);
+            }
         } else {    // UPDATE
             String sql = "UPDATE stroj SET vyrobca = ?, typ = ?,kategoria = ?, datum_nadobudnutia = ?, cena = ? WHERE id = " + stroj.getId();
             jdbcTemplate.update(sql,

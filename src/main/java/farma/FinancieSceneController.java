@@ -183,17 +183,19 @@ public class FinancieSceneController {
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
-            vsetkyPolozky = financieDao.getAllZaObdobie(controller.getDatumOd(), controller.getDatumDo());
-            financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
 
-            stav = fManager.getStav(vsetkyPolozky);
-            stavList.clear();
-            stavList.add(stav);
-            stavTableView.setItems(FXCollections.observableArrayList(stav));
-            if (vsetkyPolozky.isEmpty()) {
-                financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
+            if (controller.getBolVyber()) {
+                vsetkyPolozky = financieDao.getAllZaObdobie(controller.getDatumOd(), controller.getDatumDo());
+                financieTableView.setItems(FXCollections.observableArrayList(vsetkyPolozky));
+                stav = fManager.getStav(vsetkyPolozky);
+                stavList.clear();
+                stavList.add(stav);
+                stavTableView.setItems(FXCollections.observableArrayList(stav));
+                if (vsetkyPolozky.isEmpty()) {
+                    financieTableView.setPlaceholder(new Label("Žiadne finančné položky sa v databáze nenáchadzajú."));
+                }
+                kliknutaPolozka = null;
             }
-            kliknutaPolozka = null;
         });
 
         zobrazVsetkyButton.setOnAction(eh -> {

@@ -8,8 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -18,6 +16,7 @@ public class FinancieZaObdobieSceneController {
     private LocalDate datumOd;
     private LocalDate datumDo;
     private boolean daSa;
+    private boolean bolVyber;
 
     @FXML
     private DatePicker datumOdDatePicker;
@@ -27,6 +26,10 @@ public class FinancieZaObdobieSceneController {
 
     @FXML
     private Button okButton;
+
+    public boolean getBolVyber() {
+        return bolVyber;
+    }
 
     public LocalDate getDatumOd() {
         return datumOd;
@@ -58,7 +61,7 @@ public class FinancieZaObdobieSceneController {
                 }
             } else {
                 setDatumOd(LocalDate.MIN);
-                System.out.println(getDatumOd());
+                // System.out.println(getDatumOd());
             }
 
             // ošetrenie dátumu DO
@@ -69,7 +72,7 @@ public class FinancieZaObdobieSceneController {
                 }
             } else {
                 setDatumDo(LocalDate.now());
-                System.out.println(getDatumDo());
+                // System.out.println(getDatumDo());
             }
 
             // ošetrenie dátumov - dátum OD je najviac dátum DO
@@ -93,6 +96,7 @@ public class FinancieZaObdobieSceneController {
                 } catch (Exception e) {
                 }
             } else {
+                bolVyber = true;
                 okButton.getScene().getWindow().hide();
             }
         });
